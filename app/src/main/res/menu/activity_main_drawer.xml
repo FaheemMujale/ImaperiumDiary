@@ -1,35 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="all">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="Profile" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_diery"
+            android:icon="@drawable/ic_test"
+            android:title="@string/home_work_diary" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/ic_attendance"
+            android:title="Attendance" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
-    </group>
+            android:id="@+id/nav_progress"
+            android:icon="@drawable/ic_progress"
+            android:title="Progress Report" />
 
-    <item android:title="Communicate">
+    </group>
+    <item android:title="Important">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+            <group android:checkableBehavior="all">
+                <item
+                    android:id="@+id/nav_timetable"
+                    android:icon="@drawable/ic_diery"
+                    android:title="Time Table" />
+                <item
+                    android:id="@+id/nav_test"
+                    android:icon="@drawable/ic_diery"
+                    android:title="Test and Exams" />
+                <item
+                    android:id="@+id/nav_event"
+                    android:icon="@drawable/ic_events"
+                    android:title="Events" />
+                <item
+                    android:id="@+id/nav_leave"
+                    android:icon="@drawable/ic_question_papers"
+                    android:title="Model Question Papers" />
+                <item
+                    android:id="@+id/nav_question_papers"
+                    android:icon="@drawable/ic_question_papers"
+                    android:title="Model Question Papers" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Contacts">
+        <menu>
+            <group android:checkableBehavior="all">
+                <item
+                    android:id="@+id/nav_messaging"
+                    android:icon="@drawable/ic_question_answer"
+                    android:title="Class Messaging" />
+
+                <item
+                    android:id="@+id/nav_abtschool"
+                    android:icon="@drawable/ic_abtschool"
+                    android:title="About School"/>
+                <item
+                    android:id="@+id/nav_suggestions"
+                    android:icon="@drawable/ic_suggestions"
+                    android:title="Suggestions / Complaints"/>
+                <item
+                    android:id="@+id/nav_help"
+                    android:icon="@drawable/ic_suggestions"
+                    android:title="Help / Feedback"/>
+            </group>
+        </menu>
+    </item>
+
+
+    <item android:title="General">
+        <menu>
+            <group android:checkableBehavior="all">
+
+                <item
+                    android:id="@+id/nav_change_password"
+                    android:icon="@drawable/ic_settings"
+                    android:title="Change Password" />
+                <item
+                    android:id="@+id/nav_log_out"
+                    android:icon="@drawable/ic_logout"
+                    android:title="Log Out" />
+            </group>
         </menu>
     </item>
 

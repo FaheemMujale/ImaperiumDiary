@@ -1,4 +1,4 @@
-package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Posts;
+package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.hubli.imperium.imaperiumdiary.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragTabPosts extends Fragment {
+public class FragTabFeeds extends Fragment {
 
 
-    public FragTabPosts() {
+    public FragTabFeeds() {
         // Required empty public constructor
     }
 

@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
-
+    <string name="home_work_diary"><![CDATA[Home Work & Diary]]></string>
     <string name="transition_name_propic">post_propic</string>
     <string name="transition_name_name">post_name</string>
     <string name="transition_name_card">post_card</string>
