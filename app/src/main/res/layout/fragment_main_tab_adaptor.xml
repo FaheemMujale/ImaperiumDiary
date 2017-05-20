@@ -33,6 +33,7 @@
         android:layout_gravity="bottom|right"
         app:elevation="10dp"
         android:layout_margin="15dp"
+        android:src="@drawable/ic_add"
         />
 
 </android.support.design.widget.CoordinatorLayout>

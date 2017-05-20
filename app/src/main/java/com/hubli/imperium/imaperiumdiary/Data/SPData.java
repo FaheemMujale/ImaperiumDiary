@@ -27,6 +27,7 @@ public class SPData {
     public static final String IDENTIFICATION = "identification";
     public static final String EMAIL = "email";
     public static final String PROPIC_URL = "pp_url";
+    public static final String LEVEL = "level"; // has to be calculated
 
     public SPData(Context context) {
         sharedPreferences = context.getSharedPreferences("USER_SP",Context.MODE_PRIVATE);

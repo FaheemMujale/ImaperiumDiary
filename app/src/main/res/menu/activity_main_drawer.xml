@@ -25,7 +25,7 @@
             <group android:checkableBehavior="all">
                 <item
                     android:id="@+id/nav_timetable"
-                    android:icon="@drawable/ic_diery"
+                    android:icon="@drawable/ic_timetable"
                     android:title="Time Table" />
                 <item
                     android:id="@+id/nav_test"
@@ -37,8 +37,8 @@
                     android:title="Events" />
                 <item
                     android:id="@+id/nav_leave"
-                    android:icon="@drawable/ic_question_papers"
-                    android:title="Model Question Papers" />
+                    android:icon="@drawable/ic_leave"
+                    android:title="Leave Letter" />
                 <item
                     android:id="@+id/nav_question_papers"
                     android:icon="@drawable/ic_question_papers"
@@ -65,7 +65,7 @@
                     android:title="Suggestions / Complaints"/>
                 <item
                     android:id="@+id/nav_help"
-                    android:icon="@drawable/ic_suggestions"
+                    android:icon="@drawable/ic_help"
                     android:title="Help / Feedback"/>
             </group>
         </menu>

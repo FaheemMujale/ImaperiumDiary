@@ -15,7 +15,8 @@ import android.view.ViewGroup;
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Chats.FragTabChat;
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Notifications.FragTabNotifications;
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds.FragTabFeeds;
-import com.hubli.imperium.imaperiumdiary.Main.MainFrags.QA.FragTabQA;
+
+import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions.FragQuestions;
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Ranks.FragTabRanks;
 import com.hubli.imperium.imaperiumdiary.R;
 
@@ -60,7 +61,7 @@ public class MainTabAdaptor extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        adaptor.addFragment(new FragTabQA(),"1");
+        adaptor.addFragment(new FragQuestions(),"1");
         adaptor.addFragment(new FragTabFeeds(),"2");
         adaptor.addFragment(new FragTabRanks(),"3");
         adaptor.addFragment(new FragTabNotifications(), "4");
@@ -104,9 +105,9 @@ public class MainTabAdaptor extends Fragment {
         //Badges are used to show notification count on tabs
         b1 = new Badges(getActivity().getApplicationContext()).getBadgeIcon(R.drawable.ic_chat);
         b2 = new Badges(getActivity().getApplicationContext()).getBadgeIcon(R.drawable.ic_notifications);
-        tabLayout.getTabAt(QA_TAB).setIcon(R.drawable.ic_rank);
-        tabLayout.getTabAt(FEED_TAB).setIcon(R.drawable.ic_home);
-        tabLayout.getTabAt(RANK_TAB).setIcon(R.drawable.ic_question_answer);
+        tabLayout.getTabAt(QA_TAB).setIcon(R.drawable.ic_home);
+        tabLayout.getTabAt(FEED_TAB).setIcon(R.drawable.ic_question_answer);
+        tabLayout.getTabAt(RANK_TAB).setIcon(R.drawable.ic_rank);
         tabLayout.getTabAt(NOTIFICATION_TAB).setCustomView(b2);
     }
 }
