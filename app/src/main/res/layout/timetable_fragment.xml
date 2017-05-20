@@ -1,10 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+             android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="80dp"
+                android:text="Time"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Mon"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Tue"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Wed"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Thu"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Fri"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Sat"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+
+
+        </LinearLayout>
+ <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+
 <LinearLayout
     android:layout_width="match_parent"
     android:orientation="horizontal"
@@ -13,21 +124,16 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:id="@+id/time"
+        android:id="@+id/time123"
         android:divider="@color/colorPrimary"
-        android:background="@drawable/bordertv"
         android:layout_width="wrap_content"
+        android:background="@drawable/bordertv"
         android:layout_height="wrap_content">
-<TextView
-    android:layout_width="match_parent"
-    android:text="Time"
-    android:layout_margin="10dp"
-    android:textStyle="bold"
-    android:textSize="18sp"
-    android:layout_height="wrap_content" />
+
 
         <Button
-            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:layout_width="100dp"
             android:id="@+id/add"
             android:text="add"
             android:onClick="addTime"
@@ -38,46 +144,37 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/bordertv"
         android:layout_height="wrap_content">
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+
+
 <LinearLayout
     android:layout_width="match_parent"
     android:id="@+id/horizonta1"
     android:divider="@color/colorPrimary"
     android:orientation="vertical"
-    android:background="@drawable/bordertv"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Monday"
-        android:layout_margin="10dp"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        />
+
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:id="@+id/add1"
         android:text="add"
+        android:clickable="true"
         android:onClick="addsubject"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
+
 
 </LinearLayout>
-    </ScrollView>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/horizonta2"
@@ -85,34 +182,24 @@
                 android:background="@drawable/bordertv"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Tuesday"
-                    android:layout_margin="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    />
+
 
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:id="@+id/add2"
                     android:text="add"
+                    android:clickable="true"
                     android:onClick="addsubject"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-        </ScrollView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/horizonta3"
@@ -120,31 +207,22 @@
                 android:background="@drawable/bordertv"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Wedenesday"
-                    android:layout_margin="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    />
+
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:id="@+id/add3"
                     android:text="add"
+                    android:clickable="true"
+                    android:onClick="addsubject"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </ScrollView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/horizonta4"
@@ -152,22 +230,15 @@
                 android:background="@drawable/bordertv"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Thursday"
-                    android:layout_margin="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    />
+
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:id="@+id/add4"
                     android:text="add"
+                    android:clickable="true"
+                    android:onClick="addsubject"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </ScrollView>
     </LinearLayout>
 
     <LinearLayout
@@ -175,9 +246,7 @@
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/horizonta5"
@@ -185,55 +254,51 @@
                 android:background="@drawable/bordertv"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Friday"
-                    android:layout_margin="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    />
+
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:id="@+id/add5"
                     android:text="add"
+                    android:clickable="true"
+                    android:onClick="addsubject"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </ScrollView>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/horizonta6"
                 android:orientation="vertical"
                 android:background="@drawable/bordertv"
                 android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Saturday"
-                    android:layout_margin="10dp"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
+   <Button
+                    android:layout_width="100dp"
                     android:id="@+id/add6"
                     android:text="add"
+                    android:clickable="true"
+                     android:onClick="addsubject"
                     android:layout_height="wrap_content" />
             </LinearLayout>
-        </ScrollView>
     </LinearLayout>
     </LinearLayout>
-    </HorizontalScrollView>
+  </ScrollView>
+
 </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:id="@+id/fab"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_done_white_18dp"/>
+
+</RelativeLayout>
