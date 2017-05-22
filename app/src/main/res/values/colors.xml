@@ -5,6 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="green">#4caf50</color>
     <color name="red">#c72126</color>
+    <color name="green_highlight">#d477f17d</color>
+    <color name="red_highlight">#b5ff0000</color>
     <color name="gray">#d1d1d1</color>
     <color name="selected_comment_background">#ffffff</color>
     <color name="comment_background">#ffffff</color>

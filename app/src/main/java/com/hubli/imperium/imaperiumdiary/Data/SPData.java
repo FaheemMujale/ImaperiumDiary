@@ -2,10 +2,14 @@ package com.hubli.imperium.imaperiumdiary.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Faheem on 09-05-2017.
@@ -38,6 +42,7 @@ public class SPData {
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
             JSONObject jsonObject = jsonArray.getJSONObject(0);
+            Set<String> a = new HashSet<>();
             editor.putString(USER_NUMBER,jsonObject.getString(USER_NUMBER));
             editor.putString(INSTITUTE_NUMBER,jsonObject.getString(INSTITUTE_NUMBER));
             editor.putString(USERNAME,jsonObject.getString(PROPIC_URL));
@@ -49,7 +54,7 @@ public class SPData {
             editor.putString(IDENTIFICATION,jsonObject.getString(IDENTIFICATION));
             editor.putString(EMAIL,jsonObject.getString(EMAIL));
             editor.putString(PROPIC_URL,jsonObject.getString(PROPIC_URL));
-
+            editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -62,5 +67,42 @@ public class SPData {
 
     public boolean isStudent(){
         return sharedPreferences.getString(IDENTIFICATION,"").contentEquals("STUDENT");
+    }
+
+    public void setQuestionTables(Set<String> set){
+        editor.putStringSet("QUESTION_TABLES",set);
+        editor.commit();
+    }
+    public Set<String> getQuestionTables(){
+        Set<String> set = new HashSet<>();
+        set.add("q-General_knowledge");
+        set.add("q-Science_And_Technology");
+        return sharedPreferences.getStringSet("QUESTION_TABLES",set);
+    }
+
+    public void setQuestionDate(int day){
+        editor.putInt("DAY",day);
+        editor.commit();
+    }
+    public boolean isQuestionToday(int currentDay){
+        int storedDay = sharedPreferences.getInt("DAY",0);
+        return storedDay != currentDay;
+    }
+
+    public void tempStoreMarks(String type, String marks) {
+        String entry = type+"~"+marks;
+        editor.putString("TEMP_MARKS",getTempStoreMarks()+","+entry);
+        editor.commit();
+    }
+    public String getTempStoreMarks() {
+        String s = sharedPreferences.getString("TEMP_MARKS","");
+        if(s.length() >0) {
+            return s.substring(1, s.length());
+        }else{
+            return "";
+        }
+    }
+    public void clearTempStoredMarkes(){
+        editor.remove("TEMP_MARKS");
     }
 }

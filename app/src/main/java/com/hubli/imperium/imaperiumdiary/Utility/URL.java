@@ -5,7 +5,9 @@ package com.hubli.imperium.imaperiumdiary.Utility;
  */
 
 public class URL {
-    public static final String SERVER_URL = "http://imperiumapps.in/Projects/ImperiumDiary";
+    public static final String SERVER_URL = "http://imperiumapps.in/ImperiumDiary/";
+    public static final String FETCH_QUESTIONS = SERVER_URL+"Questions/fetch_questions.php";
+    public static final String QA_MARKS = SERVER_URL+"Questions/qa_marks.php";
     
 
 }

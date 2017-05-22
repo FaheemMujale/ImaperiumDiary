@@ -1,19 +1,29 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,41 +37,90 @@ public class FragQuestions extends Fragment {
     private RecyclerView recyclerView;
     private View view;
     private MyQaAdaptor myQaAdaptor;
-
+    private MySqlDB myDb;
+    private SPData spData;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_frag_questions, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rcView);
-
-        List<QAData> list = new ArrayList<>();
-        list.add(new QAData("GK","Whats is this","a","b","c","d","a",3));
-        list.add(new QAData("GK","Whats is that","a","b","c","d","a",2));
-        myQaAdaptor = new MyQaAdaptor(list, recyclerView);
-
+        myDb = new MySqlDB(getActivity().getApplicationContext());
+        spData = new SPData(getActivity().getApplicationContext());
+        myQaAdaptor = new MyQaAdaptor(recyclerView,getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myQaAdaptor);
+        if((myDb.getQuestions("*",-1).getCount()==0) || spData.isQuestionToday(GenericMethods.getDateSum())) {
+            getQuestionData();
+        }else {
+            populateList();
+        }
         return  view;
     }
 
 
-    private List<QAData> getQuestionData(){
+    private void getQuestionData(){
+
+        StringBuilder stringBulder = new StringBuilder();
+        boolean first = true;
+        for (String s: spData.getQuestionTables()) {
+            if (first){
+                first = false;
+                stringBulder.append(s);
+            }else{
+                stringBulder.append("|"+s);
+            }
+        }
         MyVolley volley = new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
-
+                String data[] = result.toString().split("~");
+                int dateSum = Integer.parseInt(data[0]);
+                String questionData = data[1];
+                questionData = questionData.replace("][",",");
+                Log.e("str",questionData.toString());
+                spData.setQuestionDate(dateSum);
+                parseJson(questionData.toString());
             }
 
             @Override
             public void volleyError() {
-
+                Log.e("TAG","error");
             }
         });
+        volley.setUrl(URL.FETCH_QUESTIONS);
         volley.setParams(SPData.LEVEL,"2");
         volley.setParams(SPData.INSTITUTE_NUMBER,"1");
+        volley.setParams("q_tables_string",stringBulder.toString());
         volley.connect();
-        return null;
+    }
+
+    private void parseJson(String s){
+        myDb.clearQuestionData();
+        try {
+            JSONArray jsonArray = new JSONArray(s);
+            for(int i=0;i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                myDb.insertQuestions(Integer.parseInt(jsonObject.getString("qid")),jsonObject.getString("question_text"),
+                        jsonObject.getString("type"),
+                        jsonObject.getString("optA"),jsonObject.getString("optB"),
+                        jsonObject.getString("optC"),jsonObject.getString("optD"),
+                        jsonObject.getString("answer"),Integer.parseInt(jsonObject.getString("level")));
+            }
+            populateList();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+    private void populateList(){
+        List<QAData> items = new ArrayList<>();
+        Cursor data = myDb.getQuestions("*",-1);
+        if(data.getCount()>0){
+            while (data.moveToNext()){
+                items.add(new QAData(myDb,data));
+            }
+            myQaAdaptor.setItems(items);
+        }
     }
 }

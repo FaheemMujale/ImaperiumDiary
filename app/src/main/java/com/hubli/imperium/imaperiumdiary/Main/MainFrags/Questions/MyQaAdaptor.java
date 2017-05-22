@@ -1,7 +1,13 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions;
 
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +16,20 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Faheem on 18-05-2017.
@@ -24,15 +37,25 @@ import java.util.List;
 
 public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> {
 
-    List<QAData> items = new ArrayList<>();
-    RecyclerView recyclerView;
+    private List<QAData> items = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private Activity activity;
+    private Context context;
     private static int mExpandedPosition = -1;
+    private Set<Integer> timerOn = new HashSet<>();
+    private static CountDownTimer countDownTimer;
 
-    MyQaAdaptor(List<QAData> items, RecyclerView recyclerView){
-        this.items = items;
+    MyQaAdaptor(RecyclerView recyclerView,Activity activity){
         this.recyclerView = recyclerView;
+        this.activity = activity;
+        this.context = activity.getApplicationContext();
     }
 
+    public void setItems(List<QAData> items){
+        this.items.clear();
+        this.items = items;
+        notifyDataSetChanged();
+    }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.question_item,parent,false);
@@ -42,44 +65,158 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-        QAData data = items.get(position);
-        holder.hTitle.setText("Level "+data.getLevel()+" "+data.getType()+" Question");
-
-        String firstletters = String.valueOf(data.getType().substring(0,1));
+        final QAData data = items.get(position);
+        holder.hTitle.setText(data.getTypeForDiaplay());
+        String firstletters = String.valueOf(data.getTypeForDiaplay().charAt(0));
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(data);
         TextDrawable drawable = TextDrawable.builder().buildRound(firstletters.toUpperCase(),color);
         holder.hImg.setImageDrawable(drawable);
-
+        holder.level.setText("Level : "+data.getLevel());
         holder.bQuestionText.setText(data.getQuestionText());
-        holder.optA.setText(data.getOpt1());
-        holder.optB.setText(data.getOpt2());
-        holder.optC.setText(data.getOpt3());
-        holder.optD.setText(data.getOpt4());
+        holder.optA.setText(" A. "+data.getOptA());
+        holder.optB.setText(" B. "+data.getOptB());
+        holder.optC.setText(" C. "+data.getOptC());
+        holder.optD.setText(" D. "+data.getOptD());
 
         holder.submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                int option = holder.bOptions.getCheckedRadioButtonId();
+                holder.optA.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+                holder.optB.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+                holder.optC.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+                holder.optD.setBackgroundColor(context.getResources().getColor(R.color.cardview_light_background));
+                holder.submit.setVisibility(View.GONE);
+                switch (option){
+                    case -1:
+                        Toast.makeText(context,"No Option Selected",Toast.LENGTH_SHORT).show();
+                        holder.submit.setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.opta:
+                        answered("A",holder.optA);
+                        break;
+                    case R.id.optb:
+                        answered("B",holder.optB);
+                        break;
+                    case R.id.optc:
+                        answered("C",holder.optC);
+                        break;
+                    case R.id.optd:
+                        answered("D",holder.optD);
+                        break;
+                }
             }
+
+            private void answered(String a, RadioButton optA) {
+                stopCountDownTimer();
+                heilightCorrectAnswer(data.getAnswer(),holder);
+                if(a.contentEquals(data.getAnswer())){
+                    data.updateMarks(10);
+                    uploadMarks(data.getType(),10);
+                    holder.timer.setTextColor(context.getResources().getColor(R.color.green));
+                    holder.timer.setText("Correct Answer you gain 10 marks");
+                }else{
+                    data.updateMarks(-5);
+                    uploadMarks(data.getType(),-5);
+                    optA.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
+                    holder.timer.setTextColor(context.getResources().getColor(R.color.red));
+                    holder.timer.setText("oops Wring Answer you lost 5 marks");
+                }
+                data.setAnswered(a);
+            }
+
+            private void uploadMarks(String type, int i) {
+                if(ServerConnect.checkInternetConenction(activity)){
+                    new UploadMarks(context).uploadMarksToServer(type,i+"");
+                }else {
+                    new SPData(context).tempStoreMarks(type,i+"");
+                }
+            }
+
         });
-
-
 
         final boolean isExpanded = position==mExpandedPosition;
         holder.body.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.header.setVisibility(isExpanded?View.GONE:View.VISIBLE);
         holder.itemView.setActivated(isExpanded);
+        if(!timerOn.contains(position) && data.isWatched()){
+            holder.timer.setText("You have already attempted this question");
+            heilightCorrectAnswer(data.getAnswer(),holder);
+            String a = data.getAnswered();
+            if(a.contentEquals("A")){
+                holder.optA.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
+            }else if(a.contentEquals("B")){
+                holder.optB.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
+            }else if(a.contentEquals("C")){
+                holder.optC.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
+            }else if(a.contentEquals("D")){
+                holder.optD.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
+            }
+            holder.optA.setEnabled(false);
+            holder.optB.setEnabled(false);
+            holder.optC.setEnabled(false);
+            holder.optD.setEnabled(false);
+            holder.submit.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mExpandedPosition = isExpanded ? -1:position;
                 TransitionManager.beginDelayedTransition(recyclerView);
-                holder.header.setVisibility(isExpanded?View.VISIBLE:View.GONE);
+                if(!data.isWatched()){
+                    timerOn.add(position);
+                    startCountDownTimer(holder.timer,position);
+                }
+                data.setWatched();
                 notifyDataSetChanged();
             }
+
+
         });
     }
+
+    private void startCountDownTimer(final TextView timer, final int position) {
+        countDownTimer = new CountDownTimer(20*1000,1000){
+            @Override
+            public void onTick(long l) {
+                int sec = (int) (l/1000);
+                timer.setText(sec+" sec remaining");
+                if(sec > 10){
+                    timer.setTextColor(Color.GREEN);
+                }else{
+                    timer.setTextColor(Color.RED);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                timerOn.remove(position);
+                timer.setText("Time's up");
+            }
+        }.start();
+    }
+
+    private void stopCountDownTimer(){
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+            countDownTimer = null;
+        }
+    }
+
+
+    private void heilightCorrectAnswer(String answer, MyViewHolder holder) {
+        if(answer.contentEquals("A")){
+            holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
+        }else if(answer.contentEquals("B")){
+            holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
+        }else if(answer.contentEquals("C")){
+            holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
+        }else if(answer.contentEquals("D")){
+            holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -88,7 +225,7 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         View header, body;
-        TextView hTitle, bQuestionText, bTimeout;
+        TextView hTitle, bQuestionText, level, timer;
         ImageView hImg;
         Button submit;
         RadioGroup bOptions;
@@ -98,10 +235,11 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
             header = itemView.findViewById(R.id.qHeader);
             hTitle = (TextView) itemView.findViewById(R.id.qhTitle);
             hImg = (ImageView) itemView.findViewById(R.id.qhImage);
+            level = (TextView) itemView.findViewById(R.id.level);
+            timer = (TextView) itemView.findViewById(R.id.timer);
 
             body = itemView.findViewById(R.id.qBody);
             bQuestionText = (TextView) itemView.findViewById(R.id.qbQuestionText);
-            bTimeout = (TextView) itemView.findViewById(R.id.qbTimeOut);
 
             bOptions = (RadioGroup) itemView.findViewById(R.id.qbOptions);
             optA = (RadioButton) itemView.findViewById(R.id.opta);
