@@ -20,6 +20,8 @@ public class SPData {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
+
+
     public static final String USER_NUMBER = "user_number";
     public static final String INSTITUTE_NUMBER = "institute_number";
     public static final String USERNAME = "username";
@@ -30,7 +32,7 @@ public class SPData {
     public static final String ADDRESS = "address";
     public static final String IDENTIFICATION = "identification";
     public static final String EMAIL = "email";
-    public static final String PROPIC_URL = "pp_url";
+    public static final String PROPIC_URL = "profilePic_link";
     public static final String LEVEL = "level"; // has to be calculated
 
     public SPData(Context context) {
@@ -59,6 +61,13 @@ public class SPData {
             e.printStackTrace();
         }
 
+    }
+
+
+    //temp
+    public void tempstore(String s){
+        editor.putString(USER_NUMBER,s);
+        editor.commit();
     }
 
     public String getUserData(String key){
@@ -104,5 +113,30 @@ public class SPData {
     }
     public void clearTempStoredMarkes(){
         editor.remove("TEMP_MARKS");
+    }
+
+
+    // sp store for feeds data as a string
+    public String getFeedsData(){
+        return   sharedPreferences.getString("FEEDS_DATA","");
+    }
+    public void storeFeedsData(String postData){
+        editor.putString("FEEDS_DATA",postData);
+        editor.commit();
+    }
+    public void appendToFeedsData(String addendString){
+        String data = getFeedsData() + addendString;
+        data = data.replace("][",",");
+        editor.putString("FEEDS_DATA","");
+        editor.putString("FEEDS_DATA",data);
+        editor.commit();
+    }
+
+    public void prefixToFeedsData(String prefixData){
+        String d = prefixData + getFeedsData();
+        d = d.replace("][",",");
+        editor.putString("FEEDS_DATA","");
+        editor.putString("FEEDS_DATA",d);
+        editor.commit();
     }
 }

@@ -37,16 +37,19 @@ public class MyVolley {
         params = new HashMap<>();
     }
 
-    public void setParams(String KEY, String VALUE) {
+    public MyVolley setParams(String KEY, String VALUE) {
         params.put(KEY,VALUE);
+        return this;
     }
 
-    public void setUrl(String url) {
+    public MyVolley setUrl(String url) {
         this.url = url;
+        return this;
     }
 
-    public void setRETRY_NUM(int RETRY_NUM) {
+    public MyVolley setRETRY_NUM(int RETRY_NUM) {
         this.RETRY_NUM = RETRY_NUM;
+        return this;
     }
 
     public void connect(){

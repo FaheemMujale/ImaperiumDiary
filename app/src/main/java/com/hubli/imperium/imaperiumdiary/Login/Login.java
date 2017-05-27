@@ -32,7 +32,7 @@ public class Login extends AppCompatActivity {
         String username = eUsername.getText().toString().trim();
         String password = ePassword.getText().toString().trim();
         if(username.length() > 0 && password.length() > 0){
-            MyVolley volley = new MyVolley(getApplicationContext(), new IVolleyResponse() {
+            new MyVolley(getApplicationContext(), new IVolleyResponse() {
                 @Override
                 public void volleyResponse(String result) {
                     spData.storeUserData(result);
@@ -43,10 +43,10 @@ public class Login extends AppCompatActivity {
                 public void volleyError() {
 
                 }
-            });
-            volley.setParams("username",username);
-            volley.setParams("password",password);
-            volley.connect();
+            })
+            .setParams("username",username)
+            .setParams("password",password)
+            .connect();
         }else{
             Toast.makeText(getApplicationContext(),"Please enter Username and Password",Toast.LENGTH_SHORT).show();
         }

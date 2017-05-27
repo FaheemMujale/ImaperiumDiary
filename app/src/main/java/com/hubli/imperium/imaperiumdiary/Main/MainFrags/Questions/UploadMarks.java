@@ -44,7 +44,7 @@ public class UploadMarks {
     }
 
     public void uploadMarksToServer(String type,String marks){
-        MyVolley volley = new MyVolley(context, new IVolleyResponse() {
+        new MyVolley(context, new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
                 if(result.contentEquals("1")){
@@ -56,11 +56,11 @@ public class UploadMarks {
             public void volleyError() {
 
             }
-        });
-        volley.setUrl(URL.QA_MARKS);
-        volley.setParams(SPData.USER_NUMBER,1+""); //change
-        volley.setParams("type",type);
-        volley.setParams("marks",marks);
-        volley.connect();
+        })
+        .setUrl(URL.QA_MARKS)
+        .setParams(SPData.USER_NUMBER,1+"") //change
+        .setParams("type",type)
+        .setParams("marks",marks)
+        .connect();
     }
 }

@@ -20,6 +20,7 @@ import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +52,7 @@ public class FragQuestions extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myQaAdaptor);
+        spData.tempstore(1+"");
         if((myDb.getQuestions("*",-1).getCount()==0) || spData.isQuestionToday(GenericMethods.getDateSum())) {
             getQuestionData();
         }else {
@@ -72,7 +74,8 @@ public class FragQuestions extends Fragment {
                 stringBulder.append("|"+s);
             }
         }
-        MyVolley volley = new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
+
+        new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
                 String data[] = result.toString().split("~");
@@ -88,12 +91,12 @@ public class FragQuestions extends Fragment {
             public void volleyError() {
                 Log.e("TAG","error");
             }
-        });
-        volley.setUrl(URL.FETCH_QUESTIONS);
-        volley.setParams(SPData.LEVEL,"2");
-        volley.setParams(SPData.INSTITUTE_NUMBER,"1");
-        volley.setParams("q_tables_string",stringBulder.toString());
-        volley.connect();
+        })
+        .setUrl(URL.FETCH_QUESTIONS)
+        .setParams(SPData.LEVEL,"2")
+        .setParams(SPData.INSTITUTE_NUMBER,"1")
+        .setParams("q_tables_string",stringBulder.toString())
+        .connect();
     }
 
     private void parseJson(String s){
