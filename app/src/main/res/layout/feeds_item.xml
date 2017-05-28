@@ -142,7 +142,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="10dp"
-                            android:layout_marginTop="0dp"
+                            android:layout_marginTop="-3dp"
                             android:id="@+id/like_num" />
                     </LinearLayout>
                 </LinearLayout>
@@ -181,7 +181,7 @@
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="10dp"
-                            android:layout_marginTop="0dp"
+                            android:layout_marginTop="-3dp"
                             android:id="@+id/comment_num" />
                     </LinearLayout>
                 </LinearLayout>
@@ -213,7 +213,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="@+id/postimage"
                 android:background="@color/cardview_shadow_end_color"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp" />
 
         </android.support.constraint.ConstraintLayout>
 
