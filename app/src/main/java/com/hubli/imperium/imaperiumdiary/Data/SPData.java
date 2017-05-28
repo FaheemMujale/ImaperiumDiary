@@ -35,6 +35,11 @@ public class SPData {
     public static final String PROPIC_URL = "profilePic_link";
     public static final String LEVEL = "level"; // has to be calculated
 
+    public static final int STUDENT = 0;
+    public static final int TEACHER = 1;
+    public static final int PARENT  = 2;
+
+
     public SPData(Context context) {
         sharedPreferences = context.getSharedPreferences("USER_SP",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
@@ -74,8 +79,14 @@ public class SPData {
         return sharedPreferences.getString(key,"");
     }
 
-    public boolean isStudent(){
-        return sharedPreferences.getString(IDENTIFICATION,"").contentEquals("STUDENT");
+    public int getIdentification(){
+        if(sharedPreferences.getString(IDENTIFICATION,"").contentEquals("STUDENT")){
+            return STUDENT;
+        }else if(sharedPreferences.getString(IDENTIFICATION,"").contentEquals("TEACHER")){
+            return TEACHER;
+        }else {
+            return PARENT;
+        }
     }
 
     public void setQuestionTables(Set<String> set){

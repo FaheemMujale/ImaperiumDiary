@@ -13,6 +13,7 @@ import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.Main.MainActivity;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
 
 public class Login extends AppCompatActivity {
 
@@ -36,14 +37,16 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void volleyResponse(String volleyResponse) {
                     spData.storeUserData(volleyResponse);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    if(spData.getIdentification() == SPData.TEACHER) {
+
+                    }
                 }
 
                 @Override
                 public void volleyError() {
 
                 }
-            })
+            }).setUrl(URL.LOGIN)
             .setParams("username",username)
             .setParams("password",password)
             .connect();
@@ -51,4 +54,6 @@ public class Login extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"Please enter Username and Password",Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }
