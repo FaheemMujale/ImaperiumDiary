@@ -291,7 +291,7 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
             if(itemData.getUserNumber() == Integer.parseInt(spData.getUserData(SPData.USER_NUMBER))
-                    || !spData.isStudent()){
+                    || (spData.getIdentification() != SPData.STUDENT)){
 
                 h.deleteBtn.setVisibility(View.VISIBLE);
                 h.deleteBtn.setOnClickListener(new View.OnClickListener() {
