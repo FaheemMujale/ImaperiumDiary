@@ -27,6 +27,7 @@ public class SPData {
     public static final String IDENTIFICATION = "identification";
     public static final String EMAIL = "email";
     public static final String PROPIC_URL = "pp_url";
+    public static final String RESP = "resp";
 
     public SPData(Context context) {
         sharedPreferences = context.getSharedPreferences("USER_SP",Context.MODE_PRIVATE);
@@ -55,6 +56,7 @@ public class SPData {
 
     }
 
+    public String getResp(String key){return  sharedPreferences.getString(key,"");}
     public String getUserData(String key){
         return sharedPreferences.getString(key,"");
     }
@@ -62,4 +64,6 @@ public class SPData {
     public boolean isStudent(){
         return sharedPreferences.getString(IDENTIFICATION,"").contentEquals("STUDENT");
     }
+
+
 }

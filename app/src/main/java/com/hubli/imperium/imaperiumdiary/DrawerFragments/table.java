@@ -2,6 +2,7 @@ package com.hubli.imperium.imaperiumdiary.DrawerFragments;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.R;
 
 import org.json.JSONException;
@@ -36,10 +38,8 @@ import java.util.ArrayList;
  */
 
 public class table extends AppCompatActivity {
-    private View mView;
     private Context mContext;
     private String employeeName, projectName;
-
     private LinearLayout hv1;
     private LinearLayout hv2;
     private LinearLayout hv3;
@@ -67,7 +67,6 @@ public class table extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_fragment);
-
         hv1 = (LinearLayout) findViewById(R.id.horizonta1);
         hv2 = (LinearLayout) findViewById(R.id.horizonta2);
         hv3 = (LinearLayout) findViewById(R.id.horizonta3);
@@ -262,7 +261,9 @@ public class table extends AppCompatActivity {
 
             timetable1.put("id", "3");
             Log.d("jsoncreated",timetable1.toString());
-
+            Intent i = new Intent(this,studenttable.class);
+            i.putExtra("RESPONSE",timetable1.toString());
+            startActivity(i);
         } catch (JSONException e) {
             e.printStackTrace();
         }
