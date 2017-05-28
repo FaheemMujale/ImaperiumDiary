@@ -9,9 +9,9 @@ public class PostCommentData {
     int likes;
     private boolean user_liked;
 
-    public PostCommentData(String name, String profilePic_link, String time, String text, String likes, String comment_id, String user_liked) {
+    public PostCommentData(String name, String profilePic_link, String date, String text, String likes, String comment_id, String user_liked) {
         this.name = name;
-        this.time = time;
+        this.time = date;
         this.text = text;
         this.likes = Integer.parseInt((likes.contains("null"))? "0":likes);
         this.comment_id = comment_id;

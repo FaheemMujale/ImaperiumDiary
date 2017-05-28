@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class FeedsData {
     private String first_name,last_name,id,text_message,src_link,timeString,propicLink;
     boolean isLiked;
-    private int commentsNum,studentNum;
+    private int commentsNum, userNumber;
     ArrayList<String> likedStudents = new ArrayList<>();
 
     public FeedsData(String studentNum,String propicLink, String first_name, String last_name, String id, String text_message, String src_link,
                      String timeString, boolean isLiked, ArrayList<String> likedStudents,String commentNum) {
-        this.studentNum = Integer.parseInt(studentNum);
+        this.userNumber = Integer.parseInt(studentNum);
         this.propicLink = propicLink;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -83,8 +83,8 @@ public class FeedsData {
         this.commentsNum = num;
     }
 
-    public int getStudentNum() {
-        return studentNum;
+    public int getUserNumber() {
+        return userNumber;
     }
 }
 

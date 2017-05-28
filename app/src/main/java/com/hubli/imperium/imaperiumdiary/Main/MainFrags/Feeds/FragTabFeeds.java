@@ -2,6 +2,7 @@ package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds;
 
 
 import android.app.Activity;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -76,6 +77,7 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
     @Override
     public void onResume() {
         super.onResume();
+//        getActivity().registerReceiver(MyFeedsAdaptor.receiver,new IntentFilter(FeedComments.COMMENT_CHANGE_BRODCAST));
         itemlist.clear();
         noMorePost = false;
         if(ServerConnect.checkInternetConenction(getActivity())&& !backPressed){
@@ -91,6 +93,11 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
     @Override
     public void onPause() {
         super.onPause();
+//        try{
+//            getActivity().unregisterReceiver(MyFeedsAdaptor.receiver);
+//        }catch (Exception e){
+//
+//        }
         backPressed = true;
     }
 
@@ -121,9 +128,9 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
     private void postDataDownload(String post_min) {
         new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
-            public void volleyResponse(String result) {
+            public void volleyResponse(String volleyResponse) {
                 try {
-                    storeData(result);
+                    storeData(volleyResponse);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

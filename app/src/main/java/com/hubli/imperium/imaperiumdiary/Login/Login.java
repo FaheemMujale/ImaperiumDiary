@@ -34,8 +34,8 @@ public class Login extends AppCompatActivity {
         if(username.length() > 0 && password.length() > 0){
             new MyVolley(getApplicationContext(), new IVolleyResponse() {
                 @Override
-                public void volleyResponse(String result) {
-                    spData.storeUserData(result);
+                public void volleyResponse(String volleyResponse) {
+                    spData.storeUserData(volleyResponse);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 }
 

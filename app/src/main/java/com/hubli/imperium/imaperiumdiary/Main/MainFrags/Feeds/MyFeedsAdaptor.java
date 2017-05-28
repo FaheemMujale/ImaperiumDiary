@@ -5,14 +5,13 @@ package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds;
  */
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.CardView;
@@ -28,19 +27,30 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
+import com.hubli.imperium.imaperiumdiary.Utility.PhotoViewer;
 import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private final int VIEW_ITEM = 1;
@@ -150,9 +160,16 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
             h.postImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent intent = new Intent(activity.getApplicationContext(),PhotoViewActivity.class);
-//                    intent.putExtra(PhotoViewActivity.IMAGE_PATH,itemData.getSrc_link());
-//                    activity.startActivity(intent);
+                    Intent intent = new Intent(activity, PhotoViewer.class);
+                    intent.putExtra(PhotoViewer.IMG_URL,itemData.getSrc_link());
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        ActivityOptionsCompat activityOptionsCompat;
+                        Pair<View, String> pair = Pair.create( (View)h.postImage, h.postImage.getTransitionName());
+                        activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, pair);
+                        activity.startActivity(intent, activityOptionsCompat.toBundle());
+                    }else{
+                        activity.startActivity(intent);
+                    }
                 }
             });
             if (itemData.getSrc_link().length()>10) {
@@ -229,20 +246,12 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             });
-//            h.share.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    if(postImageBitmap[0] != null){
-//                        new Login_fb(context,MainActivity.fb,postImageBitmap[0],itemData.getSrc_link()
-//                                ,h.text.getText().toString()).login();
-//                    }else{
-//                        Toast.makeText(context,"No Image to Share",Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
+
+
             h.comment_num.setText(itemData.getCommentsNum()+"");
 
             final boolean finalFeedImageAvailable = feedImageAvailable;
+
             h.comment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -252,6 +261,9 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     bundle.putString(FeedComments.TIME, h.time.getText().toString());
                     bundle.putString(FeedComments.TEXT, h.text.getText().toString());
                     bundle.putString(FeedComments.PROPIC_URL, itemData.getPropicLink());
+                    bundle.putBoolean(FeedComments.FEED_IMAGE_AVAILABLE, finalFeedImageAvailable);
+                    bundle.putInt(FeedComments.USER_NUMBER,itemData.getUserNumber());
+                    bundle.putString(FeedComments.FEED_ID,itemData.getId());
 
 
                     ActivityOptionsCompat activityOptionsCompat = null;
@@ -278,7 +290,7 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
             });
 
-            if(itemData.getStudentNum() == Integer.parseInt(spData.getUserData(SPData.USER_NUMBER))
+            if(itemData.getUserNumber() == Integer.parseInt(spData.getUserData(SPData.USER_NUMBER))
                     || !spData.isStudent()){
 
                 h.deleteBtn.setVisibility(View.VISIBLE);
@@ -399,4 +411,18 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+
+
+//    public static BroadcastReceiver receiver = new BroadcastReceiver() {
+//         @Override
+//         public void onReceive(Context context, Intent intent) {
+//             for (int i = 0; i<itemList.size();i++){
+//                 if(itemList.get(i).getId().contentEquals(intent.getStringExtra(FeedComments.FEED_ID))){
+//                     itemList.get(i).setCommentsNum(intent.getIntExtra(
+//                             FeedComments.NUMBER_OF_COMMENTS,itemList.get(i).getCommentsNum())
+//                     );
+//                 }
+//             }
+//         }
+//     };
 }

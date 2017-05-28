@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Login.Login"></activity>
+        <activity android:name=".Login.Login" />
         <activity
             android:name=".Main.MainActivity"
             android:label="@string/app_name"
@@ -35,7 +35,10 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Main.MainFrags.Feeds.FeedComments"></activity>
+        <activity android:name=".Main.MainFrags.Feeds.FeedComments"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".Utility.PhotoViewer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
