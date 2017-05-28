@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+             android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="80dp"
+                android:text="Time"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Mon"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Tue"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Wed"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Thu"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Fri"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"/>
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Sat"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                />
+
+
+        </LinearLayout>
+ <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/time123"
+        android:divider="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:background="@drawable/bordertv"
+        android:layout_height="wrap_content">
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bordertv"
+        android:layout_height="wrap_content">
+
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:id="@+id/horizonta1"
+    android:divider="@color/colorPrimary"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+
+
+
+</LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/horizonta2"
+                android:orientation="vertical"
+                android:background="@drawable/bordertv"
+                android:layout_height="wrap_content">
+
+
+
+
+
+            </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/horizonta3"
+                android:orientation="vertical"
+                android:background="@drawable/bordertv"
+                android:layout_height="wrap_content">
+
+
+
+            </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/horizonta4"
+                android:orientation="vertical"
+                android:background="@drawable/bordertv"
+                android:layout_height="wrap_content">
+
+
+            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/horizonta5"
+                android:orientation="vertical"
+                android:background="@drawable/bordertv"
+                android:layout_height="wrap_content">
+
+
+
+            </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/horizonta6"
+                android:orientation="vertical"
+                android:background="@drawable/bordertv"
+                android:layout_height="wrap_content">
+
+            </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
+
+</LinearLayout>
+
+    </HorizontalScrollView>
+
+
+
+</RelativeLayout>

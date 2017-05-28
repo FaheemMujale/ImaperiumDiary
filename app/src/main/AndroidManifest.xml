@@ -28,6 +28,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".DrawerFragments.table"></activity>
+        <activity android:name=".DrawerFragments.studenttable"/>
+
         <receiver android:name=".Utility.NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
