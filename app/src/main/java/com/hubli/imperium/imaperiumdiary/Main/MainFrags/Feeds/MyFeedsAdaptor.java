@@ -75,7 +75,7 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.onLoadMore = onLoadMore;
         this.activity = activity;
         this.context = activity.getApplicationContext();
-        spData = new SPData(context);
+        spData = new SPData();
         itemList = new ArrayList<>();
     }
 

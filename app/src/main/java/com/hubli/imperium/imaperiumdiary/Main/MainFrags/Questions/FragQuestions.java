@@ -46,7 +46,7 @@ public class FragQuestions extends Fragment {
         view = inflater.inflate(R.layout.fragment_frag_questions, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rcView);
         myDb = new MySqlDB(getActivity().getApplicationContext());
-        spData = new SPData(getActivity().getApplicationContext());
+        spData = new SPData();
         myQaAdaptor = new MyQaAdaptor(recyclerView,getActivity());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -93,7 +93,6 @@ public class FragQuestions extends Fragment {
         })
         .setUrl(URL.FETCH_QUESTIONS)
         .setParams(SPData.LEVEL,"2")
-        .setParams(SPData.INSTITUTE_NUMBER,"1")
         .setParams("q_tables_string",stringBulder.toString())
         .connect();
     }

@@ -121,7 +121,7 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
     }
 
     private void uploadEvent() {
-        SPData spData = new SPData(getActivity().getApplicationContext());
+        SPData spData = new SPData();
         if(eventTitle.getText().toString() != "" && eventPlace.getText().toString() != "") {
             new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
                 @Override
@@ -139,7 +139,6 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
                 }
             }).setUrl(URL.EVENTS_INSERT)
                     .setParams(SPData.USER_NUMBER,spData.getUserData(SPData.USER_NUMBER))
-                    .setParams(SPData.INSTITUTE_NUMBER,spData.getUserData(SPData.INSTITUTE_NUMBER))
                     .setParams("title",eventTitle.getText().toString())
                     .setParams("place",eventPlace.getText().toString())
                     .setParams("time",time.getText().toString())

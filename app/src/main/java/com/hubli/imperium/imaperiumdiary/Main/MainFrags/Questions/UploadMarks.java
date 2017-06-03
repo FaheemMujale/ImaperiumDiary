@@ -24,7 +24,7 @@ public class UploadMarks {
 
     public UploadMarks(Context activity){
         this.context = activity;
-        spData = new SPData(activity.getApplicationContext());
+        spData = new SPData();
     }
 
     public void uploadTempMarks(){

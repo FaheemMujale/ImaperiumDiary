@@ -2,7 +2,8 @@ package com.hubli.imperium.imaperiumdiary.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
+
+import com.hubli.imperium.imaperiumdiary.Utility.MyApplication;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +38,7 @@ public class SPData {
     public static final String LEVEL = "level"; // has to be calculated
 
     public static final String TEACHER_NUMBER = "teacher_number";
-    public static final String CLASS = "class";
+    public static final String CLASS_DIVISION_ID = "cd_id";
     public static final String DIVISION = "division";
     public static final String TEACHER_DESIGNATION = "designation";
     public static final String TEACHER_QUALIFICATION = "qualifications";
@@ -56,32 +57,41 @@ public class SPData {
     public static final int PARENT  = 2;
 
 
-    public SPData(Context context) {
-        sharedPreferences = context.getSharedPreferences("USER_SP",Context.MODE_PRIVATE);
+
+    public SPData() {
+        sharedPreferences = MyApplication.getContext().getSharedPreferences("USER_SP",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
 
-    public void storeUserData(String jsonString){
+    public void setInstituteID(String userName){
+        editor.putString(INSTITUTE_NUMBER, userName.substring(0,2));
+        editor.commit();
+    }
+    public String getInstitureID(){
+        return sharedPreferences.getString(INSTITUTE_NUMBER,"");
+    }
+
+
+    public void storeUserData(String jsonString) {
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
             JSONObject jsonObject = jsonArray.getJSONObject(0);
-            editor.putString(USER_NUMBER,jsonObject.getString(USER_NUMBER));
-            editor.putString(INSTITUTE_NUMBER,jsonObject.getString(INSTITUTE_NUMBER));
-            editor.putString(INSTITUTE_TYPE,jsonObject.getString(INSTITUTE_TYPE));
-            editor.putString(USERNAME,jsonObject.getString(PROPIC_URL));
-            editor.putString(PASSWORD,jsonObject.getString(IDENTIFICATION));
-            editor.putString(FIRST_NAME,jsonObject.getString(FIRST_NAME));
-            editor.putString(LAST_NAME,jsonObject.getString(LAST_NAME));
-            editor.putString(CONTACT,jsonObject.getString(CONTACT));
-            editor.putString(ADDRESS,jsonObject.getString(ADDRESS));
-            editor.putString(IDENTIFICATION,jsonObject.getString(IDENTIFICATION));
-            editor.putString(EMAIL,jsonObject.getString(EMAIL));
-            editor.putString(PROPIC_URL,jsonObject.getString(PROPIC_URL));
+            editor.putString(USER_NUMBER, jsonObject.getString(USER_NUMBER));
+            editor.putString(INSTITUTE_NUMBER, jsonObject.getString(INSTITUTE_NUMBER));
+            editor.putString(INSTITUTE_TYPE, jsonObject.getString(INSTITUTE_TYPE));
+            editor.putString(USERNAME, jsonObject.getString(PROPIC_URL));
+            editor.putString(PASSWORD, jsonObject.getString(IDENTIFICATION));
+            editor.putString(FIRST_NAME, jsonObject.getString(FIRST_NAME));
+            editor.putString(LAST_NAME, jsonObject.getString(LAST_NAME));
+            editor.putString(CONTACT, jsonObject.getString(CONTACT));
+            editor.putString(ADDRESS, jsonObject.getString(ADDRESS));
+            editor.putString(IDENTIFICATION, jsonObject.getString(IDENTIFICATION));
+            editor.putString(EMAIL, jsonObject.getString(EMAIL));
+            editor.putString(PROPIC_URL, jsonObject.getString(PROPIC_URL));
             editor.commit();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -92,8 +102,7 @@ public class SPData {
             editor.putString(STUDENT_NUMBER,jsonObject.getString(STUDENT_NUMBER));
             editor.putString(ROLL_NUMBER,jsonObject.getString(ROLL_NUMBER));
             editor.putString(PARENT_ID,jsonObject.getString(PARENT_ID));
-            editor.putString(CLASS,jsonObject.getString(CLASS));
-            editor.putString(DIVISION,jsonObject.getString(DIVISION));
+            editor.putString(CLASS_DIVISION_ID,jsonObject.getString(CLASS_DIVISION_ID));
             editor.commit();
 
         } catch (JSONException e) {
@@ -108,8 +117,7 @@ public class SPData {
             editor.putString(TEACHER_NUMBER,jsonObject.getString(TEACHER_NUMBER));
             editor.putString(TEACHER_DESIGNATION,jsonObject.getString(TEACHER_DESIGNATION));
             editor.putString(TEACHER_QUALIFICATION,jsonObject.getString(TEACHER_QUALIFICATION));
-            editor.putString(CLASS,jsonObject.getString(CLASS));
-            editor.putString(DIVISION,jsonObject.getString(DIVISION));
+            editor.putString(CLASS_DIVISION_ID,jsonObject.getString(CLASS_DIVISION_ID));
             editor.commit();
 
         } catch (JSONException e) {
@@ -117,14 +125,18 @@ public class SPData {
         }
     }
 
+    public boolean isSchool(){
+        return sharedPreferences.getString(INSTITUTE_TYPE,"").toUpperCase().contentEquals("SCHOOL");
+    }
+
     public String getUserData(String key){
         return sharedPreferences.getString(key,"");
     }
 
     public int getIdentification(){
-        if(sharedPreferences.getString(IDENTIFICATION,"").contentEquals("STUDENT")){
+        if(sharedPreferences.getString(IDENTIFICATION,"").toUpperCase().contentEquals("STUDENT")){
             return STUDENT;
-        }else if(sharedPreferences.getString(IDENTIFICATION,"").contentEquals("TEACHER")){
+        }else if(sharedPreferences.getString(IDENTIFICATION,"").toUpperCase().contentEquals("TEACHER")){
             return TEACHER;
         }else {
             return PARENT;

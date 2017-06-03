@@ -17,6 +17,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         super.onTokenRefresh();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.i("Firebase Token ",refreshedToken);
-        new SPData(getApplicationContext()).setFirebaseToken(refreshedToken);
+        new SPData().setFirebaseToken(refreshedToken);
     }
 }

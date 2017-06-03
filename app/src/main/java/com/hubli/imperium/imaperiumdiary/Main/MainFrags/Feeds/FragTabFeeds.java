@@ -63,7 +63,7 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
         postAdaptor.setRecyclerView(recyclerView);
         recyclerView.setAdapter(postAdaptor);
         recyclerView.getItemAnimator().setChangeDuration(0);
-        spData = new SPData(getActivity().getApplicationContext());
+        spData = new SPData();
         swipeRefreshLayout.setColorSchemeResources(
                 R.color.colorAccent,
                 R.color.colorPrimary,

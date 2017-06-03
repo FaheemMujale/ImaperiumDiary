@@ -9,18 +9,15 @@ public class PostCommentData {
     int likes;
     private boolean user_liked;
 
-    public PostCommentData(String name, String profilePic_link, String date, String text, String likes, String comment_id, String user_liked) {
+    public PostCommentData(String name, String profilePic_link, String date, String text,
+                           String likes, String comment_id, boolean user_liked) {
         this.name = name;
         this.time = date;
         this.text = text;
         this.likes = Integer.parseInt((likes.contains("null"))? "0":likes);
         this.comment_id = comment_id;
         this.profilePic_link = profilePic_link;
-        if(user_liked.contains("true")){
-            this.user_liked = true;
-        }else{
-            this.user_liked = false;
-        }
+        this.user_liked = user_liked;
     }
 
     public String getProfilePic_link() {
@@ -55,7 +52,7 @@ public class PostCommentData {
         return comment_id;
     }
 
-    public boolean isUser_liked() {
+    public boolean hasUser_liked() {
         return user_liked;
     }
 }

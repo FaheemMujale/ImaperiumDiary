@@ -1,7 +1,6 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -41,8 +40,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FeedComments extends AppCompatActivity {
 
@@ -85,7 +82,7 @@ public class FeedComments extends AppCompatActivity {
         final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView2);
         commentNoComment = (TextView) findViewById(R.id.comment_nocomment);
         progressBar = (ProgressBar) findViewById(R.id.comment_progress);
-        spData = new SPData(getApplicationContext());
+        spData = new SPData();
         commentText.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -179,7 +176,7 @@ public class FeedComments extends AppCompatActivity {
                                         jsonObject.getString(spData.PROPIC_URL),
                                         GenericMethods.getTimeString(jsonObject.getString("date")),
                                         jsonObject.getString("comment_text"),jsonObject.getString("like"),
-                                        jsonObject.getString("comment_id"),jsonObject.getString("user_liked")));
+                                        jsonObject.getString("comment_id"),jsonObject.getBoolean("user_liked")));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -259,16 +256,25 @@ public class FeedComments extends AppCompatActivity {
             time.setText(currentItem.getTime());
             text.setText(currentItem.getText());
             likes.setText(currentItem.getLikes()+"");
+            if(!currentItem.hasUser_liked()){
+                likeBtn.setText("Like");
+                likeBtn.setPadding(10,5,15,0);
+            }else {
+                likeBtn.setText("Unlike");
+                likeBtn.setPadding(10,5,8,0);
+            }
+
             setLikeView(currentItem.getLikes(),likes,likeView);
 
             likeBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if(!currentItem.isUser_liked()) {
+                    if(!currentItem.hasUser_liked()) {
                         connectServer(URL.LIKE_COMMENT);
                     }else{
                         connectServer(URL.DELETE_FROM_FEEDS);
+                        Log.e("del","del");
                     }
                 }
 
@@ -299,7 +305,7 @@ public class FeedComments extends AppCompatActivity {
                             public void volleyError() {
                                 canLike = true;
                             }
-                        }).setUrl(URL.LIKE_COMMENT)
+                        }).setUrl(url)
                                 .setParams("comment_id", currentItem.getComment_id())
                                 .setParams(SPData.USER_NUMBER, spData.getUserData(SPData.USER_NUMBER))
                                 .connect();
@@ -330,7 +336,7 @@ public class FeedComments extends AppCompatActivity {
                         items.add(new PostCommentData(spData.getUserData(SPData.FIRST_NAME)+" "+
                                 spData.getUserData(SPData.FIRST_NAME),spData.getUserData(SPData.PROPIC_URL),
                                 jsonObject.getString("date"),jsonObject.getString("comment_text"),"null",
-                                jsonObject.getString("comment_id"),"false"));
+                                jsonObject.getString("comment_id"),false));
                         adaptor.notifyDataSetChanged();
                         //commentChanged();
                     } catch (JSONException e) {

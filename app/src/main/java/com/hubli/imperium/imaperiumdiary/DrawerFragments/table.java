@@ -73,7 +73,7 @@ public class table extends AppCompatActivity {
         hv4 = (LinearLayout) findViewById(R.id.horizonta4);
         hv5 = (LinearLayout) findViewById(R.id.horizonta5);
         hv6 = (LinearLayout) findViewById(R.id.horizonta6);
-        time = (LinearLayout) findViewById(R.id.time);
+        time = (LinearLayout) findViewById(R.id.time123);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         eUsername = (EditText) findViewById(R.id.username);
         ePassword = (EditText) findViewById(R.id.password);
-        spData = new SPData(getApplicationContext());
+        spData = new SPData();
     }
 
     public void loginBtn(View v){
@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity {
         String username = eUsername.getText().toString().trim();
         String password = ePassword.getText().toString().trim();
         if(username.length() > 0 && password.length() > 0){
+            spData.setInstituteID(username);
             new MyVolley(getApplicationContext(), new IVolleyResponse() {
                 @Override
                 public void volleyResponse(String volleyResponse) {

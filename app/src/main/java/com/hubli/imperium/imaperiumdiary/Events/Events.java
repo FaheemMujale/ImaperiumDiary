@@ -57,7 +57,7 @@ public class Events extends Fragment {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_events, container, false);
 
-        spData = new SPData(getActivity().getApplicationContext());
+        spData = new SPData();
 
         calendarView = (AgendaCalendarView) rootView.findViewById(R.id.agenda_calendar_view);
         minDate = Calendar.getInstance();
@@ -113,7 +113,6 @@ public class Events extends Fragment {
             }
         }).setUrl(URL.EVENTS_FETCH)
                 .setParams(SPData.USER_NUMBER, spData.getUserData(SPData.USER_NUMBER))
-                .setParams(SPData.INSTITUTE_NUMBER, spData.getUserData(SPData.INSTITUTE_NUMBER))
                 .connect();
     }
 

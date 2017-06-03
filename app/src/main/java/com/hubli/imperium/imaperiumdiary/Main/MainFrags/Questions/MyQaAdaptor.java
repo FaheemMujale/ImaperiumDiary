@@ -130,7 +130,7 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
                 if(ServerConnect.checkInternetConenction(activity)){
                     new UploadMarks(context).uploadMarksToServer(type,i+"");
                 }else {
-                    new SPData(context).tempStoreMarks(type,i+"");
+                    new SPData().tempStoreMarks(type,i+"");
                 }
             }
 

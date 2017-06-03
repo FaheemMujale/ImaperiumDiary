@@ -1,10 +1,8 @@
 package com.hubli.imperium.imaperiumdiary.Main;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceDisplay;
+import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceSubjectWise;
+import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Events.Events;
 import com.hubli.imperium.imaperiumdiary.R;
 
@@ -22,12 +23,14 @@ public class MainActivity extends AppCompatActivity
 
     private static final String BACK_STACK_MAIN = "main_tag";
     private Toolbar toolbar;
+    private SPData spData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
+        spData = new SPData();
         setSupportActionBar(toolbar);
 
         new Thread(new Runnable() {
@@ -91,24 +94,34 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         switch (id) {
 
             case R.id.nav_attendance:
+                if(spData.getIdentification() == SPData.TEACHER) {
 
+                }else {
+                    if (!spData.isSchool()) {
+                        replaceFragment(new AttendanceDisplay());
+                    } else {
+                        replaceFragment(new AttendanceSubjectWise());
+                    }
+                }
                 break;
 
             case R.id.nav_event:
-                Events tabAdaptor = new Events();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_con, tabAdaptor);
-                transaction.addToBackStack(BACK_STACK_MAIN);
-                transaction.commit();
+                replaceFragment(new Events());
                 break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void replaceFragment(Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_con, fragment);
+        transaction.addToBackStack(BACK_STACK_MAIN);
+        transaction.commit();
     }
 }
