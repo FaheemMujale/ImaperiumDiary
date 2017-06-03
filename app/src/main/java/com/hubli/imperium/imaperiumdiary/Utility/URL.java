@@ -13,6 +13,9 @@ public class URL {
     public static final String DELETE_FROM_FEEDS = SERVER_URL+"Feeds/delete.php";
     public static final String FETCH_COMMENTS = SERVER_URL+"Feeds/fetch_comments.php";
     public static final String LOGIN = SERVER_URL+"LoginAndRegister/login.php";
+    public static final String EVENTS_FETCH = SERVER_URL+"Events/events_fetch.php";
+    public static final String EVENTS_INSERT = SERVER_URL+"Events/events_insert.php";
+
 
 
 

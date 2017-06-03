@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.hubli.imperium.imaperiumdiary.Events.Events;
 import com.hubli.imperium.imaperiumdiary.R;
 
 public class MainActivity extends AppCompatActivity
@@ -91,7 +92,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        switch (id) {
 
+            case R.id.nav_attendance:
+
+                break;
+
+            case R.id.nav_event:
+                Events tabAdaptor = new Events();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_con, tabAdaptor);
+                transaction.addToBackStack(BACK_STACK_MAIN);
+                transaction.commit();
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

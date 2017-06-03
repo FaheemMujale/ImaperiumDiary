@@ -52,7 +52,6 @@ public class FragQuestions extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myQaAdaptor);
-        spData.tempstore(1+"");
         if((myDb.getQuestions("*",-1).getCount()==0) || spData.isQuestionToday(GenericMethods.getDateSum())) {
             getQuestionData();
         }else {

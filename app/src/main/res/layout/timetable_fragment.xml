@@ -276,7 +276,7 @@
                 android:orientation="vertical"
                 android:background="@drawable/bordertv"
                 android:layout_height="wrap_content">
-   <Button
+                <Button
                     android:layout_width="100dp"
                     android:id="@+id/add6"
                     android:text="add"

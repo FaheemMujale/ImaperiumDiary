@@ -71,7 +71,7 @@ public class studenttable extends AppCompatActivity {
         hv4 = (LinearLayout) findViewById(R.id.horizonta4);
         hv5 = (LinearLayout) findViewById(R.id.horizonta5);
         hv6 = (LinearLayout) findViewById(R.id.horizonta6);
-        time = (LinearLayout) findViewById(R.id.time);
+        time = (LinearLayout) findViewById(R.id.time123);
         sendserverreq();
 
     }
@@ -167,10 +167,4 @@ public class studenttable extends AppCompatActivity {
         super.onPause();
 
     }
-
-
-
-
-
-
 }

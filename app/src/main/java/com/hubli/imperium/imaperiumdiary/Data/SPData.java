@@ -24,6 +24,7 @@ public class SPData {
 
     public static final String USER_NUMBER = "user_number";
     public static final String INSTITUTE_NUMBER = "institute_number";
+    public static final String INSTITUTE_TYPE = "institute_type";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String FIRST_NAME = "first_name";
@@ -34,6 +35,21 @@ public class SPData {
     public static final String EMAIL = "email";
     public static final String PROPIC_URL = "profilePic_link";
     public static final String LEVEL = "level"; // has to be calculated
+
+    public static final String TEACHER_NUMBER = "teacher_number";
+    public static final String CLASS = "class";
+    public static final String DIVISION = "division";
+    public static final String TEACHER_DESIGNATION = "designation";
+    public static final String TEACHER_QUALIFICATION = "qualifications";
+
+    public static final String STUDENT_NUMBER = "student_number";
+    public static final String ROLL_NUMBER = "roll_number";
+    public static final String PARENT_ID = "parent_id";
+
+    public static final String FIREBASE_TOKEN = "FIREBASE_TOKEN";
+
+
+
 
     public static final int STUDENT = 0;
     public static final int TEACHER = 1;
@@ -49,9 +65,9 @@ public class SPData {
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
             JSONObject jsonObject = jsonArray.getJSONObject(0);
-            Set<String> a = new HashSet<>();
             editor.putString(USER_NUMBER,jsonObject.getString(USER_NUMBER));
             editor.putString(INSTITUTE_NUMBER,jsonObject.getString(INSTITUTE_NUMBER));
+            editor.putString(INSTITUTE_TYPE,jsonObject.getString(INSTITUTE_TYPE));
             editor.putString(USERNAME,jsonObject.getString(PROPIC_URL));
             editor.putString(PASSWORD,jsonObject.getString(IDENTIFICATION));
             editor.putString(FIRST_NAME,jsonObject.getString(FIRST_NAME));
@@ -69,10 +85,36 @@ public class SPData {
     }
 
 
-    //temp
-    public void tempstore(String s){
-        editor.putString(USER_NUMBER,s);
-        editor.commit();
+    public void storeStudentData(String jsonString){
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            editor.putString(STUDENT_NUMBER,jsonObject.getString(STUDENT_NUMBER));
+            editor.putString(ROLL_NUMBER,jsonObject.getString(ROLL_NUMBER));
+            editor.putString(PARENT_ID,jsonObject.getString(PARENT_ID));
+            editor.putString(CLASS,jsonObject.getString(CLASS));
+            editor.putString(DIVISION,jsonObject.getString(DIVISION));
+            editor.commit();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void storeTeacherData(String jsonString){
+        try {
+            JSONArray jsonArray = new JSONArray(jsonString);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            editor.putString(TEACHER_NUMBER,jsonObject.getString(TEACHER_NUMBER));
+            editor.putString(TEACHER_DESIGNATION,jsonObject.getString(TEACHER_DESIGNATION));
+            editor.putString(TEACHER_QUALIFICATION,jsonObject.getString(TEACHER_QUALIFICATION));
+            editor.putString(CLASS,jsonObject.getString(CLASS));
+            editor.putString(DIVISION,jsonObject.getString(DIVISION));
+            editor.commit();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getUserData(String key){
@@ -87,6 +129,16 @@ public class SPData {
         }else {
             return PARENT;
         }
+    }
+
+
+    public void setFirebaseToken(String token){
+        editor.putString(FIREBASE_TOKEN,token);
+        editor.commit();
+    }
+
+    public String getFirebaseToken(){
+        return sharedPreferences.getString(FIREBASE_TOKEN,"");
     }
 
     public void setQuestionTables(Set<String> set){
@@ -148,6 +200,21 @@ public class SPData {
         d = d.replace("][",",");
         editor.putString("FEEDS_DATA","");
         editor.putString("FEEDS_DATA",d);
+        editor.commit();
+    }
+
+    public String getEventsData(){
+        return   sharedPreferences.getString("EVENTS_DATA","");
+    }
+    public void storeEventsData(String events){
+        editor.putString("EVENTS_DATA",events);
+        editor.commit();
+    }
+    public void appendToEventsData(String addendString){
+        String data = getFeedsData() + addendString;
+        data = data.replace("][",",");
+        editor.putString("EVENTS_DATA","");
+        editor.putString("EVENTS_DATA",data);
         editor.commit();
     }
 }
