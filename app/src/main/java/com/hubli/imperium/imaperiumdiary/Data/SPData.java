@@ -218,6 +218,7 @@ public class SPData {
     public String getEventsData(){
         return   sharedPreferences.getString("EVENTS_DATA","");
     }
+
     public void storeEventsData(String events){
         editor.putString("EVENTS_DATA",events);
         editor.commit();
@@ -227,6 +228,20 @@ public class SPData {
         data = data.replace("][",",");
         editor.putString("EVENTS_DATA","");
         editor.putString("EVENTS_DATA",data);
+        editor.commit();
+    }
+
+    public void storeAttendanceData(String data){
+        editor.putString("ATTENDANCE_DATA",data);
+        editor.commit();
+    }
+
+    public String getAttendanceData(){
+        return sharedPreferences.getString("ATTENDANCE_DATA",null);
+    }
+
+    public void clearData(){
+        editor.clear();
         editor.commit();
     }
 }

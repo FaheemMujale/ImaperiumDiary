@@ -56,4 +56,15 @@ public class GenericMethods {
             return null;
         }
     }
+
+    public static long getTimeInMili(String timeString){
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+            Date date = dateFormat.parse(timeString);
+            return date.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 }

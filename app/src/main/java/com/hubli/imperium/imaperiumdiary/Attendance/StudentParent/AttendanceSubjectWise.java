@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -52,6 +54,19 @@ public class AttendanceSubjectWise extends Fragment {
         MyAdaptor myAdaptor = new MyAdaptor();
         listView.setAdapter(myAdaptor);
         getSubjectsFromServer(myAdaptor,progressBar);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AttendanceDisplay attendanceDisplay = new AttendanceDisplay();
+                Bundle bundle = new Bundle();
+                bundle.putString("subject_id",subjects.get(i).getSubjectID()+"");
+                attendanceDisplay.setArguments(bundle);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_con,attendanceDisplay);
+                transaction.addToBackStack("attendance");
+                transaction.commit();
+            }
+        });
         return rootView;
     }
 

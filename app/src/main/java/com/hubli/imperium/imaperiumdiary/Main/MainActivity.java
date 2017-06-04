@@ -1,5 +1,6 @@
 package com.hubli.imperium.imaperiumdiary.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceSubj
 import com.hubli.imperium.imaperiumdiary.Attendance.Teacher.ClassSelector;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Events.Events;
+import com.hubli.imperium.imaperiumdiary.Login.Login;
 import com.hubli.imperium.imaperiumdiary.R;
 
 public class MainActivity extends AppCompatActivity
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                 if(spData.getIdentification() == SPData.TEACHER) {
                     replaceFragment(new ClassSelector());
                 }else {
-                    if (!spData.isSchool()) {
+                    if (spData.isSchool()) {
                         replaceFragment(new AttendanceDisplay());
                     } else {
                         replaceFragment(new AttendanceSubjectWise());
@@ -112,6 +114,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_event:
                 replaceFragment(new Events());
                 break;
+
+            case R.id.nav_log_out:
+                spData.clearData();
+                startActivity(new Intent(getApplicationContext(), Login.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

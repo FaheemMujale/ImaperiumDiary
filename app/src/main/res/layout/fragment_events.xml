@@ -1,14 +1,29 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:agendaCalendar="http://schemas.android.com/apk/res-auto"
     tools:context="com.hubli.imperium.imaperiumdiary.Events.Events">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loadingBar"
+        android:visibility="gone"
+        android:layout_marginRight="8dp"
+        agendaCalendar:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        agendaCalendar:layout_constraintLeft_toLeftOf="parent"
+        agendaCalendar:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        agendaCalendar:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp" />
+
     <com.github.tibolte.agendacalendarview.AgendaCalendarView
         android:id="@+id/agenda_calendar_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         agendaCalendar:agendaCurrentDayTextColor="@color/theme_primary"
         agendaCalendar:calendarColor="@color/theme_primary"
         agendaCalendar:calendarCurrentDayTextColor="@color/calendar_text_current_day"
@@ -17,6 +32,7 @@
         agendaCalendar:calendarPastDayTextColor="@color/theme_light_primary"
         agendaCalendar:fabColor="@color/theme_accent"
         agendaCalendar:layout_constraintBottom_toBottomOf="parent"
+        agendaCalendar:layout_constraintHorizontal_bias="1.0"
         agendaCalendar:layout_constraintLeft_toLeftOf="parent"
         agendaCalendar:layout_constraintRight_toRightOf="parent"
         agendaCalendar:layout_constraintTop_toTopOf="parent"

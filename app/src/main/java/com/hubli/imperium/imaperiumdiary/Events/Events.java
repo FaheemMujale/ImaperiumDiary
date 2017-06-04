@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.github.tibolte.agendacalendarview.AgendaCalendarView;
@@ -50,6 +51,7 @@ public class Events extends Fragment {
     private Calendar minDate;
     private AgendaCalendarView calendarView;
     private List<CalendarEvent> calendarEvents;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +62,7 @@ public class Events extends Fragment {
         spData = new SPData();
 
         calendarView = (AgendaCalendarView) rootView.findViewById(R.id.agenda_calendar_view);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.loadingBar);
         minDate = Calendar.getInstance();
         maxDate = Calendar.getInstance();
 
@@ -96,7 +99,7 @@ public class Events extends Fragment {
     }
 
     private void connectToServer() {
-
+        progressBar.setVisibility(View.VISIBLE);
         new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
@@ -105,11 +108,12 @@ public class Events extends Fragment {
                     calendarEvents = parseJson(result);
                     initEventView(calendarEvents);
                 }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
             public void volleyError() {
-
+                progressBar.setVisibility(View.GONE);
             }
         }).setUrl(URL.EVENTS_FETCH)
                 .setParams(SPData.USER_NUMBER, spData.getUserData(SPData.USER_NUMBER))

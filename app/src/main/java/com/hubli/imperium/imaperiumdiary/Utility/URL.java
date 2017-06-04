@@ -23,6 +23,7 @@ public class URL {
     public static final String EVENTS_INSERT = SERVER_URL+"Events/events_insert.php";
     public static final String CLASSES_DIVISIONS_SUBJECTS = SERVER_URL+"Generic/classes_divisions_subjects.php";
     public static final String ATTENDANCE = SERVER_URL+"Attendance/attendance.php";
+    public static final String ATTENDANCE_FETCH = SERVER_URL+"Attendance/attendance_fetch.php";
 
 
 }
