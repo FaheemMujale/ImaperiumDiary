@@ -2,10 +2,12 @@ package com.hubli.imperium.imaperiumdiary.Events;
 
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.DialogFragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,10 +107,10 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
         int id = view.getId();
         switch (id){
             case R.id.sdateBtn:
-                datePickerDialog(startDate);
+                datePickerDialogStartDate(startDate);
                 break;
             case R.id.stdateBtn:
-               datePickerDialog(endDate);
+               datePickerDialogEndDate(endDate);
                 break;
 
             case R.id.timeBtn:
@@ -122,33 +124,41 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
 
     private void uploadEvent() {
         SPData spData = new SPData();
-        if(eventTitle.getText().toString() != "" && eventPlace.getText().toString() != "") {
+        if(eventTitle.getText().toString().length() > 0 && eventPlace.getText().toString().length() >0) {
+            final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setCancelable(false);
+            progressDialog.show();
+
             new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
                 @Override
                 public void volleyResponse(String result) {
                     Intent intent = new Intent(EVENT_BROADCAST);
                     intent.putExtra("data",result);
                     getActivity().sendBroadcast(intent);
+                    progressDialog.dismiss();
                     getDialog().dismiss();
 
                 }
 
                 @Override
                 public void volleyError() {
-
+                    progressDialog.dismiss();
                 }
             }).setUrl(URL.EVENTS_INSERT)
                     .setParams(SPData.USER_NUMBER,spData.getUserData(SPData.USER_NUMBER))
                     .setParams("title",eventTitle.getText().toString())
                     .setParams("place",eventPlace.getText().toString())
-                    .setParams("time",time.getText().toString())
+                    .setParams("time",time.getText().toString().split("time:")[1])
                     .setParams("startDate",startDate.getText().toString().split("Date: ")[1].trim())
                     .setParams("endDate",endDate.getText().toString().split("Date: ")[1].trim())
                     .connect();
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(),"Please fill the event details",Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void datePickerDialog(final TextView textView){
+    private void datePickerDialogStartDate(final TextView textView){
 
         new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
         {
@@ -160,13 +170,30 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
                 day_h = dayOfMonth;
                 startCal.set(year,monthOfYear,dayOfMonth);
 
-                if (startCal.after(endCal)){
+                if (endCal.getTimeInMillis() >= startCal.getTimeInMillis()){
                     textView.setText("Start Date: "+day_h+"/"+month_h+"/"+year_h);
-                    if(textView.getId() == R.id.sdateBtn) {
-                        textView.setText("Start Date: "+day_h+"/"+month_h+"/"+year_h);
-                    }else{
-                        textView.setText("End Date:  "+day_h+"/"+month_h+"/"+year_h);
-                    }
+                }else {
+                    Toast.makeText(getActivity().getApplicationContext(),"Start Date Should be before End Date",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, year_h, month_h-1, day_h).show();
+    }
+
+
+    private void datePickerDialogEndDate(final TextView textView){
+
+        new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener()
+        {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                year_h = year;
+                month_h = monthOfYear+1;
+                day_h = dayOfMonth;
+                endCal.set(year,monthOfYear,dayOfMonth);
+                if (endCal.getTimeInMillis() >= startCal.getTimeInMillis() ){
+                    textView.setText("End Date: "+day_h+"/"+month_h+"/"+year_h);
                 }else {
                     Toast.makeText(getActivity().getApplicationContext(),"End Date Should be after Start Date",Toast.LENGTH_SHORT).show();
                 }
@@ -181,12 +208,13 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
             @Override
             public void onTimeSet(TimePicker timePicker, int h, int m) {
                 String time;
+                Log.e(h+"",m+"");
                 if((h - 12)>= 0){
                     time = (h-12)+":"+m+" PM";
                 }else{
                     time = h+":"+m+" PM";
                 }
-                textView.setText(time);
+                textView.setText("Start time: "+time);
             }
         },0,0,false).show();
 

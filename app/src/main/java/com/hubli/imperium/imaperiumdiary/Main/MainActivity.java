@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceDisplay;
 import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceSubjectWise;
+import com.hubli.imperium.imaperiumdiary.Attendance.Teacher.ClassSelector;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Events.Events;
 import com.hubli.imperium.imaperiumdiary.R;
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_attendance:
                 if(spData.getIdentification() == SPData.TEACHER) {
-
+                    replaceFragment(new ClassSelector());
                 }else {
                     if (!spData.isSchool()) {
                         replaceFragment(new AttendanceDisplay());

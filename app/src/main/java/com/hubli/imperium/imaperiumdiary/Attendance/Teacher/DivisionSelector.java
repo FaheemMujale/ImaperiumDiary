@@ -1,15 +1,16 @@
 package com.hubli.imperium.imaperiumdiary.Attendance.Teacher;
 
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,60 +19,52 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceSubjectWise;
-import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
+import com.hubli.imperium.imaperiumdiary.Attendance.Teacher.GiveAttendance.GiveAttendance;
 import com.hubli.imperium.imaperiumdiary.R;
-import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
-import com.hubli.imperium.imaperiumdiary.Utility.URL;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Selector extends Fragment {
+public class DivisionSelector extends Fragment {
 
 
-    public Selector() {
+    public DivisionSelector() {
         // Required empty public constructor
     }
-
-    List<String> items = new ArrayList<>();
+    List<String> divisions = new ArrayList<>();
 
     private View rootView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_selector, container, false);
-        ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
         ListView listView = (ListView) rootView.findViewById(R.id.list);
-        MyAdaptor myAdaptor = new MyAdaptor();
+        final Bundle arguments = getArguments();
+        divisions = Arrays.asList(arguments.getStringArray("divisions"));
+        MyDivisionAdaptor myAdaptor = new MyDivisionAdaptor();
         listView.setAdapter(myAdaptor);
-        getDateFromServer(myAdaptor);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), GiveAttendance.class);
+                intent.putExtra("class",arguments.getString("class"));
+                intent.putExtra("division",divisions.get(position));
+                getActivity().startActivity(intent);
+            }
+        });
         return rootView;
     }
 
-    private void getDateFromServer(MyAdaptor myAdaptor) {
-//        new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
-//            @Override
-//            public void volleyResponse(String result) {
-//
-//            }
-//
-//            @Override
-//            public void volleyError() {
-//
-//            }
-//        }).setUrl(URL)
-    }
+    private class MyDivisionAdaptor extends ArrayAdapter<String> {
 
-
-    private class MyAdaptor extends ArrayAdapter<String>{
-
-        public MyAdaptor() {
-            super(getActivity().getApplicationContext(), R.layout.selector_item,items);
+        public MyDivisionAdaptor() {
+            super(getActivity().getApplicationContext(), R.layout.selector_item, divisions);
         }
 
         @NonNull
@@ -82,11 +75,10 @@ public class Selector extends Fragment {
                 ItemView = getActivity().getLayoutInflater().inflate(R.layout.selector_item, parent, false);
             }
 
-            String[] s = items.get(position).split("~");
             TextView class_text=(TextView)ItemView.findViewById(R.id.selector_id) ;
-            class_text.setText(s[0]);
+            class_text.setText("Division ");
 
-            String s1 = String.valueOf(s[1]);
+            String s1 = String.valueOf(divisions.get(position));
             ColorGenerator generator = ColorGenerator.MATERIAL;
             int color = generator.getColor(getItem(position));
             TextDrawable drawable = TextDrawable.builder().buildRoundRect(s1.toUpperCase(),color,20);

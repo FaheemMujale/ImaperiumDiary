@@ -77,7 +77,7 @@ public class AttendanceSubjectWise extends Fragment {
             public void volleyError() {
                 progressBar.setVisibility(View.GONE);
             }
-        }).setUrl(URL.SUBJECTS)
+        }).setUrl(URL.CLASSES_DIVISIONS_SUBJECTS)
                 .setParams("cd_id",new SPData().getUserData(SPData.CLASS_DIVISION_ID))
                 .connect();
     }

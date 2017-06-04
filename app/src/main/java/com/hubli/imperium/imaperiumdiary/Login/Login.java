@@ -33,9 +33,13 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        spData = new SPData();
+
+        if(spData.getUserData(SPData.USER_NUMBER) != ""){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
         eUsername = (EditText) findViewById(R.id.username);
         ePassword = (EditText) findViewById(R.id.password);
-        spData = new SPData();
     }
 
     public void loginBtn(View v){
@@ -82,6 +86,7 @@ public class Login extends AppCompatActivity {
             .setParams("device_identification",deviceIdentification)
             .connect();
         }else{
+            progressDialog.dismiss();
             Toast.makeText(getApplicationContext(),"Please enter Username and Password",Toast.LENGTH_SHORT).show();
         }
     }

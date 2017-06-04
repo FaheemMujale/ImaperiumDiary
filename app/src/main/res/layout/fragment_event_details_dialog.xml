@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="4.5"
-                android:text="Start time: 10:00 AM"
+                android:text="Start time: 12:00 PM"
                 android:textAlignment="center"
                 android:textSize="18sp" />
 
