@@ -24,6 +24,7 @@ import com.hubli.imperium.imaperiumdiary.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -47,6 +48,7 @@ public class DivisionSelector extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.list);
         final Bundle arguments = getArguments();
         divisions = Arrays.asList(arguments.getStringArray("divisions"));
+        Collections.sort(divisions,String.CASE_INSENSITIVE_ORDER);
         MyDivisionAdaptor myAdaptor = new MyDivisionAdaptor();
         listView.setAdapter(myAdaptor);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
