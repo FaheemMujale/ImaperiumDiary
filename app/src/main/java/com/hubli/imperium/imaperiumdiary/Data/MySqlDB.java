@@ -28,12 +28,29 @@ public class MySqlDB extends SQLiteOpenHelper {
     public static String WATCHED = "WATCHED";
     public static String ANSWERED = "ANSWERED";
     public static String MARKS = "MARKS";
+
     private String CREATE_QUESTION_TABLE = "create table "+QUESTION_TABLE+" ("+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
             QID+" INTEGER(8), "+QUESTION_TEXT+" VARCHAR(500), "+OPT_A+" VARCHAR(100), "+OPT_B+" VARCHAR(100), "+OPT_C+" VARCHAR(100), "+
             OPT_D+" VARCHAR(100), "+ANSWER+" VARCHAR(2), "+LEVEL+" INTEGER(2), "+TYPE+" VARCHAR(32), "+WATCHED+" INTEGER(1)," +
             " "+ANSWERED+" VARCHAR(3), "+MARKS+" INTEGER(3))";
 
-    SQLiteDatabase db;
+
+
+    protected String MARKS_TABLE = "MARKS_TABLE";
+    protected String SUBJECT_NAME = "subject_name";
+    protected String EXAM_NAME = "exam_name";
+    protected String TOTAL_MARKS = "total_marks";
+    protected String MIN_MARKS = "min_marks";
+    protected String OBT_MARKS = "obt_marks";
+    protected String DATE = "date";
+
+
+    private String CREATE_MARKS_TABLE = "create table "+MARKS_TABLE+" ("+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            SUBJECT_NAME+" VARCHAR(150), "+EXAM_NAME+" VARCHAR(200), "+TOTAL_MARKS+" DECIMAL(5,1), "+MIN_MARKS+" DECIMAL(5,1), "
+            +OBT_MARKS+" DECIMAL(5,1), "+DATE+" VARCHAR(50))";
+
+    protected SQLiteDatabase db;
+
     public MySqlDB(Context context) {
         super(context, "Edupline.db", null, 1);
         this.db = this.getWritableDatabase();
@@ -42,11 +59,14 @@ public class MySqlDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_QUESTION_TABLE);
+        db.execSQL(CREATE_MARKS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS "+QUESTION_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS "+MARKS_TABLE);
+        onCreate(db);
     }
 
     public void insertQuestions(int qid, String questionText,String type,String optA,String optB,
@@ -80,5 +100,8 @@ public class MySqlDB extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " +QUESTION_TABLE);
         db.execSQL(CREATE_QUESTION_TABLE);
     }
-
+    public void clearMarksData(){
+        db.execSQL("DROP TABLE IF EXISTS " +MARKS_TABLE);
+        db.execSQL(CREATE_MARKS_TABLE);
+    }
 }

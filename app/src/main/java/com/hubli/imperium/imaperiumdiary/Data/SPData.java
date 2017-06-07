@@ -67,7 +67,7 @@ public class SPData {
         editor.putString(INSTITUTE_NUMBER, userName.substring(0,2));
         editor.commit();
     }
-    public String getInstitureID(){
+    public String getInstituteID(){
         return sharedPreferences.getString(INSTITUTE_NUMBER,"");
     }
 
@@ -77,7 +77,6 @@ public class SPData {
             JSONArray jsonArray = new JSONArray(jsonString);
             JSONObject jsonObject = jsonArray.getJSONObject(0);
             editor.putString(USER_NUMBER, jsonObject.getString(USER_NUMBER));
-            editor.putString(INSTITUTE_NUMBER, jsonObject.getString(INSTITUTE_NUMBER));
             editor.putString(INSTITUTE_TYPE, jsonObject.getString(INSTITUTE_TYPE));
             editor.putString(USERNAME, jsonObject.getString(PROPIC_URL));
             editor.putString(PASSWORD, jsonObject.getString(IDENTIFICATION));

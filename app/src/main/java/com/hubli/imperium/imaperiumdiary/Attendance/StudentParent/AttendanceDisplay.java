@@ -43,7 +43,7 @@ public class AttendanceDisplay extends Fragment {
     private TextView notAvailable;
     private List<AttendanceData> attendance = new ArrayList<>();
     private SimpleDateFormat dateFormatForMonth;
-    public final int RED= 0xb1ff0000;
+    public final int RED= 0xc8ff0000;
     public final int ORANGE = 0xc8ff7d03;
     private CompactCalendarView calendarView;
     private TextView presentView, absentView, leavesView;
@@ -136,7 +136,7 @@ public class AttendanceDisplay extends Fragment {
                 e = new Event(ORANGE, allAttendance.getTimeInMili(), allAttendance.getAttendance());
                 calendarView.addEvent(e);
             }
-            else {
+            else if(allAttendance.getAttendance().contains(GiveAttendance.PRESENT)){
                 e = new Event(Color.GREEN,allAttendance.getTimeInMili(), allAttendance.getAttendance());
                 calendarView.addEvent(e);
             }

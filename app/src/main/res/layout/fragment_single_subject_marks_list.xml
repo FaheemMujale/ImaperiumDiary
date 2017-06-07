@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_marks"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.hubli.imperium.imaperiumdiary.ProgressReport.SingleSubjectMarksList">
+<LinearLayout
+    android:layout_width = "fill_parent"
+    android:layout_height = "wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/headder"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1.5"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "Date"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1.8"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "Exam"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "Total"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "Min"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "Obt"
+        android:textColor="@android:color/background_light" />
+    <TextView
+        android:layout_width = "0dp"
+        android:layout_height = "wrap_content"
+        android:layout_weight = "1"
+        android:gravity = "center"
+        android:padding = "5dp"
+        android:text = "%"
+        android:textColor="@android:color/background_light" />
+</LinearLayout>
+
+
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/marks"
+    android:layout_above="@+id/btn"
+    android:layout_below="@+id/headder" />
+
+<Button
+    android:text="Graph View"
+    android:textColor="@color/cardview_light_background"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/btn"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    />
+
+</RelativeLayout>

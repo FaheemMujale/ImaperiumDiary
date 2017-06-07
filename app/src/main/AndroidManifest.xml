@@ -62,8 +62,16 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Attendance.Teacher.GiveAttendance.GiveAttendance"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Attendance.Teacher.GiveAttendance.GiveAttendance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProgressReport.AllSubjectGraph"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ProgressReport.SingleSubjectGraph"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

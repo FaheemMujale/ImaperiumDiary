@@ -1,7 +1,6 @@
 package com.hubli.imperium.imaperiumdiary.Utility;
 
-import android.content.Context;
-
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 
 /**
@@ -11,7 +10,11 @@ import com.hubli.imperium.imaperiumdiary.Data.SPData;
 public class URL {
 
     private static SPData spData = new SPData();
-    public static final String SERVER_URL = "http://imperiumapps.in/ImperiumDiary/"+spData.getInstitureID()+"/";
+
+    public static final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
+    public static final String URL_CONFIG_NAME = "SERVER_BASE_URL";
+
+    public static final String SERVER_URL = remoteConfig.getString(URL_CONFIG_NAME)+spData.getInstituteID()+"/";
     public static final String FETCH_QUESTIONS = SERVER_URL+"Questions/fetch_questions.php";
     public static final String QA_MARKS = SERVER_URL+"Questions/qa_marks.php";
     public static final String FEEDS_DOWNLOAD = SERVER_URL+"Feeds/fetch_feeds.php";
@@ -24,6 +27,7 @@ public class URL {
     public static final String CLASSES_DIVISIONS_SUBJECTS = SERVER_URL+"Generic/classes_divisions_subjects.php";
     public static final String ATTENDANCE = SERVER_URL+"Attendance/attendance.php";
     public static final String ATTENDANCE_FETCH = SERVER_URL+"Attendance/attendance_fetch.php";
+    public static final String MARKS = SERVER_URL+"ProgressReport/marks.php";
 
 
 }

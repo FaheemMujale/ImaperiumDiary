@@ -19,6 +19,7 @@ import com.hubli.imperium.imaperiumdiary.Attendance.Teacher.ClassSelector;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Events.Events;
 import com.hubli.imperium.imaperiumdiary.Login.Login;
+import com.hubli.imperium.imaperiumdiary.ProgressReport.SubjectList;
 import com.hubli.imperium.imaperiumdiary.R;
 
 public class MainActivity extends AppCompatActivity
@@ -111,6 +112,9 @@ public class MainActivity extends AppCompatActivity
                 }
                 break;
 
+            case R.id.nav_progress:
+                replaceFragment(new SubjectList());
+                break;
             case R.id.nav_event:
                 replaceFragment(new Events());
                 break;

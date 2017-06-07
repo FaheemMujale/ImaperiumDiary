@@ -3,6 +3,7 @@ package com.hubli.imperium.imaperiumdiary.Login;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telecom.TelecomManager;
@@ -13,15 +14,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.hubli.imperium.imaperiumdiary.BuildConfig;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.Main.MainActivity;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
+
+import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
 
@@ -35,6 +44,35 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         spData = new SPData();
 
+        ///////////// to be out in launcher activity //////////////
+
+        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(true)
+                .build();
+        firebaseRemoteConfig.setConfigSettings(configSettings);
+        HashMap<String,Object> map = new HashMap<>();
+        map.put(URL.URL_CONFIG_NAME,"http://imperiumapps.in/ImperiumDiary/");
+        firebaseRemoteConfig.setDefaults(map);
+
+        firebaseRemoteConfig.fetch(300)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            firebaseRemoteConfig.activateFetched();
+                            Toast.makeText(getApplicationContext(), firebaseRemoteConfig.getString(URL.URL_CONFIG_NAME), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Fetch Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
+            }
+        });
+        ///////////////////////////
         if(spData.getUserData(SPData.USER_NUMBER) != ""){
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
         }

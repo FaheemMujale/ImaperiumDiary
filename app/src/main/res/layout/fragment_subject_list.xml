@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.hubli.imperium.imaperiumdiary.ProgressReport.SubjectList">
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/report_progress"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Subject Data Available"
+        android:layout_centerInParent="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:id="@+id/reportnot_available"
+        android:visibility="gone"
+        android:textAlignment="center" />
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/progress_report_progressbar"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list"
+        android:layout_above="@+id/button_prog"
+        android:layout_alignParentTop="true"/>
+
+
+    <Button
+        android:text="Graph View"
+        android:textSize="20dp"
+        android:textColor="@color/cardview_light_background"
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_prog"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="0dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
