@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
@@ -20,7 +19,6 @@ import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;

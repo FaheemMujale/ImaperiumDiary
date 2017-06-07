@@ -12,10 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Chats.FragTabChat;
-import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Notifications.FragTabNotifications;
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds.FragTabFeeds;
-
+import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Notifications.FragTabNotifications;
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions.FragQuestions;
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Ranks.FragTabRanks;
 import com.hubli.imperium.imaperiumdiary.R;

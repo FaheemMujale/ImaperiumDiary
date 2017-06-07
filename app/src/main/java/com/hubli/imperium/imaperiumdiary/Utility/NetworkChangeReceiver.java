@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.util.Log;
 
 import com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions.UploadMarks;
 

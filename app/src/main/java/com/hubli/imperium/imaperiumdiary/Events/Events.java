@@ -1,7 +1,6 @@
 package com.hubli.imperium.imaperiumdiary.Events;
 
 
-import android.app.FragmentManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;

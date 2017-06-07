@@ -1,8 +1,5 @@
 package com.hubli.imperium.imaperiumdiary.Utility;
 
-import android.os.SystemClock;
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

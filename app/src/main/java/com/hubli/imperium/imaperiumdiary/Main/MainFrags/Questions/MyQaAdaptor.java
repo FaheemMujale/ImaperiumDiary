@@ -1,13 +1,11 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +26,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Faheem on 18-05-2017.

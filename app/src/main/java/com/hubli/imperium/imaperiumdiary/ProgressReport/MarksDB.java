@@ -3,7 +3,6 @@ package com.hubli.imperium.imaperiumdiary.ProgressReport;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 

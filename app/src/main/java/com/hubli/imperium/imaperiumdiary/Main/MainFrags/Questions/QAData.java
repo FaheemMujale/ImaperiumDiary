@@ -1,8 +1,6 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions;
 
-import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 

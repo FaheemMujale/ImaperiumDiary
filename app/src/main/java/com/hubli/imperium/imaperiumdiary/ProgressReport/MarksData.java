@@ -1,8 +1,5 @@
 package com.hubli.imperium.imaperiumdiary.ProgressReport;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 /**
  * Created by Naseem on 12-11-2016.
  */

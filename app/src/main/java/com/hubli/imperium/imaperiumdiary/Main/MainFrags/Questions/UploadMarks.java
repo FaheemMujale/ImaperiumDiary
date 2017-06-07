@@ -1,17 +1,12 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
-import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
-
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by Faheem on 21-05-2017.

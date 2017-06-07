@@ -1,11 +1,5 @@
 package com.hubli.imperium.imaperiumdiary.Attendance.Teacher;
 
-import android.util.Log;
-
-import org.json.JSONArray;
-
-import java.util.List;
-
 /**
  * Created by Faheem on 03-06-2017.
  */
