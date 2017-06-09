@@ -11,5 +11,6 @@
     <color name="gray">#d1d1d1</color>
     <color name="selected_comment_background">#ffffff</color>
     <color name="comment_background">#ffffff</color>
-
+    <color name="backgroundSemiGray">#812e2e2e</color>
+    <color name="colorRed">#ab0009</color>
 </resources>

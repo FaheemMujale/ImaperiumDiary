@@ -12,9 +12,10 @@ import java.util.Date;
 public class GenericMethods {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String TEMP_PATH = "temp_image.jpg";
 
     public static String getThumbNailURL(String str){
-        return URL.SERVER_URL+str.replace("profilepic","propic_thumb");
+        return str.replace("profilepic","propic_thumb");
     }
     public static boolean checkImageUrl(String url){
         return (url != null && url.contains("jpeg")) ? true:false;

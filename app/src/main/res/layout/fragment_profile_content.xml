@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hubli.imperium.imaperiumdiary.Profile.ProfileContent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:elevation="8dp">
+        <com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/qaList">
+        </com.github.paolorotolo.expandableheightlistview.ExpandableHeightListView>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="3dp"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/noticeTextAttendance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:text="Loading..." />
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/attendancePi">
+        </com.github.mikephil.charting.charts.PieChart>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

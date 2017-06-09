@@ -16,5 +16,9 @@
     <string name="transition_name_login_name">login_tran_name</string>
     <string name="transition_name_photoView">photo_view</string>
 
+    <string name="propic_caution">In case of any Inappropriate Image strict actions will be taken from Administration.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/comment_likes_num"
                     card_view:layout_constraintTop_toBottomOf="@+id/text"
-                    card_view:layout_constraintLeft_toRightOf="@+id/textView10"
+                    card_view:layout_constraintLeft_toRightOf="@+id/marks"
                     android:layout_marginRight="10dp"
                     card_view:layout_constraintRight_toLeftOf="@+id/imageView"
                     android:textSize="12sp" />
@@ -120,8 +120,8 @@
                     android:src="@drawable/ic_liked"
                     android:id="@+id/imageView"
                     android:layout_width="15dp"
-                    card_view:layout_constraintBottom_toBottomOf="@+id/textView10"
-                    card_view:layout_constraintLeft_toRightOf="@+id/textView10"
+                    card_view:layout_constraintBottom_toBottomOf="@+id/marks"
+                    card_view:layout_constraintLeft_toRightOf="@+id/marks"
                     card_view:layout_constraintTop_toBottomOf="@+id/text"
                     card_view:layout_constraintVertical_bias="0.8" />
             </LinearLayout>

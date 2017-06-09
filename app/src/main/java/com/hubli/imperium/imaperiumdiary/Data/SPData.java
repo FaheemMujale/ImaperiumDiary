@@ -39,6 +39,9 @@ public class SPData {
 
     public static final String TEACHER_NUMBER = "teacher_number";
     public static final String CLASS_DIVISION_ID = "cd_id";
+
+    public static final String CLASS = "class";
+
     public static final String DIVISION = "division";
     public static final String TEACHER_DESIGNATION = "designation";
     public static final String TEACHER_QUALIFICATION = "qualifications";
@@ -101,6 +104,8 @@ public class SPData {
             editor.putString(STUDENT_NUMBER,jsonObject.getString(STUDENT_NUMBER));
             editor.putString(ROLL_NUMBER,jsonObject.getString(ROLL_NUMBER));
             editor.putString(PARENT_ID,jsonObject.getString(PARENT_ID));
+            editor.putString(CLASS,jsonObject.getString(CLASS));
+            editor.putString(DIVISION,jsonObject.getString(DIVISION));
             editor.putString(CLASS_DIVISION_ID,jsonObject.getString(CLASS_DIVISION_ID));
             editor.commit();
 
@@ -242,5 +247,13 @@ public class SPData {
     public void clearData(){
         editor.clear();
         editor.commit();
+    }
+
+    public void setQAMarksData(String data){
+        editor.putString("QA_MARKS_DATA",data);
+        editor.commit();
+    }
+    public String getQAMarksData() {
+        return sharedPreferences.getString("QA_MARKS_DATA",null);
     }
 }

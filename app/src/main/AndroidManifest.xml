@@ -25,6 +25,10 @@
 
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".Profile.Profile" />
         </activity>
         <activity
             android:name=".Main.MainActivity"
@@ -69,9 +73,16 @@
             android:name=".ProgressReport.AllSubjectGraph"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ProgressReport.SingleSubjectGraph"
+        <activity
+            android:name=".ProgressReport.SingleSubjectGraph"
             android:screenOrientation="landscape"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Profile.Profile"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Main.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
