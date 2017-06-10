@@ -47,7 +47,7 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.Feed
 
         @Override
         public void onBindViewHolder(final FeedViewHolder holder, final int position) {
-            spData = new SPData(mcontext);
+            spData = new SPData();
             usertype = spData.getUserData("USERTYPE");
             holder.studname.setText(mItems.get(position).getStudent_name());
             holder.detail.setText(mItems.get(position).getDetail());

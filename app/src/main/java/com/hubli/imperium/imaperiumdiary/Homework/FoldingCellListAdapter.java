@@ -31,7 +31,7 @@ import java.util.List;
 
 public class FoldingCellListAdapter extends ArrayAdapter<Item> {
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
-    SPData userDataSp = new SPData(getContext());
+    SPData userDataSp = new SPData();
     private MyVolley myVolley;
     List<Item> list = new ArrayList<>();
 

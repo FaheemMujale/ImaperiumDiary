@@ -52,7 +52,7 @@ public class StudentDiary_teacher extends Fragment implements IVolleyResponse {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_student_diary_teacher, container, false);
         getActivity().setTitle("HOME WORK");
-        userDataSP=new SPData(getActivity());
+        userDataSP=new SPData();
         myVolley = new MyVolley(getActivity().getApplicationContext(), this);
         list_class=(ListView)rootView.findViewById(R.id.class_list_home);
         progressBar = (ProgressBar)rootView.findViewById(R.id.homework_progress);

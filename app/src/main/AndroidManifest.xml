@@ -83,10 +83,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Main.MainActivity" />
         </activity>
-        <activity android:name=".Main.MainFrags.Feeds.FeedComments"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".Utility.PhotoViewer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Homework.HomeworkList_teacher"/>
         <activity android:name=".Homework.StudentSubject_list"/>
         <activity android:name=".Homework.StudentDiary_DatePicker"/>

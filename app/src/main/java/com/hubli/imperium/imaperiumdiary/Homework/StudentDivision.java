@@ -43,7 +43,7 @@ public class StudentDivision extends AppCompatActivity implements IVolleyRespons
         className = intent.getStringExtra("class");
         progressBar = (ProgressBar) findViewById(R.id.homework_progress);
         list_div=(ListView)findViewById(R.id.list_div);
-        userDataSP=new SPData(this);
+        userDataSP=new SPData();
         myVolley = new MyVolley(getApplicationContext(), this);
         getDivisionData();
     }

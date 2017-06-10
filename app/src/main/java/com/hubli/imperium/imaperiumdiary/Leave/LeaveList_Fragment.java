@@ -47,7 +47,7 @@ public class LeaveList_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.leave_list, container, false);
-        spdata = new SPData(getActivity().getApplicationContext());
+        spdata = new SPData();
         usertype = spdata.getUserData("USERTYPE");
         RecyclerView mRecy = (RecyclerView) mView.findViewById(R.id.rv_ff);
         mProgBar = (ProgressBar) mView.findViewById(R.id.prog_bar_ff);

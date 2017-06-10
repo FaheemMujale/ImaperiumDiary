@@ -51,7 +51,7 @@ public class Dialog_form extends DialogFragment implements View.OnClickListener 
         file_name=(EditText)rootview.findViewById(R.id.editText_name);
         btn_choose.setOnClickListener(this);
         btn_upload.setOnClickListener(this);
-        userdatasp=new SPData(getActivity().getApplicationContext());
+        userdatasp=new SPData();
         return rootview;
     }
 

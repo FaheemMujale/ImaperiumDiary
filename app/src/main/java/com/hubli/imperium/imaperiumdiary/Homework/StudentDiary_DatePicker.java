@@ -57,7 +57,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_diary__date_picker);
-        userDataSp = new SPData(this);
+        userDataSp = new SPData();
         Intent intent = getIntent();
         className = intent.getStringExtra("class");
         divisionName = intent.getStringExtra("division");

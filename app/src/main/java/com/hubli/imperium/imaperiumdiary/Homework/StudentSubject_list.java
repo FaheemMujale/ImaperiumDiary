@@ -45,7 +45,7 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
         divisionName = intent.getStringExtra("division");
         list_subject=(ListView)findViewById(R.id.list_subject);
         noSubs = (TextView) findViewById(R.id.no_subs);
-        userDataSP=new SPData(this);
+        userDataSP=new SPData();
         myVolley = new MyVolley(getApplicationContext(), this);
         //getSubjectData();
         subjects.add("English");

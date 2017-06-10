@@ -55,7 +55,7 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homework_list_teacher);
-        userDataSp = new SPData(this);
+        userDataSp = new SPData();
         progressBar = (ProgressBar)findViewById(R.id.homeworkProgress);
         notAvailable = (TextView)findViewById(R.id.homeworkNotAvailable);
         myVolley = new MyVolley(getApplicationContext(),this);

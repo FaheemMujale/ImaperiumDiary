@@ -67,7 +67,7 @@ public class TimeTableFragment extends Fragment   {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.timetable_studentt, container, false);
-        spdata = new SPData(getActivity().getApplicationContext());
+        spdata = new SPData();
         usertype = spdata.getUserData("USERTYPE");
         getTimeTableData();
 //        if(usertype.contentEquals("teacher")) {

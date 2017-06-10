@@ -148,20 +148,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         switch (id){
             case R.id.nav_leave:
-
-                LeaveList_Fragment tab1 = new LeaveList_Fragment();
-                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
-                transaction1.replace(R.id.main_con,tab1);
-                transaction1.addToBackStack(BACK_STACK_MAIN);
-                transaction1.commit();
+                replaceFragment(new LeaveList_Fragment());
                 break;
 
             case R.id.nav_timetable:
-                TimeTableFragment tabAdaptor = new TimeTableFragment();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_con,tabAdaptor);
-                transaction.addToBackStack(BACK_STACK_MAIN);
-                transaction.commit();
+                replaceFragment(new TimeTableFragment());
                 break;
 
             case R.id.nav_diery:
@@ -180,10 +171,8 @@ public class MainActivity extends AppCompatActivity
 //                transaction1.commit();
                 Intent intent = new Intent(this,StudentSubject_list.class);
                 startActivity(intent);
+                break;
             //    }
-
-        }
-
             case R.id.nav_profile:
                 startActivity(new Intent(getApplicationContext(), Profile.class));
                 break;
