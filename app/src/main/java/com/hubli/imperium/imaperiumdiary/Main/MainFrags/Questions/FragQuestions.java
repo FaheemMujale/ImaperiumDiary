@@ -61,17 +61,6 @@ public class FragQuestions extends Fragment {
 
     private void getQuestionData(){
 
-        StringBuilder stringBulder = new StringBuilder();
-        boolean first = true;
-        for (String s: spData.getQuestionTables()) {
-            if (first){
-                first = false;
-                stringBulder.append(s);
-            }else{
-                stringBulder.append("|"+s);
-            }
-        }
-
         new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
@@ -79,19 +68,17 @@ public class FragQuestions extends Fragment {
                 int dateSum = Integer.parseInt(data[0]);
                 String questionData = data[1];
                 questionData = questionData.replace("][",",");
-                Log.e("str",questionData.toString());
                 spData.setQuestionDate(dateSum);
                 parseJson(questionData.toString());
             }
 
             @Override
             public void volleyError() {
-                Log.e("TAG","error");
+
             }
         })
         .setUrl(URL.FETCH_QUESTIONS)
-        .setParams(SPData.LEVEL,"2")
-        .setParams("q_tables_string",stringBulder.toString())
+        .setParams(SPData.LEVEL,"1")
         .connect();
     }
 
@@ -105,10 +92,12 @@ public class FragQuestions extends Fragment {
                         jsonObject.getString("type"),
                         jsonObject.getString("optA"),jsonObject.getString("optB"),
                         jsonObject.getString("optC"),jsonObject.getString("optD"),
-                        jsonObject.getString("answer"),Integer.parseInt(jsonObject.getString("level")));
+                        jsonObject.getString("answer"));
             }
             populateList();
         } catch (JSONException e) {
+            s = s.substring(0,s.length()-2)+"]";
+            parseJson(s);
             e.printStackTrace();
         }
     }

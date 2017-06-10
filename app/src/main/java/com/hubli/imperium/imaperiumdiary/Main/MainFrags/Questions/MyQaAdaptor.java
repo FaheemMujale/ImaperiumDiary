@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.widget.RecyclerView;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +105,7 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
                 }
             }
 
-            private void answered(String a, RadioButton optA) {
+            private void answered(String a, RadioButton opt) {
                 stopCountDownTimer();
                 heilightCorrectAnswer(data.getAnswer(),holder);
                 if(a.contentEquals(data.getAnswer())){
@@ -115,7 +116,7 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
                 }else{
                     data.updateMarks(-5);
                     uploadMarks(data.getType(),-5);
-                    optA.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
+                    opt.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
                     holder.timer.setTextColor(context.getResources().getColor(R.color.red));
                     holder.timer.setText("oops Wring Answer you lost 5 marks");
                 }
@@ -202,14 +203,15 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
 
 
     private void heilightCorrectAnswer(String answer, MyViewHolder holder) {
-        if(answer.contentEquals("A")){
+
+        if(answer.contentEquals("A")){ Log.e("ANSWER","A");
             holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
-        }else if(answer.contentEquals("B")){
-            holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
-        }else if(answer.contentEquals("C")){
-            holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
-        }else if(answer.contentEquals("D")){
-            holder.optA.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
+        }else if(answer.contentEquals("B")){ Log.e("ANSWER","B");
+            holder.optB.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
+        }else if(answer.contentEquals("C")){ Log.e("ANSWER","C");
+            holder.optC.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
+        }else if(answer.contentEquals("D")){ Log.e("ANSWER","D");
+            holder.optD.setBackgroundColor(context.getResources().getColor(R.color.green_highlight));
         }
     }
 

@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.hubli.imperium.imaperiumdiary.Attendance.Teacher.GiveAttendance.GiveAttendance;
@@ -53,6 +57,7 @@ public class AttendanceDisplay extends Fragment {
 
 
     private View rootView;
+    PieChart pieChart;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,21 +65,19 @@ public class AttendanceDisplay extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_attandance_display, container, false);
         spData = new SPData();
         calendarView = (CompactCalendarView) rootView.findViewById(R.id.compactcalendar_view);
+         pieChart = (PieChart) rootView.findViewById(R.id.attendancePi);
+
         getActivity().setTitle("Attendance");
 
         dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
         getActivity().setTitle(dateFormatForMonth.format(calendarView.getFirstDayOfCurrentMonth()));
-        presentView = (TextView) rootView.findViewById(R.id.total_present);
-        absentView = (TextView) rootView.findViewById(R.id.total_absent);
-        leavesView = (TextView) rootView.findViewById(R.id.total_leaves);
         progressBar = (ProgressBar) rootView.findViewById(R.id.attendance_loading);
         notAvailable = (TextView) rootView.findViewById(R.id.attendanceStdNotAvailable);
         checkInternetConnection();
         return rootView;
     }
 
-    public void checkInternetConnection()
-    {
+    public void checkInternetConnection() {
         if(ServerConnect.checkInternetConenction(getActivity())) {
             getAttendanceData();
         } else {
@@ -122,8 +125,7 @@ public class AttendanceDisplay extends Fragment {
         }
     }
 
-    private void getDataValues()
-    {
+    private void getDataValues() {
         Event e;
         for(int i=0; i<attendance.size(); i++) {
             AttendanceData allAttendance = attendance.get(i);
@@ -174,9 +176,23 @@ public class AttendanceDisplay extends Fragment {
                 present++;
             }
         }
+        List<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(present,0));
+        entries.add(new Entry(leaves,1));
+        entries.add(new Entry(absent,2));
 
-        presentView.setText("Total Present:"+" "+present+"");
-        absentView.setText("Total Absent:"+" "+absent+"");
-        leavesView.setText("Total Leaves:"+" "+leaves+"");
+        List<String> labels = new ArrayList<>();
+        labels.add("Present");
+        labels.add("Leave");
+        labels.add("Absent");
+        PieDataSet pieDataSet = new PieDataSet(entries,"");
+
+        int[] COLORFUL_COLORS = {Color.GREEN,Color.YELLOW,Color.RED};
+
+        pieDataSet.setColors(COLORFUL_COLORS);
+        PieData data = new PieData(labels,pieDataSet);
+        pieChart.setData(data);
+        pieChart.animateY(3000);
+
     }
 }

@@ -10,7 +10,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -52,31 +54,22 @@ public class ProfileContent extends Fragment {
     private View rootView;
     private SPData spData;
     private static boolean loadData = true;
+    ExpandableHeightListView listView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_profile_content, container, false);
         spData = new SPData();
-
-    //    setViewTreeObserver(rootView);
         populateQAList(rootView);
         attendanceChart(rootView);
 
         return rootView;
     }
 
-//    private void setViewTreeObserver(View rootView) {
-//        rootView.getViewTreeObserver().addOnGlobalFocusChangeListener(new ViewTreeObserver.OnGlobalFocusChangeListener() {
-//            @Override
-//            public void onGlobalFocusChanged(View view, View view1) {
-//                if(view1.getId() == )
-//            }
-//        });
-//    }
 
     private void populateQAList(View rootView) {
-        final ExpandableHeightListView listView = (ExpandableHeightListView) rootView.findViewById(R.id.qaList);
+        listView = (ExpandableHeightListView) rootView.findViewById(R.id.qaList);
         if(spData.getQAMarksData() == null || loadData){
             new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
                 @Override
@@ -132,16 +125,7 @@ public class ProfileContent extends Fragment {
             }else{
                 marks.setTextColor(Color.GREEN);
             }
-
-            ValueAnimator animator = ValueAnimator.ofInt(0,data.getMarks());
-            animator.setDuration(2000);
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    marks.setText(valueAnimator.getAnimatedValue()+"/"+data.getTotal());
-                }
-            });
-            animator.start();
+            marks.setText(data.getMarks()+"/"+data.getTotal());
             return v;
         }
     }

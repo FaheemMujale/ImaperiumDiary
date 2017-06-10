@@ -44,37 +44,12 @@
         android:visibility="gone"
         android:layout_marginBottom="30dp"
         />
-
-    <TextView
+    <com.github.mikephil.charting.charts.PieChart
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/total_present"
-        android:layout_below="@+id/compactcalendar_view"
-        android:textSize="18sp"
-        android:textColor="@color/green"
-        android:textStyle="normal|bold"
-        android:textAlignment="center" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/total_absent"
-        android:textSize="18sp"
-        android:textColor="@color/red"
-        android:layout_below="@+id/total_present"
-        android:layout_margin="8dp"
-        android:textStyle="normal|bold"
-        android:textAlignment="center" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/total_leaves"
-        android:textSize="18sp"
-        android:layout_margin="8dp"
-        android:textColor="@android:color/holo_orange_dark"
-        android:layout_below="@+id/total_absent"
-        android:textStyle="normal|bold"
-        android:textAlignment="center" />
-
+        android:layout_height="match_parent"
+        android:id="@+id/attendancePi"
+        android:layout_below="@+id/compactcalendar_view">
+    </com.github.mikephil.charting.charts.PieChart>
 </RelativeLayout>
 
 

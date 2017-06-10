@@ -69,7 +69,9 @@ public class MySqlDB extends SQLiteOpenHelper {
     }
 
     public void insertQuestions(int qid, String questionText,String type,String optA,String optB,
-                                String optC,String optD,String answer,int level){
+                                String optC,String optD,String answer){
+        String tableName = type.substring(0,type.length()-2);
+        int level = Integer.parseInt(type.substring(type.length()-1,type.length()));
         ContentValues contentValues = new ContentValues();
         contentValues.put(QID,qid);
         contentValues.put(QUESTION_TEXT,questionText);
@@ -79,7 +81,7 @@ public class MySqlDB extends SQLiteOpenHelper {
         contentValues.put(OPT_D,optD);
         contentValues.put(ANSWER,answer);
         contentValues.put(LEVEL,level);
-        contentValues.put(TYPE,type);
+        contentValues.put(TYPE,tableName);
         contentValues.put(WATCHED,0);
         contentValues.put(ANSWERED,0);
         contentValues.put(MARKS,0);
