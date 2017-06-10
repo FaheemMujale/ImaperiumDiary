@@ -1,304 +1,309 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-             android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="80dp"
-                android:text="Time"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_width="1dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#d3d3d3"/>
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Mon"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Time"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Mon"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Tue"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Wed"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Thu"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Fri"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#d3d3d3" />
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Sat"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
             <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#d3d3d3"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#d3d3d3" />
 
-            <TextView
-                android:layout_width="80dp"
+            <ScrollView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Tue"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                />
+                android:layout_marginTop="10dp">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#d3d3d3"/>
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Wed"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#d3d3d3"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Thu"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#d3d3d3"/>
 
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Fri"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#d3d3d3"/>
-            <TextView
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Sat"
-                android:layout_margin="10dp"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                />
+                    <LinearLayout
+                        android:id="@+id/time123"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:divider="@drawable/divider"
+                        android:dividerPadding="5dp"
+                        android:showDividers="middle"
+                        android:orientation="vertical">
 
+
+                        <Button
+                            android:id="@+id/add"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="addTime"
+                            android:text="add" />
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#d3d3d3" />
+
+
+                    <LinearLayout
+                        android:id="@+id/horizonta1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:divider="@color/colorPrimary"
+                        android:orientation="vertical">
+
+
+                        <Button
+                            android:id="@+id/add1"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="addsubject"
+                            android:text="add" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#d3d3d3" />
+
+
+                    <LinearLayout
+                        android:id="@+id/horizonta2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <Button
+                            android:id="@+id/add2"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="addsubject"
+                            android:text="add" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#d3d3d3" />
+
+                    <LinearLayout
+                        android:id="@+id/horizonta3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <Button
+                            android:id="@+id/add3"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="addsubject"
+                            android:text="add" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#d3d3d3" />
+
+                    <LinearLayout
+                        android:id="@+id/horizonta4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <Button
+                            android:id="@+id/add4"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="addsubject"
+                            android:text="add" />
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#d3d3d3" />
+
+                    <LinearLayout
+                        android:id="@+id/horizonta5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <Button
+                            android:id="@+id/add5"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="addsubject"
+                            android:text="add" />
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#d3d3d3" />
+
+                    <LinearLayout
+                        android:id="@+id/horizonta6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/add6"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="addsubject"
+                            android:text="add" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="#d3d3d3" />
+
+                </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
- <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:layout_height="wrap_content">
-
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:id="@+id/time123"
-        android:divider="@color/colorPrimary"
-        android:layout_width="wrap_content"
-        android:background="@drawable/bordertv"
-        android:layout_height="wrap_content">
-
-
-        <Button
-            android:clickable="true"
-            android:layout_width="100dp"
-            android:id="@+id/add"
-            android:text="add"
-            android:onClick="addTime"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bordertv"
-        android:layout_height="wrap_content">
-
-
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:id="@+id/horizonta1"
-    android:divider="@color/colorPrimary"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
-
-
-    <Button
-        android:layout_width="100dp"
-        android:id="@+id/add1"
-        android:text="add"
-        android:clickable="true"
-        android:onClick="addsubject"
-        android:layout_height="wrap_content"
-        />
-
-
-</LinearLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/horizonta2"
-                android:orientation="vertical"
-                android:background="@drawable/bordertv"
-                android:layout_height="wrap_content">
-
-
-
-                <Button
-                    android:layout_width="100dp"
-                    android:id="@+id/add2"
-                    android:text="add"
-                    android:clickable="true"
-                    android:onClick="addsubject"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/horizonta3"
-                android:orientation="vertical"
-                android:background="@drawable/bordertv"
-                android:layout_height="wrap_content">
-
-
-                <Button
-                    android:layout_width="100dp"
-                    android:id="@+id/add3"
-                    android:text="add"
-                    android:clickable="true"
-                    android:onClick="addsubject"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/horizonta4"
-                android:orientation="vertical"
-                android:background="@drawable/bordertv"
-                android:layout_height="wrap_content">
-
-
-                <Button
-                    android:layout_width="100dp"
-                    android:id="@+id/add4"
-                    android:text="add"
-                    android:clickable="true"
-                    android:onClick="addsubject"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/horizonta5"
-                android:orientation="vertical"
-                android:background="@drawable/bordertv"
-                android:layout_height="wrap_content">
-
-
-                <Button
-                    android:layout_width="100dp"
-                    android:id="@+id/add5"
-                    android:text="add"
-                    android:clickable="true"
-                    android:onClick="addsubject"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:id="@+id/horizonta6"
-                android:orientation="vertical"
-                android:background="@drawable/bordertv"
-                android:layout_height="wrap_content">
-   <Button
-                    android:layout_width="100dp"
-                    android:id="@+id/add6"
-                    android:text="add"
-                    android:clickable="true"
-                     android:onClick="addsubject"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-    </LinearLayout>
-    </LinearLayout>
-  </ScrollView>
-
-</LinearLayout>
 
     </HorizontalScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:id="@+id/fab"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_done"/>
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_done" />
 
 </RelativeLayout>

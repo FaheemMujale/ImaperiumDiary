@@ -28,7 +28,7 @@ public class MySqlDB extends SQLiteOpenHelper {
     public static String WATCHED = "WATCHED";
     public static String ANSWERED = "ANSWERED";
     public static String MARKS = "MARKS";
-    private String CREATE_QUESTION_TABLE = "create table "+QUESTION_TABLE+" ("+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+    private String CREATE_QUESTION_TABLE = "create TimeTable_Teacher "+QUESTION_TABLE+" ("+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
             QID+" INTEGER(8), "+QUESTION_TEXT+" VARCHAR(500), "+OPT_A+" VARCHAR(100), "+OPT_B+" VARCHAR(100), "+OPT_C+" VARCHAR(100), "+
             OPT_D+" VARCHAR(100), "+ANSWER+" VARCHAR(2), "+LEVEL+" INTEGER(2), "+TYPE+" VARCHAR(32), "+WATCHED+" INTEGER(1)," +
             " "+ANSWERED+" VARCHAR(3), "+MARKS+" INTEGER(3))";

@@ -18,18 +18,6 @@
         android:imeOptions="actionDone"
         android:inputType="text" />
 
-    <TextView
-        android:id="@+id/teacher_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Teacher Name" />
-
-    <EditText
-        android:id="@+id/teachername"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:imeOptions="actionDone"
-        android:inputType="text" />
 
     <Button
         android:layout_width="wrap_content"

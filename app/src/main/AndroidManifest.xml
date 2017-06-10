@@ -28,8 +28,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".DrawerFragments.table"></activity>
-        <activity android:name=".DrawerFragments.studenttable"/>
+        <activity android:name=".DrawerFragments.TimeTable_Teacher"></activity>
 
         <receiver android:name=".Utility.NetworkChangeReceiver">
             <intent-filter>
@@ -42,6 +41,9 @@
             android:theme="@style/AppTheme"/>
         <activity android:name=".Utility.PhotoViewer"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Homework.HomeworkList_teacher"/>
+        <activity android:name=".Homework.StudentSubject_list"/>
+        <activity android:name=".Homework.StudentDiary_DatePicker"/>
     </application>
 
 </manifest>

@@ -17,6 +17,16 @@ import java.util.Set;
 
 public class SPData {
 
+    public static final String SCHOOL_NUMBER ="num" ;
+    public static final String NUMBER_USER = "usernum";
+    public static final String SUBJECT = "sub";
+    public static final String HOMEWORK_CONTENTS = "detail";
+    public static final String HOMEWORK_TITLE = "title";
+    public static final String LASTDATE_SUBMISSION = "lastdate";
+    public static final String HOMEWORKDATE = "dategiven";
+    public static final String HOMEWORK_NUMBER = "hwnu";
+    public static final String CLASS = "class";
+    public static final String DIVISION = "div";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
@@ -25,6 +35,7 @@ public class SPData {
     public static final String USER_NUMBER = "user_number";
     public static final String INSTITUTE_NUMBER = "institute_number";
     public static final String USERNAME = "username";
+    public static final String USERTYPE = "usertype";
     public static final String PASSWORD = "password";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
@@ -60,6 +71,7 @@ public class SPData {
             editor.putString(ADDRESS,jsonObject.getString(ADDRESS));
             editor.putString(IDENTIFICATION,jsonObject.getString(IDENTIFICATION));
             editor.putString(EMAIL,jsonObject.getString(EMAIL));
+            editor.putString(USERTYPE,jsonObject.getString(USERTYPE));
             editor.putString(PROPIC_URL,jsonObject.getString(PROPIC_URL));
             editor.commit();
         } catch (JSONException e) {

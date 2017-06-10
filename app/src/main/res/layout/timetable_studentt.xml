@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <HorizontalScrollView
@@ -125,9 +127,10 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/time123"
-        android:divider="@color/colorPrimary"
+        android:divider="@drawable/divider"
         android:layout_width="wrap_content"
-        android:background="@drawable/bordertv"
+        android:dividerPadding="5dp"
+        android:showDividers="middle"
         android:layout_height="wrap_content">
 
 
@@ -247,6 +250,16 @@
 
     </HorizontalScrollView>
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/addTimetable"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        android:layout_margin="5dp"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:elevation="5dp" />
 
 </RelativeLayout>

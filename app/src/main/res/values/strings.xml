@@ -17,4 +17,6 @@
     <string name="transition_name_photoView">photo_view</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Home_Work_Title">Title</string>
+    <string name="Home_Work_contents">Home work detail</string>
 </resources>

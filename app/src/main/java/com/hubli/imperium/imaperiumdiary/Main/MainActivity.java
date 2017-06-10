@@ -1,10 +1,8 @@
 package com.hubli.imperium.imaperiumdiary.Main;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.hubli.imperium.imaperiumdiary.DrawerFragments.TimeTableFragment;
+import com.hubli.imperium.imaperiumdiary.Homework.StudentSubject_list;
+import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.R;
 
 public class MainActivity extends AppCompatActivity
@@ -90,6 +91,43 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        switch (id){
+            case R.id.nav_leave:
+
+                LeaveList_Fragment tab1 = new LeaveList_Fragment();
+                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                transaction1.replace(R.id.main_con,tab1);
+                transaction1.addToBackStack(BACK_STACK_MAIN);
+                transaction1.commit();
+                break;
+
+            case R.id.nav_timetable:
+                TimeTableFragment tabAdaptor = new TimeTableFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_con,tabAdaptor);
+                transaction.addToBackStack(BACK_STACK_MAIN);
+                transaction.commit();
+                break;
+
+            case R.id.nav_diery:
+//                if(SPData.isStudent()){
+//                 //   StudentDiary_student blankFragment = new StudentDiary_student();
+//                    FragmentTransaction tabAdaptor = getSupportFragmentManager().beginTransaction();
+//                    transaction.replace(R.id.main_con,tabAdaptor);
+//                    transaction.addToBackStack(BACK_STACK_MAIN);
+//                    transaction.commit();
+//                }else{
+                    //teacher homework post like attendance
+//                StudentSubject_list tabAdaptor1 = new StudentSubject_list();
+//                    FragmentTransaction transaction1 =  getSupportFragmentManager().beginTransaction();
+//                transaction1.replace(R.id.main_con,tabAdaptor1);
+//                transaction1.addToBackStack(BACK_STACK_MAIN);
+//                transaction1.commit();
+                Intent intent = new Intent(this,StudentSubject_list.class);
+                startActivity(intent);
+            //    }
+
+        }
 
 
 
