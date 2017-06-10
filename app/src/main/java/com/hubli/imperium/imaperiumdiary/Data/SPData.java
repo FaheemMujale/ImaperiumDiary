@@ -18,6 +18,16 @@ import java.util.Set;
 
 public class SPData {
 
+    public static final String SCHOOL_NUMBER ="num" ;
+    public static final String NUMBER_USER = "usernum";
+    public static final String SUBJECT = "sub";
+    public static final String HOMEWORK_CONTENTS = "detail";
+    public static final String HOMEWORK_TITLE = "title";
+    public static final String LASTDATE_SUBMISSION = "lastdate";
+    public static final String HOMEWORKDATE = "dategiven";
+    public static final String HOMEWORK_NUMBER = "hwnu";
+    public static final String CLASS = "class";
+    public static final String DIVISION = "div";
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 

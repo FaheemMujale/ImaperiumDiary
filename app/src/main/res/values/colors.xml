@@ -13,4 +13,8 @@
     <color name="comment_background">#ffffff</color>
     <color name="backgroundSemiGray">#812e2e2e</color>
     <color name="colorRed">#ab0009</color>
+    <color name="colorRed">#ab0009</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
 </resources>

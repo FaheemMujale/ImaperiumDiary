@@ -21,4 +21,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="Home_Work_Title">Title</string>
+    <string name="Home_Work_contents">Home work detail</string>
 </resources>

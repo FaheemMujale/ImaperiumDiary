@@ -16,6 +16,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hubli.imperium.imaperiumdiary.DrawerFragments.TimeTableFragment;
+import com.hubli.imperium.imaperiumdiary.Homework.StudentSubject_list;
+import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
+import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
+import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceDisplay;
 import com.hubli.imperium.imaperiumdiary.Attendance.StudentParent.AttendanceSubjectWise;
 import com.hubli.imperium.imaperiumdiary.Attendance.Teacher.ClassSelector;
@@ -24,13 +33,6 @@ import com.hubli.imperium.imaperiumdiary.Events.Events;
 import com.hubli.imperium.imaperiumdiary.Login.Login;
 import com.hubli.imperium.imaperiumdiary.Profile.Profile;
 import com.hubli.imperium.imaperiumdiary.ProgressReport.SubjectList;
-import com.hubli.imperium.imaperiumdiary.R;
-import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
-import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
-import com.hubli.imperium.imaperiumdiary.Utility.URL;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -144,7 +146,43 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        switch (id) {
+        switch (id){
+            case R.id.nav_leave:
+
+                LeaveList_Fragment tab1 = new LeaveList_Fragment();
+                FragmentTransaction transaction1 = getSupportFragmentManager().beginTransaction();
+                transaction1.replace(R.id.main_con,tab1);
+                transaction1.addToBackStack(BACK_STACK_MAIN);
+                transaction1.commit();
+                break;
+
+            case R.id.nav_timetable:
+                TimeTableFragment tabAdaptor = new TimeTableFragment();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_con,tabAdaptor);
+                transaction.addToBackStack(BACK_STACK_MAIN);
+                transaction.commit();
+                break;
+
+            case R.id.nav_diery:
+//                if(SPData.isStudent()){
+//                 //   StudentDiary_student blankFragment = new StudentDiary_student();
+//                    FragmentTransaction tabAdaptor = getSupportFragmentManager().beginTransaction();
+//                    transaction.replace(R.id.main_con,tabAdaptor);
+//                    transaction.addToBackStack(BACK_STACK_MAIN);
+//                    transaction.commit();
+//                }else{
+                    //teacher homework post like attendance
+//                StudentSubject_list tabAdaptor1 = new StudentSubject_list();
+//                    FragmentTransaction transaction1 =  getSupportFragmentManager().beginTransaction();
+//                transaction1.replace(R.id.main_con,tabAdaptor1);
+//                transaction1.addToBackStack(BACK_STACK_MAIN);
+//                transaction1.commit();
+                Intent intent = new Intent(this,StudentSubject_list.class);
+                startActivity(intent);
+            //    }
+
+        }
 
             case R.id.nav_profile:
                 startActivity(new Intent(getApplicationContext(), Profile.class));

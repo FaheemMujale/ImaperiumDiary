@@ -22,6 +22,10 @@ public class URL {
     public static final String DELETE_FROM_FEEDS = SERVER_URL+"Feeds/delete.php";
     public static final String FETCH_COMMENTS = SERVER_URL+"Feeds/fetch_comments.php";
     public static final String LOGIN = SERVER_URL+"LoginAndRegister/login.php";
+    public static final String UPLOAD_TIMETABLE = SERVER_URL+"10/TimeTable/timetable.php/";
+    public static final String GET_TIMETANLE = SERVER_URL+"TimeTable/timetable.php";
+    public static final String LEAVE_LIST = SERVER_URL+"LeaveTable/leave_list.php";
+
     public static final String EVENTS_FETCH = SERVER_URL+"Events/events_fetch.php";
     public static final String EVENTS_INSERT = SERVER_URL+"Events/events_insert.php";
     public static final String CLASSES_DIVISIONS_SUBJECTS = SERVER_URL+"Generic/classes_divisions_subjects.php";
