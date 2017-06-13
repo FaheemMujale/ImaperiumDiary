@@ -268,4 +268,12 @@ public class SPData {
     public String getQAMarksData() {
         return sharedPreferences.getString("QA_MARKS_DATA",null);
     }
+
+    public void setRanksData(String data){
+        editor.putString("RANKS_DATA",data);
+        editor.commit();
+    }
+    public String getRanksData() {
+        return sharedPreferences.getString("RANKS_DATA", null);
+    }
 }

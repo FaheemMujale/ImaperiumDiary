@@ -35,6 +35,7 @@ public class URL {
     public static final String PROPIC_BASE_URL = SERVER_URL+"Profile/";
     public static final String PROPIC_CHANGE = PROPIC_BASE_URL+"propic.php";
     public static final String QA_MARKS_DATA = SERVER_URL+"Questions/qa_marks_data_fetch.php";
+    public static final String FETCH_RANKS = SERVER_URL+"Ranks/fetch_ranks.php";
 
 
 }
