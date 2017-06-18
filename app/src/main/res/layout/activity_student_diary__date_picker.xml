@@ -69,15 +69,32 @@
         />
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:id="@+id/addattachment"
-        android:clickable="true"
-        android:src="@drawable/ic_add"
-        android:layout_margin="5dp"
-        android:layout_gravity="right"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:elevation="5dp" />
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/cardview_dark_background"
+            android:text="Attachment"
+            android:textAlignment="textEnd"
+            android:textSize="18sp" />
+        <ImageView
+            android:id="@+id/upload_pdf"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_weight="1.2"
+            android:elevation="6dp"
+            android:src="@drawable/upload_pdf"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

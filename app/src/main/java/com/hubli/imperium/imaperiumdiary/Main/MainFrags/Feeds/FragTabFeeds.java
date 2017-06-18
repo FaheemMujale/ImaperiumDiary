@@ -160,7 +160,9 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
             }
 
         }else{
-            Toast.makeText(getActivity().getApplicationContext(),"No more posts...",Toast.LENGTH_SHORT).show();
+            if(itemlist.size() > 5) {
+                Toast.makeText(getActivity().getApplicationContext(), "No more posts...", Toast.LENGTH_SHORT).show();
+            }
             noMorePost = true;
             postAdaptor.setProgressMore(false);
             postAdaptor.setMoreLoading(false);

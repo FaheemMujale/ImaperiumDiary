@@ -26,6 +26,11 @@ public class GenericMethods {
         return c.get(Calendar.DAY_OF_MONTH) + (c.get(Calendar.MONTH) + 1) + c.get(Calendar.YEAR);
     }
 
+    public static String getCurrentTimeString(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
+        return df.format(c.getTime());
+    }
     public static String getTimeString(String dateString){
         Date date;
         try {

@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MySqlDB extends SQLiteOpenHelper {
 
-    private String ID = "ID";
+    protected String ID = "ID";
 
     private String QUESTION_TABLE = "QUESTION_TABLE";
     private String QID = "QID";
@@ -48,6 +48,17 @@ public class MySqlDB extends SQLiteOpenHelper {
             SUBJECT_NAME+" VARCHAR(150), "+EXAM_NAME+" VARCHAR(200), "+TOTAL_MARKS+" DECIMAL(5,1), "+MIN_MARKS+" DECIMAL(5,1), "
             +OBT_MARKS+" DECIMAL(5,1), "+DATE+" VARCHAR(50))";
 
+
+
+    protected String MESSAGING_TABLE = "MESSAGING_TABLE";
+    protected String TIME = "time";
+    protected String MESSAGE = "message";
+
+
+    private String CREATE_MESSAGING_TABLE = "create table "+MESSAGING_TABLE+" ("+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            SPData.USER_NUMBER+" VARCHAR(8), "+SPData.FIRST_NAME+" VARCHAR(200), "+SPData.LAST_NAME+" VARCHAR(200), "+SPData.PROPIC_URL+" VARCHAR(500), "
+            +TIME+" VARCHAR(500), "+MESSAGE+" VARCHAR(1000))";
+
     protected SQLiteDatabase db;
 
     public MySqlDB(Context context) {
@@ -59,15 +70,21 @@ public class MySqlDB extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_QUESTION_TABLE);
         db.execSQL(CREATE_MARKS_TABLE);
+        db.execSQL(CREATE_MESSAGING_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS "+QUESTION_TABLE);
         db.execSQL("DROP TABLE IF EXISTS "+MARKS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS "+MESSAGING_TABLE);
+
         onCreate(db);
     }
 
+    public void refreshDB(){
+        onUpgrade(db,1,1);
+    }
     public void insertQuestions(int qid, String questionText,String type,String optA,String optB,
                                 String optC,String optD,String answer){
         String tableName = type.substring(0,type.length()-2);

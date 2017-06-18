@@ -1,9 +1,7 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Ranks;
 
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,7 +15,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.hubli.imperium.imaperiumdiary.Attendance.Teacher.ClassDivisions;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
@@ -123,7 +120,7 @@ public class FragTabRanks extends Fragment {
                 v = getActivity().getLayoutInflater().inflate(R.layout.ranks_item, parent, false);
             }
 
-            TextView name = (TextView) v.findViewById(R.id.name);
+            TextView name = (TextView) v.findViewById(R.id.rName);
             TextView class_division = (TextView) v.findViewById(R.id.class_division);
             TextView rank = (TextView) v.findViewById(R.id.rank);
             TextView points = (TextView) v.findViewById(R.id.points);

@@ -143,7 +143,7 @@ public class FeedComments extends AppCompatActivity {
 
     private void populateViews(){
         Picasso.with(getApplicationContext())
-                .load(extras.getString(PROPIC_URL))
+                .load(GenericMethods.getThumbNailURL(URL.PROPIC_BASE_URL+extras.getString(PROPIC_URL)))
                 .error(R.drawable.defaultpropic)
                 .into(propic);
         name.setText(extras.getString(NAME));
@@ -244,14 +244,12 @@ public class FeedComments extends AppCompatActivity {
 
             final PostCommentData currentItem = items.get(position);
 
-            if(currentItem.getProfilePic_link() != null && currentItem.getProfilePic_link().contains("jpeg")){
-                Picasso.with(getActivity().getApplicationContext()).load("propic url")
-                        .networkPolicy(ServerConnect.checkInternetConenction(getActivity()) ?
-                                NetworkPolicy.NO_CACHE : NetworkPolicy.OFFLINE)
-                        .into(propic);
-            }else{
-                propic.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.defaultpropic));
-            }
+            Picasso.with(getActivity().getApplicationContext())
+                    .load(GenericMethods.getThumbNailURL(URL.PROPIC_BASE_URL+currentItem.getProfilePic_link()))
+                    .networkPolicy(ServerConnect.checkInternetConenction(getActivity()) ?
+                            NetworkPolicy.NO_CACHE : NetworkPolicy.OFFLINE)
+                    .into(propic);
+
             comment_name.setText(currentItem.getName());
             time.setText(currentItem.getTime());
             text.setText(currentItem.getText());

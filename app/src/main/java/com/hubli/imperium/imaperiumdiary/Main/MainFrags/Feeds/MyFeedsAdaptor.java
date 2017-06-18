@@ -133,7 +133,7 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
             boolean feedImageAvailable = false;
 
             if(itemData.getPropicLink() != null && itemData.getPropicLink().contains("jpeg")){
-                Picasso.with(context).load("imaage url")/////////////////////////////////////
+                Picasso.with(context).load(GenericMethods.getThumbNailURL(URL.PROPIC_BASE_URL+itemData.getPropicLink()))
                         .networkPolicy(ServerConnect.checkInternetConenction(activity) ?
                                 NetworkPolicy.NO_CACHE : NetworkPolicy.OFFLINE)
                         .placeholder(R.drawable.defaultpropic)

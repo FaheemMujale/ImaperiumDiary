@@ -10,15 +10,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 import com.hubli.imperium.imaperiumdiary.DrawerFragments.TimeTableFragment;
 import com.hubli.imperium.imaperiumdiary.Homework.StudentSubject_list;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
+import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
@@ -47,14 +51,18 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         spData = new SPData();
+        //new MySqlDB(getApplicationContext()).refreshDB();
         setSupportActionBar(toolbar);
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 initateMainTabAdaptor();
             }
         }).start();
+
+        //firebase notification topic subscribe
+        FirebaseMessaging.getInstance().subscribeToTopic(spData.getUserData(SPData.INSTITUTE_NUMBER)+
+                spData.getUserData(SPData.CLASS_DIVISION_ID));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -195,7 +203,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_event:
                 replaceFragment(new Events());
                 break;
-
+            case R.id.nav_messaging:
+                startActivity(new Intent(getApplicationContext(), ClassMessaging.class));
+                break;
             case R.id.nav_log_out:
                 spData.clearData();
                 startActivity(new Intent(getApplicationContext(), Login.class));

@@ -51,7 +51,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
     private MyVolley myVolley;
     private TextView date_display;
     private ProgressDialog progressDialog;
-    FloatingActionButton button;
+    ImageView button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
         date_display.setText(day_h+"/"+month_h+"/"+year_h);
         myVolley = new MyVolley(getApplicationContext(), this);
         showDialoOnButtonClick();
-        button = (FloatingActionButton)findViewById(R.id.addattachment);
+        button = (ImageView) findViewById(R.id.upload_pdf);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

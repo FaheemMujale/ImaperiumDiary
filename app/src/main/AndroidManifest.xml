@@ -38,8 +38,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".DrawerFragments.TimeTable_Teacher"></activity>
+        <activity android:name=".DrawerFragments.TimeTable_Teacher" />
 
         <receiver android:name=".Utility.NetworkChangeReceiver">
             <intent-filter>
@@ -60,7 +59,8 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".Firebase.MyFirebaseMessagingService">
+        <service
+            android:name=".Firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -77,15 +77,21 @@
             android:name=".ProgressReport.SingleSubjectGraph"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Profile.Profile"
+        <activity
+            android:name=".Profile.Profile"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Main.MainActivity" />
         </activity>
-        <activity android:name=".Homework.HomeworkList_teacher"/>
-        <activity android:name=".Homework.StudentSubject_list"/>
-        <activity android:name=".Homework.StudentDiary_DatePicker"/>
+        <activity android:name=".Homework.HomeworkList_teacher" />
+        <activity android:name=".Homework.StudentSubject_list" />
+        <activity android:name=".Homework.StudentDiary_DatePicker" />
+        <activity android:name=".Messaging.ClassMessaging">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Main.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
