@@ -59,7 +59,7 @@ public class MyVolley {
             public void onResponse(String response) {
                 clear();
                 Log.e("res",response);
-                if(response != null && !response.contains("ERROR")){
+                if(response != null && !response.contains("ERROR") && !response.contains("ERROR[]")){
                     iVolleyResponse.volleyResponse(response);
                 }else{
                     iVolleyResponse.volleyError();

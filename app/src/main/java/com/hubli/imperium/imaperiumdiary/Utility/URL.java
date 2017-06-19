@@ -28,7 +28,6 @@ public class URL {
     public static final String INSERT_HOMEWORK = SERVER_URL+"/Homework/insert_homework.php";
     public static final String APPLY_LEAVE = SERVER_URL+"/Leave/upload_leave.php";
     public static final String GOOGLE_DRIVE_VIEWER = "http://drive.google.com/viewer?url=";
-    public static final String CLASSES_DIVISIONS_SUBJECTS = SERVER_URL+"/Generic/classes_divisions_subjects.php";
 
     public static final String EVENTS_FETCH = SERVER_URL+"Events/events_fetch.php";
     public static final String EVENTS_INSERT = SERVER_URL+"Events/events_insert.php";

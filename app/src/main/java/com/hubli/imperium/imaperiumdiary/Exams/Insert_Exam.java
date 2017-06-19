@@ -50,7 +50,7 @@ public class Insert_Exam extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_addexam);
-        spdata = new SPData(getApplicationContext());
+        spdata = new SPData();
         adddate = (Button) findViewById(R.id.add);
         date = (LinearLayout) findViewById(R.id.lv1);
         adddate.setOnClickListener(new View.OnClickListener() {

@@ -78,6 +78,7 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
                 intent.putExtra("class", className);
                 intent.putExtra("division", divisionName);
                 intent.putExtra("subjectid", subjectid);
+                intent.putExtra("cd_id",cdid);
                 startActivity(intent);
             }
         });
@@ -101,24 +102,24 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
     @Override
     public void onStart() {
         super.onStart();
-        //registerReceiver(receiver, new IntentFilter(INTENTFILTER));
+        registerReceiver(receiver, new IntentFilter(INTENTFILTER));
     }
 
-//    private BroadcastReceiver receiver = new BroadcastReceiver() {
-//        @Override
-//        public void onReceive(Context context, Intent intent) {
-//           adapter.addItemNew(new Item(intent.getStringExtra(HOMEWORK_TITLE),intent.getStringExtra(HOMEWORK_CONTENTS)
-//                   ,intent.getStringExtra(LASTDATE_SUBMISSION),intent.getStringExtra(SUBJECT),
-//                   intent.getStringExtra(HOMEWORKDATE), intent.getStringExtra(NUMBER_USER),
-//                   intent.getStringExtra(HOMEWORK_NUMBER)));
-//            adapter.notifyDataSetChanged();
-//        }
-//    };
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+           adapter.addItemNew(new Item(intent.getStringExtra(StudentDiary_DatePicker.HOMEWORK_TITLE),intent.getStringExtra(StudentDiary_DatePicker.HOMEWORK_CONTENTS)
+                   ,intent.getStringExtra(StudentDiary_DatePicker.LASTDATE_SUBMISSION),intent.getStringExtra(StudentDiary_DatePicker.SUBJECT),
+                   intent.getStringExtra(StudentDiary_DatePicker.HOMEWORKDATE), intent.getStringExtra(SPData.USER_NUMBER),
+                   intent.getStringExtra(StudentDiary_DatePicker.HOMEWORK_TITLE)));
+            adapter.notifyDataSetChanged();
+        }
+    };
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-       // unregisterReceiver(receiver);
+        unregisterReceiver(receiver);
     }
 
 
@@ -127,8 +128,8 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
     {
         progressBar.setVisibility(View.VISIBLE);
         myVolley.setUrl(URL.HOMEWORK_FETCH);
-        myVolley.setParams("cd_id", cdid);
-        myVolley.setParams("subject_id", subjectid);
+        myVolley.setParams("cd_id", cdid);Log.e("cdis", cdid);
+        myVolley.setParams("subject_id", subjectid);Log.e("sid", subjectid);
         myVolley.connect();
 
     }
@@ -147,7 +148,8 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
 
     @Override
     public void volleyError() {
-
+        progressBar.setVisibility(View.GONE);
+        notAvailable.setVisibility(View.VISIBLE);
     }
 
     private void getJsonHome(String re) throws JSONException {
@@ -156,7 +158,7 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
           items_homework = new ArrayList<>();
         for (int i = 0; i <= json.length() - 1; i++) {
             JSONObject jsonobj = json.getJSONObject(i);
-            items_homework.add(new Item(jsonobj.getString("hw_title"), jsonobj.getString("hw_content"), jsonobj.getString("hw_lastdate"), jsonobj.getString("subject"), jsonobj.getString("hw_givendate"), jsonobj.getString(SPData.USER_NUMBER), jsonobj.getString("hw_number")));
+            items_homework.add(new Item(jsonobj.getString("hw_title"), jsonobj.getString("hw_content"), jsonobj.getString("hw_lastdate"), jsonobj.getString("subject_id"), jsonobj.getString("hw_givendate"), jsonobj.getString(SPData.USER_NUMBER), jsonobj.getString("hw_number")));
         }
 
         adapter = new FoldingCellListAdapter(HomeworkList_teacher.this, items_homework);

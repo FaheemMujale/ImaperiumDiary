@@ -55,7 +55,10 @@ public class LeaveList_Fragment extends Fragment {
         mRecy.setAdapter(mAdapter);
 //        if(usertype.contentEquals("student")){
             mFab= (FloatingActionButton) mView.findViewById(R.id.fab);
-            mFab.setVisibility(View.VISIBLE);
+        if(spdata.getIdentification() == SPData.TEACHER){
+            mFab.setVisibility(View.GONE);
+        }
+
             mFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -91,7 +94,7 @@ public class LeaveList_Fragment extends Fragment {
 
 
     private void getLeaveList(){
-        new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
+       MyVolley volley = new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
                     mProgBar.setVisibility(View.GONE);
@@ -101,12 +104,15 @@ public class LeaveList_Fragment extends Fragment {
 
             @Override
             public void volleyError() {
-            Toast.makeText(getActivity().getApplicationContext(),"hi",Toast.LENGTH_LONG).show();
+               Toast.makeText(getActivity().getApplicationContext(),"Connection Error",Toast.LENGTH_LONG).show();
             }
-        }).setUrl(URL.LEAVE_LIST)
-//                .setParams(SPData.USER_NUMBER,spdata.getUserData(SPData.USER_NUMBER))
-                .setParams("user_number","1")
-                .connect();
+        });
+        volley.setUrl(URL.LEAVE_LIST);
+        if (spdata.getIdentification() == SPData.TEACHER) {
+            volley.setParams(SPData.CLASS_DIVISION_ID,spdata.getUserData(SPData.CLASS_DIVISION_ID));
+        }
+        volley.setParams(SPData.USER_NUMBER,spdata.getUserData(SPData.USER_NUMBER));
+        volley.connect();
     }
 
     private void parsejson(String response)  {
@@ -116,7 +122,9 @@ public class LeaveList_Fragment extends Fragment {
             items = new ArrayList<>();
             for (int i = 0; i <= json.length() - 1; i++) {
                 JSONObject jsonobj = json.getJSONObject(i);
-                items.add(new LeaveInfo( jsonobj.getString("user_number"), jsonobj.getString("todate"), jsonobj.getString("fromdate"), jsonobj.getString("status"), jsonobj.getString("detail"),jsonobj.getString("file_link")));
+                items.add(new LeaveInfo( jsonobj.getString("first_name")+" "+jsonobj.getString("last_name"),
+                        jsonobj.getString("todate"), jsonobj.getString("fromdate"), jsonobj.getString("status"),
+                        jsonobj.getString("detail"),jsonobj.getString("file_link")));
 //                items.add(new LeaveInfo("Shann", "21-2-2017", "15-2-2017", "Pending", "Health Issue"));
             }
             mAdapter.addItems(items);

@@ -91,12 +91,9 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.Feed
             holder.fromdate.setText(mItems.get(position).getFromdate());
             holder.todate.setText(mItems.get(position).getTodate());
             holder.status.setText(mItems.get(position).getStatus());
-            if(mItems.get(position).getStatus().contentEquals("Approved") || mItems.get(position).getStatus().contentEquals("Rejected"))
+            if(mItems.get(position).getStatus().contentEquals("Approved") ||
+                    mItems.get(position).getStatus().contentEquals("Rejected") || spData.getIdentification() != SPData.TEACHER)
             {
-                holder.accept.setVisibility(View.GONE);
-                holder.reject.setVisibility(View.GONE);
-            }
-                if(usertype.contentEquals("student")){
                 holder.accept.setVisibility(View.GONE);
                 holder.reject.setVisibility(View.GONE);
             }

@@ -33,10 +33,10 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ClassSelector extends Fragment {
+public class ClassSelector1 extends Fragment {
 
 
-    public ClassSelector() {
+    public ClassSelector1() {
         // Required empty public constructor
     }
 

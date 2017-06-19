@@ -39,14 +39,13 @@ import java.util.UUID;
 
 public class StudentDiary_DatePicker extends AppCompatActivity implements IVolleyResponse {
     public static final String INTENTFILTER ="intent_filter_h";
-    public static final String HOMEWORK_NUMBER ="homework_number";
-    public static final String HOMEWORK_TITLE= "homework_title";
-    public static final String HOMEWORK_CONTENTS = "homework_contents";
-    public static final String LASTDATE_SUBMISSION= "lastDate_submission";
+    public static final String HOMEWORK_NUMBER ="hw_number";
+    public static final String HOMEWORK_TITLE= "hw_title";
+    public static final String HOMEWORK_CONTENTS = "hw_content";
+    public static final String LASTDATE_SUBMISSION= "hw_lastdate";
     public static final String SUBJECT = "subject";
     public String SUBJECTID;
-    public static final String HOMEWORKDATE = "homeworkDate";
-    public static final String NUMBER_USER = "number_user";
+    public static final String HOMEWORKDATE = "hw_givendate";
     private String path;
     private int REQ_PDF = 1;
     private String className;
@@ -97,7 +96,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
         date_display.setText(day_h+"/"+month_h+"/"+year_h);
         myVolley = new MyVolley(getApplicationContext(), this);
         showDialoOnButtonClick();
-        button = (ImageView) findViewById(R.id.upload_pdf);
+        button = (ImageView) findViewById(R.id.addattachment);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,12 +149,12 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
             progressDialog.setCancelable(false);
             progressDialog.show();
             myVolley.setUrl(URL.INSERT_HOMEWORK);
-            myVolley.setParams("cd_id", "1");
+            myVolley.setParams("cd_id", getIntent().getStringExtra("cd_id"));
             myVolley.setParams("subject_id", SUBJECTID);
             myVolley.setParams("hw_lastdate", date_display.getText().toString());
             myVolley.setParams("hw_title", editTitle.getText().toString());
             myVolley.setParams("hw_content", editContent.getText().toString());
-            myVolley.setParams(SPData.USER_NUMBER, "1");
+            myVolley.setParams(SPData.USER_NUMBER, new SPData().getUserData(SPData.USER_NUMBER));
             myVolley.connect();
     }
 }
@@ -178,7 +177,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
 
     @Override
     public void volleyError() {
-
+        progressDialog.dismiss();
     }
 
     public void parseData(String re,  String homeTitle, String homeContent,  String subject, String lastDate ) throws JSONException {
@@ -188,17 +187,15 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
 
         for (int i = 0; i <= json.length() - 1; i++) {
             JSONObject jsonobj = json.getJSONObject(i);
-            homeNumber = jsonobj.getString(HOMEWORK_NUMBER);
             homeDate = jsonobj.getString(HOMEWORKDATE);
         }
         Intent intent = new Intent(INTENTFILTER);
         intent.putExtra(HOMEWORK_TITLE, homeTitle);
         intent.putExtra(HOMEWORK_CONTENTS,homeContent );
         intent.putExtra(LASTDATE_SUBMISSION, lastDate);
-        intent.putExtra(HOMEWORK_NUMBER, homeNumber );
         intent.putExtra(HOMEWORKDATE, homeDate);
         intent.putExtra(SUBJECT, subject);
-        intent.putExtra(NUMBER_USER, userDataSp.getUserData(SPData.NUMBER_USER));
+        intent.putExtra(SPData.USER_NUMBER, userDataSp.getUserData(SPData.USER_NUMBER));
         sendBroadcast(intent);
     }
 

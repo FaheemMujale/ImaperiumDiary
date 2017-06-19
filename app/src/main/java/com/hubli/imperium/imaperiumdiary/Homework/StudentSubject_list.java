@@ -76,6 +76,8 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
 
     @Override
     public void volleyError() {
+        progressBar.setVisibility(View.GONE);
+        noSubs.setVisibility(View.VISIBLE);
 
     }
 

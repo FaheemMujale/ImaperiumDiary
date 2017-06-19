@@ -65,12 +65,12 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             viewHolder.homework_title = (TextView) cell.findViewById(R.id.title_home);
             viewHolder.homework_contents = (TextView) cell.findViewById(R.id.alertText);
             viewHolder.deleteHomework = (TextView)cell.findViewById(R.id.content_request_btn);
-            viewHolder.subject = (TextView) cell.findViewById(R.id.subject_home);
+            //viewHolder.subject = (TextView) cell.findViewById(R.id.subject_home);
             viewHolder.lastDate_submission = (TextView) cell.findViewById(R.id.lastSubmission_date);
             viewHolder.homeworkDate = (TextView) cell.findViewById(R.id.homework_date);
             viewHolder.circleImage = (ImageView) cell.findViewById(R.id.circlecell);
             viewHolder.homework_title_content = (TextView) cell.findViewById(R.id.title_home_content);
-            viewHolder.subject_home_content = (TextView) cell.findViewById(R.id.subject_home_content);
+            //viewHolder.subject_home_content = (TextView) cell.findViewById(R.id.subject_home_content);
             viewHolder.circleImage_content = (ImageView) cell.findViewById(R.id.circlecell_content);
       //      if(item.getUserUpload()== Integer.parseInt(userDataSp.getUserData(SPData.NUMBER_USER))) {
                 viewHolder.deleteHomework.setVisibility(View.VISIBLE);
@@ -93,7 +93,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
 
         viewHolder.homework_title.setText(item.getHomework_title() + "");
         viewHolder.homework_contents.setText(item.getHomework_contents() + "");
-        viewHolder.subject.setText(item.getSubject() + "");
+     //   viewHolder.subject.setText(item.getHomework_title() + "");
         viewHolder.lastDate_submission.setText(item.getLastDate_submission().split(" ")[0] + "");
         viewHolder.homeworkDate.setText(item.getHomeworkDate().split(" ")[0] + "");
         String firstletter = String.valueOf(item.getHomework_title().charAt(0));
@@ -102,7 +102,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
         TextDrawable drawable = TextDrawable.builder().buildRound(firstletter.toUpperCase(), color);
         viewHolder.circleImage.setImageDrawable(drawable);
         viewHolder.circleImage_content.setImageDrawable(drawable);
-        viewHolder.subject_home_content.setText(item.getSubject());
+    //    viewHolder.subject_home_content.setText(item.getSubject());
         viewHolder.homework_title_content.setText(item.getHomework_title());
 
         return cell;

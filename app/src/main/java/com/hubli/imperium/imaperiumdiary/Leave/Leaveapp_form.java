@@ -80,7 +80,7 @@ public class Leaveapp_form extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.leave_application, container, false);
-        spdata = new SPData(getActivity().getApplicationContext());
+        spdata = new SPData();
         usertype = spdata.getUserData("USERTYPE");
         todate= (TextView) mView.findViewById(R.id.todate);
         fromdate= (TextView) mView.findViewById(R.id.fromdate);

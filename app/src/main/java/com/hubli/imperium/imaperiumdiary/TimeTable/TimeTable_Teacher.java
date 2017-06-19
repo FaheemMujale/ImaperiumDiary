@@ -121,7 +121,7 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 tv.setText(sub+"-"+teacher);
                 int px = convertDpToPixel(80, getApplicationContext());
                 LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
-                rlp.setMargins(10,10,10,10);
+               // rlp.setMargins(10,10,10,10);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tv.setLayoutParams(rlp);
                 ColorGenerator generator = ColorGenerator.MATERIAL;
@@ -157,7 +157,7 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 tv.setText(sub);
                 int px = convertDpToPixel(80, getApplicationContext());
                 LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
-                rlp.setMargins(10,10,10,10);
+              //  rlp.setMargins(10,10,10,10);
                 tv.setLayoutParams(rlp);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tv.setTypeface(null, Typeface.BOLD);
@@ -280,7 +280,7 @@ public class TimeTable_Teacher extends AppCompatActivity {
 
             }
         }).setUrl(URL.UPLOAD_TIMETABLE)
-                .setParams("cd_id","3")
+                .setParams("cd_id",spData.getUserData(SPData.CLASS_DIVISION_ID))
                 .setParams("timetable_data",data)
                 .connect();
     }

@@ -113,9 +113,10 @@ public class TimeTableFragment extends Fragment   {
                 for ( int y=0; y<test.get(i).length;y++){
                     TextView tv = new TextView(getActivity().getApplicationContext());
                     tv.setText(test.get(i)[y].replace("[","").replace("]",""));
-                    int px = convertDpToPixel(90, getActivity().getApplicationContext());
+                    int px = convertDpToPixel(100, getActivity().getApplicationContext());
                     LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
-                    rlp.setMargins(10,10,10,10);
+                  //  rlp.setMargins(10,10,10,10);
+                    //tv.setPadding(10,10,10,10);
                     tv.setLayoutParams(rlp);
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                     tv.setTypeface(null, Typeface.BOLD);
@@ -140,8 +141,8 @@ progressDialog.dismiss();
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         getActivity().registerReceiver(receiver,new IntentFilter(TimeTable_Teacher.INTENT_FILTER));
     }
 
@@ -168,8 +169,7 @@ progressDialog.dismiss();
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Bundle b = intent.getExtras();
-            String data = b.getString("data");
+            String data = intent.getStringExtra("data");
             parsejson(data);
 
         }
@@ -190,7 +190,7 @@ progressDialog.dismiss();
 
             }
         }).setUrl(URL.UPLOAD_TIMETABLE)
-                .setParams("cd_id","3")
+                .setParams("cd_id",spdata.getUserData(SPData.CLASS_DIVISION_ID))
                 .connect();
     }
 

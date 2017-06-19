@@ -38,7 +38,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".DrawerFragments.TimeTable_Teacher" />
+        <activity android:name=".TimeTable.TimeTable_Teacher" />
 
         <receiver android:name=".Utility.NetworkChangeReceiver">
             <intent-filter>

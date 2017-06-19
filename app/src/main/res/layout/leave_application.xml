@@ -90,7 +90,7 @@
         android:id="@+id/addattachment"
         android:clickable="true"
         android:layout_weight="0.3"
-        android:src="@drawable/ic_file_upload_blue_800_18dp"
+        android:src="@drawable/ic_file_upload_white_18dp"
         android:layout_margin="5dp"
         android:layout_gravity="right"
         android:layout_height="wrap_content"

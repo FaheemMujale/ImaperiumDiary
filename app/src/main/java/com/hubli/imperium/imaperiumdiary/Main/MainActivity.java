@@ -18,12 +18,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
-import com.hubli.imperium.imaperiumdiary.DrawerFragments.TimeTableFragment;
-import com.hubli.imperium.imaperiumdiary.Homework.StudentSubject_list;
+import com.hubli.imperium.imaperiumdiary.Homework.ClassSelector1;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.TimeTable.TimeTableFragment;
 import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
@@ -162,11 +161,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_diery:
-                ClassSelector tabAdaptor2 = new ClassSelector();
-                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                transaction2.replace(R.id.main_con,tabAdaptor2);
-                transaction2.addToBackStack(BACK_STACK_MAIN);
-                transaction2.commit();
+                replaceFragment(new ClassSelector1());
                 break;
 //                if(SPData.isStudent()){
 //                 //   StudentDiary_student blankFragment = new StudentDiary_student();
@@ -183,7 +178,7 @@ public class MainActivity extends AppCompatActivity
 //                transaction1.commit();
 //                Intent intent = new Intent(this,StudentSubject_list.class);
 //                startActivity(intent);
-                break;
+
             //    }
             case R.id.nav_profile:
                 startActivity(new Intent(getApplicationContext(), Profile.class));
