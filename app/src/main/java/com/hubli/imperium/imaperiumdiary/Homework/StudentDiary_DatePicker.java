@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,17 +16,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.support.v4.app.FragmentManager;
 
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
+
+import net.gotev.uploadservice.MultipartUploadRequest;
+import net.gotev.uploadservice.ServerResponse;
+import net.gotev.uploadservice.UploadInfo;
+import net.gotev.uploadservice.UploadNotificationConfig;
+import net.gotev.uploadservice.UploadStatusDelegate;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 public class StudentDiary_DatePicker extends AppCompatActivity implements IVolleyResponse {
     public static final String INTENTFILTER ="intent_filter_h";
@@ -34,9 +44,11 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
     public static final String HOMEWORK_CONTENTS = "homework_contents";
     public static final String LASTDATE_SUBMISSION= "lastDate_submission";
     public static final String SUBJECT = "subject";
+    public String SUBJECTID;
     public static final String HOMEWORKDATE = "homeworkDate";
     public static final String NUMBER_USER = "number_user";
-
+    private String path;
+    private int REQ_PDF = 1;
     private String className;
     private String divisionName;
     private String subjectName;
@@ -50,6 +62,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
     private EditText editTitle, editContent;
     private MyVolley myVolley;
     private TextView date_display;
+    private EditText fileName;
     private ProgressDialog progressDialog;
     ImageView button;
 
@@ -62,13 +75,18 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
         className = intent.getStringExtra("class");
         divisionName = intent.getStringExtra("division");
         subjectName = intent.getStringExtra("subject");
+        SUBJECTID = intent.getStringExtra("subjectid");
         editTitle = (EditText)findViewById(R.id.title_home);
         editContent = (EditText)findViewById(R.id.alertText);
+        fileName = (EditText)findViewById(R.id.filepath);
         date_display = (TextView) findViewById(R.id.date_display);
         submitB = (Button)findViewById(R.id.submit_home);
         submitB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(path!=null)
+                    uploadMultipart(path);
+                else
                 submitHomeWork();
             }
         });
@@ -83,9 +101,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                android.app.FragmentManager manager = getFragmentManager();
-                Dialog_form dialog_form = new Dialog_form();
-                dialog_form.show(manager, "Dialog_form");
+                showFileChooser();
             }
         });
 
@@ -133,15 +149,13 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
             progressDialog.setMessage("Please Wait...");
             progressDialog.setCancelable(false);
             progressDialog.show();
-            myVolley.setUrl(Utils.HOMEWORK_INSERT);
-            myVolley.setParams(SPData.SCHOOL_NUMBER, userDataSp.getUserData(SPData.SCHOOL_NUMBER));
-            myVolley.setParams("class", className);
-            myVolley.setParams("division", divisionName);
-            myVolley.setParams("subject_name", subjectName);
-            myVolley.setParams("lastDate_submission", date_display.getText().toString());
-            myVolley.setParams("homework_title", editTitle.getText().toString());
-            myVolley.setParams("homework_content", editContent.getText().toString());
-            myVolley.setParams(SPData.NUMBER_USER, userDataSp.getUserData(SPData.NUMBER_USER));
+            myVolley.setUrl(URL.INSERT_HOMEWORK);
+            myVolley.setParams("cd_id", "1");
+            myVolley.setParams("subject_id", SUBJECTID);
+            myVolley.setParams("hw_lastdate", date_display.getText().toString());
+            myVolley.setParams("hw_title", editTitle.getText().toString());
+            myVolley.setParams("hw_content", editContent.getText().toString());
+            myVolley.setParams(SPData.USER_NUMBER, "1");
             myVolley.connect();
     }
 }
@@ -186,5 +200,89 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
         intent.putExtra(SUBJECT, subject);
         intent.putExtra(NUMBER_USER, userDataSp.getUserData(SPData.NUMBER_USER));
         sendBroadcast(intent);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQ_PDF && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            path = FilePath.getPath(getApplicationContext(), filePath);
+            String[] s = path.split("/");
+            String filename = s[s.length - 1].replace(".pdf", "");
+            fileName.setText(filename);
+        }
+    }
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("*/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Pdf/Attach image"), REQ_PDF);
+    }
+
+    public void uploadMultipart(String path) {
+        final String name = fileName.getText().toString().trim();
+
+        if (path == null) {
+            Toast.makeText(getApplicationContext(), "Please move your .pdf file to internal storage and retry", Toast.LENGTH_LONG).show();
+        } else {
+            if (name.length()>3) {
+                try {
+                    String uploadId = UUID.randomUUID().toString();
+                    final ProgressDialog progressDialog = new ProgressDialog(this);
+                    progressDialog.setMessage("Please wait...");
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
+                    new MultipartUploadRequest(getApplicationContext(), uploadId, URL.INSERT_HOMEWORK)
+                            .addFileToUpload(path, "hwattachments")
+                            .addParameter("user_number","1")
+                        .addParameter("subject_id", "0")
+                    .addParameter("hw_lastdate", date_display.getText().toString())
+                    .addParameter("hw_title", editTitle.getText().toString())
+                    .addParameter("hw_content", editContent.getText().toString())
+                    .addParameter("cd_id", "1")
+                            .setNotificationConfig(new UploadNotificationConfig())
+                            .setMaxRetries(2)
+                            .setDelegate(new UploadStatusDelegate() {
+                                @Override
+                                public void onProgress(UploadInfo uploadInfo) {
+
+                                }
+
+                                @Override
+                                public void onError(UploadInfo uploadInfo, Exception exception) {
+                                    Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
+
+                                }
+
+                                @Override
+                                public void onCompleted(UploadInfo uploadInfo, ServerResponse serverResponse) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Submited", Toast.LENGTH_SHORT).show();
+                                   Intent intent = new Intent(getApplicationContext(),HomeworkList_teacher.class);
+                                    startActivity(intent);
+                                    finish();
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(UploadInfo uploadInfo) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .startUpload();
+
+                } catch (Exception exc) {
+                    Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_SHORT).show();
+                }
+
+            }else {
+                Toast.makeText(getApplicationContext(),"File name too short",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -162,6 +162,12 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_diery:
+                ClassSelector tabAdaptor2 = new ClassSelector();
+                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                transaction2.replace(R.id.main_con,tabAdaptor2);
+                transaction2.addToBackStack(BACK_STACK_MAIN);
+                transaction2.commit();
+                break;
 //                if(SPData.isStudent()){
 //                 //   StudentDiary_student blankFragment = new StudentDiary_student();
 //                    FragmentTransaction tabAdaptor = getSupportFragmentManager().beginTransaction();
@@ -175,8 +181,8 @@ public class MainActivity extends AppCompatActivity
 //                transaction1.replace(R.id.main_con,tabAdaptor1);
 //                transaction1.addToBackStack(BACK_STACK_MAIN);
 //                transaction1.commit();
-                Intent intent = new Intent(this,StudentSubject_list.class);
-                startActivity(intent);
+//                Intent intent = new Intent(this,StudentSubject_list.class);
+//                startActivity(intent);
                 break;
             //    }
             case R.id.nav_profile:

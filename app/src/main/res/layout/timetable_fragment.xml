@@ -162,7 +162,9 @@
                         android:id="@+id/horizonta1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:divider="@color/colorPrimary"
+                        android:divider="@drawable/divider"
+                        android:dividerPadding="5dp"
+                        android:showDividers="middle"
                         android:orientation="vertical">
 
 
@@ -187,6 +189,9 @@
                         android:id="@+id/horizonta2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:divider="@drawable/divider"
+                        android:dividerPadding="5dp"
+                        android:showDividers="middle"
                         android:orientation="vertical">
 
 
@@ -209,6 +214,9 @@
                         android:id="@+id/horizonta3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:divider="@drawable/divider"
+                        android:dividerPadding="5dp"
+                        android:showDividers="middle"
                         android:orientation="vertical">
 
 
@@ -230,6 +238,9 @@
                         android:id="@+id/horizonta4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:divider="@drawable/divider"
+                        android:dividerPadding="5dp"
+                        android:showDividers="middle"
                         android:orientation="vertical">
 
 
@@ -250,6 +261,9 @@
 
                     <LinearLayout
                         android:id="@+id/horizonta5"
+                        android:divider="@drawable/divider"
+                        android:dividerPadding="5dp"
+                        android:showDividers="middle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -272,6 +286,9 @@
 
                     <LinearLayout
                         android:id="@+id/horizonta6"
+                        android:divider="@drawable/divider"
+                        android:dividerPadding="5dp"
+                        android:showDividers="middle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">

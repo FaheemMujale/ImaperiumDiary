@@ -17,12 +17,14 @@ import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class StudentSubject_list extends AppCompatActivity implements IVolleyResponse {
 
@@ -34,6 +36,8 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
     private ProgressBar progressBar;
     private TextView noSubs;
     private ArrayList<String> subjects = new ArrayList<>();
+    private String cd_id;
+    private ArrayList<String> subjectids = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,26 +51,13 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
         noSubs = (TextView) findViewById(R.id.no_subs);
         userDataSP=new SPData();
         myVolley = new MyVolley(getApplicationContext(), this);
-        //getSubjectData();
-        subjects.add("English");
-        subjects.add("Kannada");
-        list_subject.setAdapter(new MyAdaptor());
-        list_subject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent = new Intent(view.getContext(), HomeworkList_teacher.class);
-                intent.putExtra("class", className);
-                intent.putExtra("division", divisionName);
-                intent.putExtra("subject", subjects.get(position));
-                startActivity(intent);
-            }
-        });
+        getSubjectData();
+
     }
 
     public void getSubjectData(){
         progressBar.setVisibility(View.VISIBLE);
-        myVolley.setUrl(Utils.HOMEWORK_INSERT);
-        myVolley.setParams(SPData.SCHOOL_NUMBER, userDataSP.getUserData(SPData.SCHOOL_NUMBER));
+        myVolley.setUrl(URL.CLASSES_DIVISIONS_SUBJECTS);
         myVolley.setParams("class", className);
         myVolley.setParams("division", divisionName);
         myVolley.connect();
@@ -91,11 +82,12 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
     private void getJsonData(String re) throws JSONException {
         JSONArray json = new JSONArray(re);
         subjects.clear();
-        for (int i = 0; i <= json.length() - 1; i++) {
+        for (int i = 0; i < json.length(); i++) {
             JSONObject jsonobj = json.getJSONObject(i);
-            subjects.add(jsonobj.getString("sub_name"));
-            subjects.add("English");
-            subjects.add("Kannada");
+            subjects.add(jsonobj.getString("subject_name"));
+            subjectids.add(jsonobj.getString("subject_id"));
+            cd_id=(jsonobj.getString("cd_id"));
+
         }
         list_subject.setAdapter(new MyAdaptor());
         list_subject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,6 +97,8 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
                 intent.putExtra("class", className);
                 intent.putExtra("division", divisionName);
                 intent.putExtra("subject", subjects.get(position));
+                intent.putExtra("subjectid", subjectids.get(position));
+                intent.putExtra("cd_id", cd_id);
                 startActivity(intent);
             }
         });

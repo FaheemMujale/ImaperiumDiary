@@ -19,6 +19,7 @@ import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
 import com.ramotion.foldingcell.FoldingCell;
 
 import org.json.JSONArray;
@@ -43,6 +44,8 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
     private String className;
     private String divisionName;
     private String subjectName;
+    private String subjectid;
+    private String cdid;
     private ListView list;
     private ArrayList<Item> items_homework =  new ArrayList<>();
     private MyVolley myVolley;
@@ -63,6 +66,8 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
         className = intent.getStringExtra(SPData.CLASS);
         divisionName = intent.getStringExtra(SPData.DIVISION);
         subjectName = intent.getStringExtra("subject");
+        subjectid = intent.getStringExtra("subjectid");
+        cdid = intent.getStringExtra("cd_id");
         setTitle("HOME WORK");
         list = (ListView)findViewById(R.id.homeworkList);
         button = (FloatingActionButton)findViewById(R.id.addHomeWork);
@@ -72,13 +77,13 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
                 Intent intent = new Intent(v.getContext(), StudentDiary_DatePicker.class);
                 intent.putExtra("class", className);
                 intent.putExtra("division", divisionName);
-                intent.putExtra("subject", subjectName);
+                intent.putExtra("subjectid", subjectid);
                 startActivity(intent);
             }
         });
 
-     //   getHomeWorkList();
-        items_homework.add(new Item("hw1","content","lastdate","sub","date","1","1"));
+        getHomeWorkList();
+//        items_homework.add(new Item("hw1","content","lastdate","sub","date","1","1"));
         adapter = new FoldingCellListAdapter(HomeworkList_teacher.this, items_homework);
         adapter.sortData();
         list.setAdapter(adapter);
@@ -121,11 +126,9 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
     public void getHomeWorkList()
     {
         progressBar.setVisibility(View.VISIBLE);
-        myVolley.setUrl(Utils.HOMEWORK_FETCH);
-        myVolley.setParams(SPData.SCHOOL_NUMBER, userDataSp.getUserData(SPData.SCHOOL_NUMBER));
-        myVolley.setParams(SPData.CLASS, className);
-        myVolley.setParams(SPData.DIVISION, divisionName);
-        myVolley.setParams("subject_name", subjectName);
+        myVolley.setUrl(URL.HOMEWORK_FETCH);
+        myVolley.setParams("cd_id", cdid);
+        myVolley.setParams("subject_id", subjectid);
         myVolley.connect();
 
     }
@@ -153,7 +156,7 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
           items_homework = new ArrayList<>();
         for (int i = 0; i <= json.length() - 1; i++) {
             JSONObject jsonobj = json.getJSONObject(i);
-            items_homework.add(new Item(jsonobj.getString("homework_title"), jsonobj.getString("homework_contents"), jsonobj.getString("lastDate_submission"), jsonobj.getString("subject"), jsonobj.getString("homeworkDate"), jsonobj.getString(SPData.NUMBER_USER), jsonobj.getString("homework_number")));
+            items_homework.add(new Item(jsonobj.getString("hw_title"), jsonobj.getString("hw_content"), jsonobj.getString("hw_lastdate"), jsonobj.getString("subject"), jsonobj.getString("hw_givendate"), jsonobj.getString(SPData.USER_NUMBER), jsonobj.getString("hw_number")));
         }
 
         adapter = new FoldingCellListAdapter(HomeworkList_teacher.this, items_homework);

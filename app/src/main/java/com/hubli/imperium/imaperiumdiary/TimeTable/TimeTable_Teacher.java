@@ -1,14 +1,15 @@
-package com.hubli.imperium.imaperiumdiary.DrawerFragments;
+package com.hubli.imperium.imaperiumdiary.TimeTable;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
@@ -44,6 +46,7 @@ public class TimeTable_Teacher extends AppCompatActivity {
     private EditText teachername;
     private Button submit;
     private SPData spData;
+    int i=0;
     FloatingActionButton fab;
     int ids[] = {R.id.time123,R.id.horizonta1,R.id.horizonta2,R.id.horizonta3,R.id.horizonta4,R.id.horizonta5,R.id.horizonta6};
     private String[] days = {"time","mon","tue","wed","thu","fri","sat"};
@@ -116,14 +119,16 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 teacher = teachername.getText().toString();
                 TextView tv = new TextView(TimeTable_Teacher.this);
                 tv.setText(sub+"-"+teacher);
-                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                int px = convertDpToPixel(80, getApplicationContext());
+                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
                 rlp.setMargins(10,10,10,10);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tv.setLayoutParams(rlp);
+                ColorGenerator generator = ColorGenerator.MATERIAL;
+                int color = generator.getColor(i);
                 tv.setTypeface(null, Typeface.BOLD);
                 tv.setId(View.generateViewId());
+                tv.setBackgroundColor(color);
                 tv.setGravity(Gravity.CENTER);
                 tv.setOnClickListener(onclicklistener);
                 lvlayout.addView(tv);
@@ -150,23 +155,32 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 sub = subject.getText().toString();
                 TextView tv = new TextView(TimeTable_Teacher.this);
                 tv.setText(sub);
-                LinearLayout lv = new LinearLayout(TimeTable_Teacher.this);
-                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                int px = convertDpToPixel(80, getApplicationContext());
+                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
                 rlp.setMargins(10,10,10,10);
                 tv.setLayoutParams(rlp);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tv.setTypeface(null, Typeface.BOLD);
                 tv.setId(View.generateViewId());
+                ColorGenerator generator = ColorGenerator.MATERIAL;
+                int color = generator.getColor(i);
+                tv.setBackgroundColor(color);
                 tv.setGravity(Gravity.CENTER);
                 tv.setOnClickListener(onclicklistener);
                 lvlayout.addView(tv);
                 dialog.dismiss();
+                i++;
             }
         });
         dialog.show();
 
+    }
+
+    public static int convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        int px = (int) (dp * (metrics.densityDpi / 160f));
+        return px;
     }
 
     View.OnClickListener onclicklistener = new View.OnClickListener() {
@@ -252,13 +266,13 @@ public class TimeTable_Teacher extends AppCompatActivity {
         new MyVolley(getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
-                if(result.contentEquals("DONE")){
+
                     Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(INTENT_FILTER);
                     intent.putExtra("data",result);
                     getApplicationContext().sendBroadcast(intent);
                     finish();
-                }
+
             }
 
             @Override
