@@ -238,7 +238,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
                     .addParameter("hw_lastdate", date_display.getText().toString())
                     .addParameter("hw_title", editTitle.getText().toString())
                     .addParameter("hw_content", editContent.getText().toString())
-                    .addParameter("cd_id", "1")
+                    .addParameter("cd_id", new SPData().getUserData(SPData.CLASS_DIVISION_ID))
                             .setNotificationConfig(new UploadNotificationConfig())
                             .setMaxRetries(2)
                             .setDelegate(new UploadStatusDelegate() {
