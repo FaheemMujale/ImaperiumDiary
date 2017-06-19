@@ -101,6 +101,7 @@ public class GiveAttendance extends AppCompatActivity {
         String sClass = intent.getStringExtra("class");
         String sDivision = intent.getStringExtra("division");
         progressBar.setVisibility(View.VISIBLE);
+        items.clear();
         new MyVolley(getApplicationContext(), new IVolleyResponse() {
 
             @Override

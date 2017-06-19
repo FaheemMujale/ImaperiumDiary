@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -72,6 +73,14 @@ public class Login extends AppCompatActivity {
         }
         eUsername = (EditText) findViewById(R.id.username);
         ePassword = (EditText) findViewById(R.id.password);
+        Button login = (Button) findViewById(R.id.login);
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            eUsername.setBackgroundResource(R.drawable.round_corner);
+            ePassword.setBackgroundResource(R.drawable.round_corner);
+            login.setBackgroundResource(R.drawable.round_corner_btn);
+        }
     }
 
     public void loginBtn(View v){
