@@ -11,14 +11,24 @@ public class LeaveInfo {
     private String fromdate;
     private String status;
     private String detail;
+    private String filelink;
 
-public LeaveInfo(String student_name,String todate,String fromdate,String status,String detail){
+public LeaveInfo(String student_name,String todate,String fromdate,String status,String detail,String filelink){
     this.student_name=student_name;
     this.todate=todate;
     this.fromdate=fromdate;
     this.status=status;
     this.detail=detail;
+    this.filelink=filelink;
 }
+
+    public String getFilelink() {
+        return filelink;
+    }
+
+    public void setFilelink(String filelink) {
+        this.filelink = filelink;
+    }
 
     public String getStudent_name() {
         return student_name;

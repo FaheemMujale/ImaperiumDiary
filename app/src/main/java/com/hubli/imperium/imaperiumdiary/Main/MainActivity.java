@@ -1,6 +1,5 @@
 package com.hubli.imperium.imaperiumdiary.Main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -12,8 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.hubli.imperium.imaperiumdiary.DrawerFragments.TimeTableFragment;
-import com.hubli.imperium.imaperiumdiary.Homework.StudentSubject_list;
+import com.hubli.imperium.imaperiumdiary.Homework.ClassSelector;
+import com.hubli.imperium.imaperiumdiary.TimeTable.TimeTableFragment;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.R;
 
@@ -110,22 +109,12 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_diery:
-//                if(SPData.isStudent()){
-//                 //   StudentDiary_student blankFragment = new StudentDiary_student();
-//                    FragmentTransaction tabAdaptor = getSupportFragmentManager().beginTransaction();
-//                    transaction.replace(R.id.main_con,tabAdaptor);
-//                    transaction.addToBackStack(BACK_STACK_MAIN);
-//                    transaction.commit();
-//                }else{
-                    //teacher homework post like attendance
-//                StudentSubject_list tabAdaptor1 = new StudentSubject_list();
-//                    FragmentTransaction transaction1 =  getSupportFragmentManager().beginTransaction();
-//                transaction1.replace(R.id.main_con,tabAdaptor1);
-//                transaction1.addToBackStack(BACK_STACK_MAIN);
-//                transaction1.commit();
-                Intent intent = new Intent(this,StudentSubject_list.class);
-                startActivity(intent);
-            //    }
+                ClassSelector tabAdaptor2 = new ClassSelector();
+                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                transaction2.replace(R.id.main_con,tabAdaptor2);
+                transaction2.addToBackStack(BACK_STACK_MAIN);
+                transaction2.commit();
+                break;
 
         }
 
