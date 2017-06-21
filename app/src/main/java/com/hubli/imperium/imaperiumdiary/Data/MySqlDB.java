@@ -53,11 +53,12 @@ public class MySqlDB extends SQLiteOpenHelper {
     protected String MESSAGING_TABLE = "MESSAGING_TABLE";
     protected String TIME = "time";
     protected String MESSAGE = "message";
+    protected String STATUS = "status";
 
 
     private String CREATE_MESSAGING_TABLE = "create table "+MESSAGING_TABLE+" ("+ID+" INTEGER PRIMARY KEY AUTOINCREMENT, " +
             SPData.USER_NUMBER+" VARCHAR(8), "+SPData.FIRST_NAME+" VARCHAR(200), "+SPData.LAST_NAME+" VARCHAR(200), "+SPData.PROPIC_URL+" VARCHAR(500), "
-            +TIME+" VARCHAR(500), "+MESSAGE+" VARCHAR(1000))";
+            +TIME+" VARCHAR(500), "+MESSAGE+" VARCHAR(1000), "+STATUS+" INTEGER(1) )";
 
     protected SQLiteDatabase db;
 

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 import com.hubli.imperium.imaperiumdiary.Homework.ClassSelector1;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         spData = new SPData();
-        //new MySqlDB(getApplicationContext()).refreshDB();
+        new MySqlDB(getApplicationContext()).refreshDB();
         setSupportActionBar(toolbar);
         new Thread(new Runnable() {
             @Override

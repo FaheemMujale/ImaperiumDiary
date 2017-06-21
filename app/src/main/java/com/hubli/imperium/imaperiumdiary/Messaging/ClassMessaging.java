@@ -5,18 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,20 +37,42 @@ public class ClassMessaging extends AppCompatActivity {
     private EditText messageText;
     private SPData spData;
     private MessagingDB db;
+    private  ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_messaging);
-        ListView listView  = (ListView) findViewById(R.id.chat_list);
+        listView = (ListView) findViewById(R.id.chat_list);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         messageText = (EditText) findViewById(R.id.message_text);
+        if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+            messageText.setBackgroundResource(R.drawable.round_corner);
+        }
         spData = new SPData();
         setTitle("Messaging");
         db = new MessagingDB(getApplicationContext());
         adaptor = new MyAdaptor();
-        getItems();
+        getItems(-1);
         listView.setAdapter(adaptor);
+        listLoadMore();
+    }
+
+    private void listLoadMore() {
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView,int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+               // if(firstVisibleItem <=2 && items.size()>0) {
+                    //getItems(items.get(0).getChatId());Log.e("new ","items");
+                  //  adaptor.notifyDataSetChanged();
+               // }
+            }
+        });
     }
 
     @Override
@@ -67,7 +84,7 @@ public class ClassMessaging extends AppCompatActivity {
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            getItems();
+            getItems(-1);
         }
     };
 
@@ -83,53 +100,79 @@ public class ClassMessaging extends AppCompatActivity {
 
     public void SendMessage(View v){
         final String s = messageText.getText().toString();
-        if(s.length() > 0){
-            new MyVolley(getApplicationContext(), new IVolleyResponse() {
-                @Override
-                public void volleyResponse(String result) {
-                    if(result.contains("message_id")){
-                        Map<String, String > data = new HashMap<>();
-                        data.put(SPData.USER_NUMBER,spData.getUserData(SPData.USER_NUMBER));
-                        data.put(SPData.FIRST_NAME,"");
-                        data.put(SPData.LAST_NAME,"");
-                        data.put(SPData.PROPIC_URL,"");
-                        data.put("time",GenericMethods.getCurrentTimeString());
-                        data.put("message",s);
-                        data.put(SPData.PROPIC_URL,data.get(SPData.PROPIC_URL));
-                        db.insertNewMessage(data);
-                        getItems();
+        if(s.length()>0) {
+            Map<String, String> data = new HashMap<>();
+            data.put(SPData.USER_NUMBER, spData.getUserData(SPData.USER_NUMBER));
+            data.put(SPData.FIRST_NAME, "");
+            data.put(SPData.LAST_NAME, "");
+            data.put(SPData.PROPIC_URL, "");
+            data.put("time", GenericMethods.getCurrentTimeString());
+            data.put("message", s);
+            data.put(SPData.PROPIC_URL, data.get(SPData.PROPIC_URL));
+            db.insertNewMessage(data);
+            getItems(-1);
+            messageText.setText("");
+
+
+            if (s.length() > 0) {
+                new MyVolley(getApplicationContext(), new IVolleyResponse() {
+                    @Override
+                    public void volleyResponse(String result) {
+                        if (result.contains("message_id")) {
+                            int id = Integer.parseInt(result.split("~")[1]);
+                            updateData(id, 1);
+                        } else {
+                            int id = Integer.parseInt(result.split("~")[1]);
+                            updateData(id, 0);
+                        }
                     }
-                    messageText.setText("");
-                }
 
-                @Override
-                public void volleyError() {
-                   // messageText.setText("");
+                    @Override
+                    public void volleyError() {
 
-                }
-            }).setUrl(URL.MESSAGING)
-                    .setParams(SPData.USER_NUMBER,spData.getUserData(SPData.USER_NUMBER))
-                    .setParams("topic",spData.getInstituteID()+spData.getUserData(SPData.CLASS_DIVISION_ID))
-                    .setParams("message",s)
-                    .connect();
+                    }
+                }).setUrl(URL.MESSAGING).setRETRY_NUM(3)
+                        .setParams(SPData.USER_NUMBER, spData.getUserData(SPData.USER_NUMBER))
+                        .setParams("topic", spData.getInstituteID() + spData.getUserData(SPData.CLASS_DIVISION_ID))
+                        .setParams("message", s)
+                        .setParams("id", (items.size() - 1) + "")
+                        .connect();
+            }
         }
     }
-    public void getItems() {
-        items.clear();
-        Cursor messages = db.getMessages(-1);
+
+    private void updateData(int id,int status) {
+        ChatData item = items.get(id);
+        db.updateStatus(item.getChatId(),status);
+        item.setStatus(status);
+        adaptor.notifyDataSetChanged();
+    }
+
+    public void getItems(int id) {
+        Cursor messages = db.getMessages(id);
         if(messages.getCount() > 0){
-            while (messages.moveToNext()){
-                items.add(new ChatData(messages.getInt(0),messages.getString(1),messages.getString(2),
-                        messages.getString(3),messages.getString(4),messages.getString(5),messages.getString(6)));
+            messages.moveToLast();
+            if(id == -1) {
+                items.clear();
+                do{
+                    items.add(new ChatData(messages.getInt(0), messages.getString(1), messages.getString(2),
+                            messages.getString(3), messages.getString(4), messages.getString(5), messages.getString(6),messages.getInt(7)));
+                }while (messages.moveToPrevious());
+                adaptor.notifyDataSetChanged();
+            }else{
+                do{
+                    items.add(new ChatData(messages.getInt(0), messages.getString(1), messages.getString(2),
+                            messages.getString(3), messages.getString(4), messages.getString(5), messages.getString(6),messages.getInt(7)));
+                }while (messages.moveToPrevious());
+                adaptor.notifyDataSetChanged();
             }
-            adaptor.notifyDataSetChanged();
         }
     }
 
 
     private class MyAdaptor extends ArrayAdapter<ChatData>{
         public MyAdaptor() {
-            super(getApplicationContext(), R.layout.chat_item_send,items);
+            super(getApplicationContext(), R.layout.chat_item,items);
         }
 
         @NonNull
@@ -137,7 +180,7 @@ public class ClassMessaging extends AppCompatActivity {
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             View v = convertView;
             if(v==null){
-                v = getLayoutInflater().inflate(R.layout.chat_item_send,parent,false);
+                v = getLayoutInflater().inflate(R.layout.chat_item,parent,false);
             }
             ChatData currentItem = items.get(position);
             View sv = v.findViewById(R.id.card_send);
@@ -147,7 +190,13 @@ public class ClassMessaging extends AppCompatActivity {
                 sv.setVisibility(View.VISIBLE);
                 TextView sMessage = (TextView) v.findViewById(R.id.sMessage);
                 TextView sTime = (TextView) v.findViewById(R.id.sTime);
+                ImageView status = (ImageView) v.findViewById(R.id.status);
 
+                if (currentItem.getStatus() != 1) {
+                    status.setImageResource(R.drawable.ic_done);
+                }else{
+                    status.setImageResource(R.drawable.ic_done_all);
+                }
                 sMessage.setText(currentItem.getMessage());
                 sTime.setText(GenericMethods.getTimeString(currentItem.getTime()));
             }else{

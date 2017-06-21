@@ -15,8 +15,9 @@ public class ChatData {
     private String time;
     private String propicUrl;
     private String message;
+    private int status;
 
-    public ChatData(int chatId, String from, String firstName, String lastName, String propicUrl, String time, String message) {
+    public ChatData(int chatId, String from, String firstName, String lastName, String propicUrl, String time, String message, int status) {
         this.chatId = chatId;
         this.from = from.contentEquals(new SPData().getUserData(SPData.USER_NUMBER)) ? 0:1;
         this.firstName = firstName;
@@ -24,6 +25,15 @@ public class ChatData {
         this.time = time;
         this.propicUrl = propicUrl;
         this.message = message;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getFrom() {

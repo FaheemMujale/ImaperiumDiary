@@ -27,14 +27,20 @@ public class MessagingDB extends MySqlDB {
         contentValues.put(TIME,data.get(TIME));
         contentValues.put(MESSAGE,data.get(MESSAGE));
         contentValues.put(SPData.PROPIC_URL,data.get(SPData.PROPIC_URL));
+        contentValues.put(STATUS,-1);
         db.insert(MESSAGING_TABLE,null,contentValues);
     }
 
+    public  void updateStatus(int id,int status){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(STATUS,status);
+        db.update(MESSAGING_TABLE,contentValues,ID +" = "+id,null);
+    }
     public Cursor getMessages(int id){
         if(id == -1){
-            return db.rawQuery("SELECT * FROM "+MESSAGING_TABLE+"",null);
+            return db.rawQuery("SELECT * FROM "+MESSAGING_TABLE+" ORDER BY ID DESC LIMIT 100",null);
         }else{
-            return db.rawQuery("SELECT * FROM "+MESSAGING_TABLE+" WHERE ID < "+id+" AND ORDER BY ID DESC LIMIT 15",null);
+            return db.rawQuery("SELECT * FROM "+MESSAGING_TABLE+" WHERE ID < "+id+" ORDER BY ID DESC LIMIT 10",null);
         }
     }
 
