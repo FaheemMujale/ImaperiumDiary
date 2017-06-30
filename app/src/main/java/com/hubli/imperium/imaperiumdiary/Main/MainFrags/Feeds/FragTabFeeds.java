@@ -2,15 +2,21 @@ package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
@@ -45,6 +51,7 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
     boolean backPressed = false;
     boolean noMorePost = false;
     private ProgressBar progressBar;
+    private TextView noFeeds;
     private String POST_MIN = "0";
 
     @Override
@@ -54,6 +61,7 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
         view = inflater.inflate(R.layout.fragment_frag_tab_feeds, container, false);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        noFeeds = (TextView) view.findViewById(R.id.no_feeds);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rvList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -76,7 +84,7 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
     @Override
     public void onResume() {
         super.onResume();
-//        getActivity().registerReceiver(MyFeedsAdaptor.receiver,new IntentFilter(FeedComments.COMMENT_CHANGE_BRODCAST));
+        getActivity().registerReceiver(receiver,new IntentFilter("NEW_FEED"));
         itemlist.clear();
         noMorePost = false;
         if(ServerConnect.checkInternetConenction(getActivity())&& !backPressed){
@@ -89,14 +97,71 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
         }
     }
 
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String data = intent.getStringExtra("data");
+            itemlist.clear();
+
+            try {
+                JSONArray jsonArray = new JSONArray(data);
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                itemlist.add(new FeedsData(spData.getUserData(SPData.USER_NUMBER)
+                        ,spData.getUserData(SPData.PROPIC_URL)
+                        ,spData.getUserData(SPData.FIRST_NAME)
+                        ,spData.getUserData(SPData.LAST_NAME)
+                        , jsonObject.getString("feed_id")
+                        ,jsonObject.getString("feed_text")
+                        ,jsonObject.getString("image_src_link")
+                        ,jsonObject.getString("date")
+                        ,false
+                        ,new ArrayList<String>()
+                        ,"0"));
+                
+                postAdaptor.addItemAtTop(itemlist);
+                prefixItemData( jsonObject.getString("feed_id"),
+                        jsonObject.getString("feed_text"),
+                        jsonObject.getString("image_src_link"),
+                        jsonObject.getString("date"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            
+        }
+    };
+
+    private void prefixItemData(String postid, String text, String link, String dateString) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put(SPData.USER_NUMBER,spData.getUserData(SPData.USER_NUMBER));
+            jsonObject.put(SPData.FIRST_NAME,spData.getUserData(SPData.FIRST_NAME));
+            jsonObject.put(SPData.LAST_NAME,spData.getUserData(SPData.LAST_NAME));
+            jsonObject.put("feed_id",postid);
+            jsonObject.put("feed_text",text);
+            jsonObject.put("image_src_link",link);
+            jsonObject.put("date",dateString);
+            jsonObject.put("like",JSONObject.NULL);
+            jsonObject.put("total_comments",0);
+
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.put(jsonObject);
+
+            spData.prefixToFeedsData(jsonArray.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public void onPause() {
         super.onPause();
-//        try{
-//            getActivity().unregisterReceiver(MyFeedsAdaptor.receiver);
-//        }catch (Exception e){
-//
-//        }
+        try{
+            getActivity().unregisterReceiver(receiver);
+        }catch (Exception e){
+
+        }
         backPressed = true;
     }
 
@@ -125,19 +190,28 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
     }
 
     private void postDataDownload(String post_min) {
+        noFeeds.setVisibility(View.GONE);
         new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String volleyResponse) {
                 try {
                     storeData(volleyResponse);
                 } catch (JSONException e) {
+                    noFeeds.setVisibility(View.VISIBLE);
                     e.printStackTrace();
                 }
                 progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void volleyError() {
+                progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+                postAdaptor.setProgressMore(false);
+                if(postAdaptor.getItemCount()==0) {
+                    noFeeds.setVisibility(View.VISIBLE);
+                }
 
             }
         }).setUrl(URL.FEEDS_DOWNLOAD)
@@ -146,6 +220,7 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
     }
 
     private void storeData(String s) throws JSONException {
+        Log.e("dara",s);
         if(s.contains(SPData.USER_NUMBER)) {
             itemlist.clear();
             if (POST_MIN == "0") {
@@ -160,9 +235,6 @@ public class FragTabFeeds extends Fragment implements MyFeedsAdaptor.OnLoadMore,
             }
 
         }else{
-            if(itemlist.size() > 5) {
-                Toast.makeText(getActivity().getApplicationContext(), "No more posts...", Toast.LENGTH_SHORT).show();
-            }
             noMorePost = true;
             postAdaptor.setProgressMore(false);
             postAdaptor.setMoreLoading(false);

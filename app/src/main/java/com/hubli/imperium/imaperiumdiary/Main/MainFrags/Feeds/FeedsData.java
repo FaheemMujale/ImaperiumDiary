@@ -1,4 +1,6 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Feeds;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
+
 import java.util.ArrayList;
 
 
@@ -49,7 +51,7 @@ public class FeedsData {
     }
 
     public String getSrc_link() {
-        return src_link;
+        return URL.FEED_IMAGE_BASE+src_link;
     }
 
     public String getTimeString() {

@@ -49,8 +49,7 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
 
     Calendar startCal,endCal;
     private String sStartDate;
-    private String sEndDate;
-
+    private static boolean connection = true;
     public static final String EVENT_BROADCAST = "EVENT_BROADCAST";
 
     @Override
@@ -130,29 +129,33 @@ public class EventDetailsDialog extends DialogFragment implements View.OnClickLi
             progressDialog.setCancelable(false);
             progressDialog.show();
 
-            new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
-                @Override
-                public void volleyResponse(String result) {
-                    Intent intent = new Intent(EVENT_BROADCAST);
-                    intent.putExtra("data",result);
-                    getActivity().sendBroadcast(intent);
-                    progressDialog.dismiss();
-                    getDialog().dismiss();
+            if(connection) {
+                connection = false;
+                new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
+                    @Override
+                    public void volleyResponse(String result) {
+                        Intent intent = new Intent(EVENT_BROADCAST);
+                        intent.putExtra("data", result);
+                        getActivity().sendBroadcast(intent);
+                        progressDialog.dismiss();
+                        getDialog().dismiss();
+                        connection = true;
+                    }
 
-                }
-
-                @Override
-                public void volleyError() {
-                    progressDialog.dismiss();
-                }
-            }).setUrl(URL.EVENTS_INSERT)
-                    .setParams(SPData.USER_NUMBER,spData.getUserData(SPData.USER_NUMBER))
-                    .setParams("title",eventTitle.getText().toString())
-                    .setParams("place",eventPlace.getText().toString())
-                    .setParams("time",time.getText().toString().split("time:")[1])
-                    .setParams("startDate",startDate.getText().toString().split("Date: ")[1].trim())
-                    .setParams("endDate",endDate.getText().toString().split("Date: ")[1].trim())
-                    .connect();
+                    @Override
+                    public void volleyError() {
+                        progressDialog.dismiss();
+                        connection = true;
+                    }
+                }).setUrl(URL.EVENTS_INSERT)
+                        .setParams(SPData.USER_NUMBER, spData.getUserData(SPData.USER_NUMBER))
+                        .setParams("title", eventTitle.getText().toString())
+                        .setParams("place", eventPlace.getText().toString())
+                        .setParams("time", time.getText().toString().split("time:")[1])
+                        .setParams("startDate", startDate.getText().toString().split("Date: ")[1].trim())
+                        .setParams("endDate", endDate.getText().toString().split("Date: ")[1].trim())
+                        .connect();
+            }
         }else{
             Toast.makeText(getActivity().getApplicationContext(),"Please fill the event details",Toast.LENGTH_SHORT).show();
         }

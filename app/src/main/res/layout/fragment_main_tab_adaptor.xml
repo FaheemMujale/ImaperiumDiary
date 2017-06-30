@@ -33,7 +33,6 @@
         android:layout_gravity="bottom|right"
         app:elevation="10dp"
         android:layout_margin="15dp"
-        android:visibility="gone"
         android:src="@drawable/ic_add"
         />
 

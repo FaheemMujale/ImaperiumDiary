@@ -9,6 +9,7 @@ import com.hubli.imperium.imaperiumdiary.Data.SPData;
 
 public class URL {
 
+
     private static SPData spData = new SPData();
 
     public static final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
@@ -18,6 +19,9 @@ public class URL {
     public static final String FETCH_QUESTIONS = SERVER_URL+"Questions/fetch_questions.php";
     public static final String QA_MARKS = SERVER_URL+"Questions/qa_marks.php";
     public static final String FEEDS_DOWNLOAD = SERVER_URL+"Feeds/fetch_feeds.php";
+    public static final String NEW_FEED =SERVER_URL+"Feeds/new_feed.php";
+    public static final String FEED_IMAGE_BASE =URL.SERVER_URL+"Feeds/";
+
     public static final String LIKE_COMMENT = SERVER_URL+"Feeds/like_comment.php";
     public static final String DELETE_FROM_FEEDS = SERVER_URL+"Feeds/delete.php";
     public static final String FETCH_COMMENTS = SERVER_URL+"Feeds/fetch_comments.php";
@@ -40,6 +44,9 @@ public class URL {
     public static final String QA_MARKS_DATA = SERVER_URL+"Questions/qa_marks_data_fetch.php";
     public static final String FETCH_RANKS = SERVER_URL+"Ranks/fetch_ranks.php";
     public static final String MESSAGING = SERVER_URL+"messaging/class_messaging.php";
+    public static final String NOTIFICATION = SERVER_URL+"Notification/notification_fetch.php";
+
+    public static final String CHANGE_PASSWORD = SERVER_URL+"Settings/change_password.php";
 
 
     public static final String HOMEWORK_FETCH = SERVER_URL+"/Homework/list_hw.php";

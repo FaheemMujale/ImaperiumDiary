@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.R;
 
 /**
@@ -37,6 +38,6 @@ public class Badges extends RelativeLayout {
 
 
     public int getNumberFromSP(int icon) {
-        return 0;
+        return new SPData().getNotificationCount();
     }
 }

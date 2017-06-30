@@ -1,5 +1,12 @@
 package com.hubli.imperium.imaperiumdiary.Utility;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
+import android.os.Environment;
+
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -68,6 +75,44 @@ public class GenericMethods {
         } catch (ParseException e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    public static Bitmap getCameraImage(){
+        File f = new File(Environment.getExternalStorageDirectory()
+                .toString());
+        for (File temp : f.listFiles()) {
+            if (temp.getName().equals(TEMP_PATH)) {
+                f = temp;
+                break;
+            }
+        }
+        return  orientation(f.getAbsolutePath());
+    }
+
+    public static Bitmap orientation(String path){
+        Bitmap img;
+        try {
+            BitmapFactory.Options btmapOptions = new BitmapFactory.Options();
+            img = BitmapFactory.decodeFile(path,
+                    btmapOptions);
+            ExifInterface exifInterface = new ExifInterface(path);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION,1);
+            Matrix matrix = new Matrix();
+            if (orientation == 6) {
+                matrix.postRotate(90);
+            }
+            else if (orientation == 3) {
+                matrix.postRotate(180);
+            }
+            else if (orientation == 8) {
+                matrix.postRotate(270);
+            }
+            img = Bitmap.createBitmap(img,0,0,img.getWidth(),img.getHeight(),matrix,true);
+            return img;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

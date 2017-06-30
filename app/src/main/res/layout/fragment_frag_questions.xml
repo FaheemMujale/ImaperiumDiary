@@ -4,6 +4,22 @@
     android:layout_height="match_parent"
     tools:context="com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions.FragQuestions">
 
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Questions Available"
+        android:layout_centerInParent="true"
+        android:textSize="16sp"
+        android:textColor="@color/cardview_dark_background"
+        android:visibility="gone"
+        android:id="@+id/no_questions"/>
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

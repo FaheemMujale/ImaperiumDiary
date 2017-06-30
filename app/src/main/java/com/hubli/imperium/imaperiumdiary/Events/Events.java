@@ -119,33 +119,6 @@ public class Events extends Fragment {
                 .connect();
     }
 
-    private List<CalendarEvent> parseJson(String result) {
-        List<CalendarEvent> eventList = new ArrayList<>();
-        try {
-            JSONArray jsonArray = new JSONArray(result);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject json = jsonArray.getJSONObject(i);
-
-                ColorGenerator generator = ColorGenerator.MATERIAL;
-                int color = generator.getColor(json.get("event_id"));
-
-                String startData[] = json.getString("start_date").split("/");
-                String endData[] = json.getString("end_date").split("/");
-                Calendar start = Calendar.getInstance();
-                start.set(Integer.parseInt(startData[2]), Integer.parseInt(startData[1]) - 1, Integer.parseInt(startData[0]));
-                Calendar end = Calendar.getInstance();
-                end.set(Integer.parseInt(endData[2]), Integer.parseInt(endData[1]) - 1, Integer.parseInt(endData[0]));
-
-                String placeTime = json.getString("event_place") + " at " + json.getString("start_time");
-
-                eventList.add(new BaseCalendarEvent(json.getString("title"), "", placeTime, color, start, end, false));
-            }
-            return eventList;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     private void initEventView(List<CalendarEvent> calendarEvents){
         calendarView.init(calendarEvents, minDate, maxDate, Locale.getDefault(), new CalendarPickerController() {
@@ -171,5 +144,27 @@ public class Events extends Fragment {
 
             }
         });
+    }
+    private List<CalendarEvent> parseJson(String result) {
+        List<CalendarEvent> eventList = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject json = jsonArray.getJSONObject(i);
+                ColorGenerator generator = ColorGenerator.MATERIAL;
+                int color = generator.getColor(json.get("event_id"));
+                String startData[] = json.getString("start_date").split("/");
+                String endData[] = json.getString("end_date").split("/");
+                Calendar start = Calendar.getInstance();
+                start.set(Integer.parseInt(startData[2]), Integer.parseInt(startData[1]) - 1, Integer.parseInt(startData[0]));
+                Calendar end = Calendar.getInstance();
+                end.set(Integer.parseInt(endData[2]), Integer.parseInt(endData[1]) - 1, Integer.parseInt(endData[0]));
+                String placeTime = json.getString("event_place") + " at " + json.getString("start_time");
+                eventList.add(new BaseCalendarEvent(json.getString("title"), "", placeTime, color, start, end, false));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return eventList;
     }
 }

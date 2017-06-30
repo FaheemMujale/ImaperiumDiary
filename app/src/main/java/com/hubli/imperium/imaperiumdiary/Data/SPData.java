@@ -22,8 +22,6 @@ public class SPData {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
 
-
-
     public static final String USER_NUMBER = "user_number";
     public static final String INSTITUTE_NUMBER = "institute_number";
     public static final String INSTITUTE_TYPE = "institute_type";
@@ -42,7 +40,6 @@ public class SPData {
     public static final String CLASS_DIVISION_ID = "cd_id";
 
     public static final String CLASS = "class";
-
     public static final String DIVISION = "division";
     public static final String TEACHER_DESIGNATION = "designation";
     public static final String TEACHER_QUALIFICATION = "qualifications";
@@ -51,10 +48,9 @@ public class SPData {
     public static final String ROLL_NUMBER = "roll_number";
     public static final String PARENT_ID = "parent_id";
 
-
     // from rafiq
     public static final String SCHOOL_NUMBER ="num" ;
-    public static final String NUMBER_USER = "usernum";
+    public static final String NUMBER_USER = "usernum"; // need to be removed use user_number Insted
     public static final String SUBJECT = "sub";
     public static final String HOMEWORK_CONTENTS = "detail";
     public static final String HOMEWORK_TITLE = "title";
@@ -63,8 +59,6 @@ public class SPData {
     public static final String HOMEWORK_NUMBER = "hwnu";
 
     public static final String FIREBASE_TOKEN = "FIREBASE_TOKEN";
-
-
 
 
     public static final int STUDENT = 0;
@@ -160,25 +154,22 @@ public class SPData {
     }
 
 
-    public void setFirebaseToken(String token){
-        editor.putString(FIREBASE_TOKEN,token);
-        editor.commit();
-    }
+//    public void setFirebaseToken(String token){
+//        editor.putString(FIREBASE_TOKEN,token);
+//        editor.commit();
+//    }
 
-    public String getFirebaseToken(){
-        return sharedPreferences.getString(FIREBASE_TOKEN,"");
-    }
-
-    public void setQuestionTables(Set<String> set){
-        editor.putStringSet("QUESTION_TABLES",set);
-        editor.commit();
-    }
-    public Set<String> getQuestionTables(){
-        Set<String> set = new HashSet<>();
-        set.add("q-General_knowledge");
-        set.add("q-Science_And_Technology");
-        return sharedPreferences.getStringSet("QUESTION_TABLES",set);
-    }
+//
+//    public void setQuestionTables(Set<String> set){
+//        editor.putStringSet("QUESTION_TABLES",set);
+//        editor.commit();
+//    }
+//    public Set<String> getQuestionTables(){
+//        Set<String> set = new HashSet<>();
+//        set.add("q-General_knowledge");
+//        set.add("q-Science_And_Technology");
+//        return sharedPreferences.getStringSet("QUESTION_TABLES",set);
+//    }
 
     public void setQuestionDate(int day){
         editor.putInt("DAY",day);
@@ -186,7 +177,7 @@ public class SPData {
     }
     public boolean isQuestionToday(int currentDay){
         int storedDay = sharedPreferences.getInt("DAY",0);
-        return storedDay != currentDay;
+        return storedDay == currentDay;
     }
 
     public void tempStoreMarks(String type, String marks) {
@@ -276,4 +267,25 @@ public class SPData {
     public String getRanksData() {
         return sharedPreferences.getString("RANKS_DATA", null);
     }
+
+    public void updateNotificationCount(){
+        editor.putInt("NOTIFICATION_COUNT",sharedPreferences.getInt("NOTIFICATION_COUNT",0)+1);
+        editor.commit();
+    }
+    public void resetNotificationCount(){
+        editor.putInt("NOTIFICATION_COUNT",0);
+        editor.commit();
+    }
+
+    public int getNotificationCount(){
+        return  sharedPreferences.getInt("NOTIFICATION_COUNT",0);
+    }
+    public void storeNotificationData(String s){
+        editor.putString("NOTIFICATION_DATA",s);
+        editor.commit();
+    }
+    public String getNotificationData(){
+        return sharedPreferences.getString("NOTIFICATION_DATA",null);
+    }
+
 }

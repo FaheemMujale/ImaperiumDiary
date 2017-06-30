@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
@@ -31,18 +33,25 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FragQuestions extends Fragment {
-    public FragQuestions() {}
-
+    private TextView noQuestions;
     private RecyclerView recyclerView;
     private View view;
     private MyQaAdaptor myQaAdaptor;
     private MySqlDB myDb;
     private SPData spData;
+    private ProgressBar progressBar;
+
+    public FragQuestions() {}
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_frag_questions, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.rcView);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        noQuestions = (TextView) view.findViewById(R.id.no_questions);
+
         myDb = new MySqlDB(getActivity().getApplicationContext());
         spData = new SPData();
         myQaAdaptor = new MyQaAdaptor(recyclerView,getActivity());
@@ -50,7 +59,7 @@ public class FragQuestions extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myQaAdaptor);
-        if((myDb.getQuestions("*",-1).getCount()==0) || spData.isQuestionToday(GenericMethods.getDateSum())) {
+        if((myDb.getQuestions("*",-1).getCount()==0) || !spData.isQuestionToday(GenericMethods.getDateSum())) {
             getQuestionData();
         }else {
             populateList();
@@ -60,7 +69,7 @@ public class FragQuestions extends Fragment {
 
 
     private void getQuestionData(){
-
+        progressBar.setVisibility(View.VISIBLE);
         new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {
             @Override
             public void volleyResponse(String result) {
@@ -74,7 +83,8 @@ public class FragQuestions extends Fragment {
 
             @Override
             public void volleyError() {
-
+                progressBar.setVisibility(View.GONE);
+                noQuestions.setVisibility(View.VISIBLE);
             }
         })
         .setUrl(URL.FETCH_QUESTIONS)
@@ -96,12 +106,17 @@ public class FragQuestions extends Fragment {
             }
             populateList();
         } catch (JSONException e) {
-            s = s.substring(0,s.length()-2)+"]";
-            parseJson(s);
-            e.printStackTrace();
+            if(s.contains("question_text")) {
+                s = s.substring(0, s.length() - 2) + "]";
+                parseJson(s);
+            }else {
+                noQuestions.setVisibility(View.VISIBLE);
+                e.printStackTrace();
+            }
         }
     }
     private void populateList(){
+        progressBar.setVisibility(View.GONE);
         List<QAData> items = new ArrayList<>();
         Cursor data = myDb.getQuestions("*",-1);
         if(data.getCount()>0){

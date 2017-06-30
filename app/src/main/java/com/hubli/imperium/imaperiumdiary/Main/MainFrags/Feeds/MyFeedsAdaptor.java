@@ -132,15 +132,13 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
             final StudentViewHolder h = (StudentViewHolder) holder;
             boolean feedImageAvailable = false;
 
-            if(itemData.getPropicLink() != null && itemData.getPropicLink().contains("jpeg")){
-                Picasso.with(context).load(GenericMethods.getThumbNailURL(URL.PROPIC_BASE_URL+itemData.getPropicLink()))
-                        .networkPolicy(ServerConnect.checkInternetConenction(activity) ?
-                                NetworkPolicy.NO_CACHE : NetworkPolicy.OFFLINE)
-                        .placeholder(R.drawable.defaultpropic)
-                        .into(h.propic);
-            }else{
-                h.propic.setImageDrawable(activity.getResources().getDrawable(R.drawable.defaultpropic));
-            }
+            Picasso.with(context).load(GenericMethods.getThumbNailURL(URL.PROPIC_BASE_URL+itemData.getPropicLink()))
+                    .networkPolicy(ServerConnect.checkInternetConenction(activity) ?
+                            NetworkPolicy.NO_CACHE : NetworkPolicy.OFFLINE)
+                    .placeholder(R.drawable.defaultpropic)
+                    .error(R.drawable.defaultpropic)
+                    .into(h.propic);
+
             h.name.setText(itemData.getFirst_name() + " " + itemData.getLast_name());
             h.time.setText(GenericMethods.getTimeString(itemData.getTimeString()));
             h.text.setText(itemData.getText_message());
@@ -159,7 +157,7 @@ public class MyFeedsAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 }
             });
-            if (itemData.getSrc_link().length()>10) {
+            if (itemData.getSrc_link().length()> URL.FEED_IMAGE_BASE.length()) {
                 h.postImage.setVisibility(View.VISIBLE);
                 Picasso.with(context)
                         .load(itemData.getSrc_link())

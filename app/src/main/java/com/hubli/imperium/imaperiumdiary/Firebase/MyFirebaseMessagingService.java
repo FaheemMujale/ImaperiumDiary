@@ -12,6 +12,8 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
+import com.hubli.imperium.imaperiumdiary.Main.MainActivity;
+import com.hubli.imperium.imaperiumdiary.Main.MainTabAdaptor;
 import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
 import com.hubli.imperium.imaperiumdiary.Messaging.MessagingDB;
 import com.hubli.imperium.imaperiumdiary.R;
@@ -29,9 +31,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Map<String, String> data = remoteMessage.getData();
+        Map<String, String> data = remoteMessage.getData();Log.e("got",remoteMessage.getData().toString());
         if(data.get("notification_type").contentEquals("chat")){
             processChat(data);
+        }else{
+             new SPData().updateNotificationCount();
+             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+             sendNotification(data.get("notification_type"),data.get("notification_text"),intent,2);
+            getApplicationContext().sendBroadcast(new Intent(MainTabAdaptor.NOTIFICATION_BC_FILTER));
         }
     }
 

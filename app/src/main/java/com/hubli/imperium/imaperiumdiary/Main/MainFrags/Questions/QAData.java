@@ -1,6 +1,7 @@
 package com.hubli.imperium.imaperiumdiary.Main.MainFrags.Questions;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 
@@ -84,6 +85,7 @@ public class QAData {
     public boolean isWatched() {
         Cursor c = mySqlDB.getQuestions(MySqlDB.WATCHED,id);
         c.moveToNext();
+        Log.e("c",c.getInt(0)+"");
         return c.getInt(0) == 9;
     }
 

@@ -37,15 +37,18 @@ import java.util.List;
 public class FragTabRanks extends Fragment {
 
 
-    public FragTabRanks() {
-        // Required empty public constructor
-    }
-
+    private TextView noRanks;
     private View rootView;
     private SPData spData;
     private MyAdaptor adaptor;
     private List<RanksData> items = new ArrayList<>();
     private ProgressBar progressBar;
+
+    public FragTabRanks() {
+        // Required empty public constructor
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class FragTabRanks extends Fragment {
         spData = new SPData();
         ListView list = (ListView) rootView.findViewById(R.id.rankList);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        noRanks = (TextView) rootView.findViewById(R.id.no_ranks);
         adaptor = new MyAdaptor();
         list.setAdapter(adaptor);
         String ranksData = spData.getRanksData();
@@ -84,6 +88,7 @@ public class FragTabRanks extends Fragment {
             adaptor.notifyDataSetChanged();
 
         } catch (JSONException e) {
+            noRanks.setVisibility(View.VISIBLE);
             e.printStackTrace();
         }
     }
@@ -100,7 +105,7 @@ public class FragTabRanks extends Fragment {
 
             @Override
             public void volleyError() {
-                    //no data
+                noRanks.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.GONE);
             }
         }).setUrl(URL.FETCH_RANKS).connect();

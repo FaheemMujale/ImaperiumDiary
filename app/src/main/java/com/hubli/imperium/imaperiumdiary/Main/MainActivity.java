@@ -23,6 +23,7 @@ import com.hubli.imperium.imaperiumdiary.Homework.ClassSelector1;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Settings.ChangePassword;
 import com.hubli.imperium.imaperiumdiary.TimeTable.TimeTableFragment;
 import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
@@ -37,10 +38,11 @@ import com.hubli.imperium.imaperiumdiary.Events.Events;
 import com.hubli.imperium.imaperiumdiary.Login.Login;
 import com.hubli.imperium.imaperiumdiary.Profile.Profile;
 import com.hubli.imperium.imaperiumdiary.ProgressReport.SubjectList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private static final String BACK_STACK_MAIN = "main_tag";
+    public static final String BACK_STACK_MAIN = "main_tag";
     private Toolbar toolbar;
     private SPData spData;
     private ImageView propic;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar  = (Toolbar) findViewById(R.id.toolbar);
         spData = new SPData();
-        new MySqlDB(getApplicationContext()).refreshDB();
+       // new MySqlDB(getApplicationContext()).refreshDB();
         setSupportActionBar(toolbar);
         new Thread(new Runnable() {
             @Override
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity
         }).start();
 
         //firebase notification topic subscribe
+        FirebaseMessaging.getInstance().subscribeToTopic(spData.getUserData(SPData.INSTITUTE_NUMBER));
         FirebaseMessaging.getInstance().subscribeToTopic(spData.getUserData(SPData.INSTITUTE_NUMBER)+
                 spData.getUserData(SPData.CLASS_DIVISION_ID));
 
@@ -105,6 +108,7 @@ public class MainActivity extends AppCompatActivity
         transaction.addToBackStack(BACK_STACK_MAIN);
         transaction.commit();
     }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -136,14 +140,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -162,7 +159,11 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_diery:
-                replaceFragment(new ClassSelector1());
+                if(spData.getIdentification() == SPData.TEACHER) {
+                    replaceFragment(new ClassSelector1());
+                }else{
+                    replaceFragment(new ClassSelector1());
+                }
                 break;
 //                if(SPData.isStudent()){
 //                 //   StudentDiary_student blankFragment = new StudentDiary_student();
@@ -171,16 +172,15 @@ public class MainActivity extends AppCompatActivity
 //                    transaction.addToBackStack(BACK_STACK_MAIN);
 //                    transaction.commit();
 //                }else{
-                    //teacher homework post like attendance
+                  //teacher homework post like attendance
 //                StudentSubject_list tabAdaptor1 = new StudentSubject_list();
-//                    FragmentTransaction transaction1 =  getSupportFragmentManager().beginTransaction();
+//                FragmentTransaction transaction1 =  getSupportFragmentManager().beginTransaction();
 //                transaction1.replace(R.id.main_con,tabAdaptor1);
 //                transaction1.addToBackStack(BACK_STACK_MAIN);
 //                transaction1.commit();
 //                Intent intent = new Intent(this,StudentSubject_list.class);
 //                startActivity(intent);
-
-            //    }
+//          }
             case R.id.nav_profile:
                 startActivity(new Intent(getApplicationContext(), Profile.class));
                 break;
@@ -205,6 +205,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_messaging:
                 startActivity(new Intent(getApplicationContext(), ClassMessaging.class));
+                break;
+            case R.id.nav_change_password:
+                startActivity(new Intent(getApplicationContext(), ChangePassword.class));
                 break;
             case R.id.nav_log_out:
                 spData.clearData();

@@ -59,9 +59,14 @@ public class MyVolley {
             public void onResponse(String response) {
                 clear();
                 Log.e("res",response);
-                if(response != null && !response.contains("ERROR") && !response.contains("ERROR[]")){
-                    iVolleyResponse.volleyResponse(response);
-                }else{
+                response = response.trim();
+                try {
+                    if (response == null || response.isEmpty() || response.contains("ERROR") || response.contains("ERROR[]")) {
+                        iVolleyResponse.volleyError();
+                    } else {
+                        iVolleyResponse.volleyResponse(response);
+                    }
+                }catch (Exception e){
                     iVolleyResponse.volleyError();
                 }
             }
@@ -87,7 +92,7 @@ public class MyVolley {
                 return params;
             }
         };
-        RetryPolicy retryPolicy = new DefaultRetryPolicy(2000,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(2000,RETRY_NUM,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(retryPolicy);
         requestQueue.add(request);
     }

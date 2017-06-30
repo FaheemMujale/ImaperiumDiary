@@ -133,7 +133,7 @@ public class ClassMessaging extends AppCompatActivity {
                     }
                 }).setUrl(URL.MESSAGING).setRETRY_NUM(3)
                         .setParams(SPData.USER_NUMBER, spData.getUserData(SPData.USER_NUMBER))
-                        .setParams("topic", spData.getInstituteID() + spData.getUserData(SPData.CLASS_DIVISION_ID))
+                        .setParams("topic",spData.getUserData(SPData.CLASS_DIVISION_ID))
                         .setParams("message", s)
                         .setParams("id", (items.size() - 1) + "")
                         .connect();
