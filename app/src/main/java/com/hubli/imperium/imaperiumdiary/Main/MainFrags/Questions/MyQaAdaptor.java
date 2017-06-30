@@ -138,7 +138,6 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
         holder.itemView.setActivated(isExpanded);
         if(!timerOn.contains(position) && data.isWatched()){
             holder.timer.setText("You have already attempted this question");
-            heilightCorrectAnswer(data.getAnswer(),holder);
             String a = data.getAnswered();
             if(a.contentEquals("A")){
                 holder.optA.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
@@ -149,6 +148,7 @@ public class MyQaAdaptor extends RecyclerView.Adapter<MyQaAdaptor.MyViewHolder> 
             }else if(a.contentEquals("D")){
                 holder.optD.setBackgroundColor(context.getResources().getColor(R.color.red_highlight));
             }
+            heilightCorrectAnswer(data.getAnswer(),holder);
             holder.optA.setEnabled(false);
             holder.optB.setEnabled(false);
             holder.optC.setEnabled(false);
