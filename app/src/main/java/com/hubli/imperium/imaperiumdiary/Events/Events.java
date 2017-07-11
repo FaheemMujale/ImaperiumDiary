@@ -125,13 +125,15 @@ public class Events extends Fragment {
             @Override
             public void onDaySelected(DayItem dayItem) {
                 try {
-                    Log.e("year",dayItem.getDate().getYear()+"");
-                    android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
-                    EventDetailsDialog dialog = new EventDetailsDialog();
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("date", dayItem);
-                    dialog.setArguments(bundle);
-                    dialog.show(fragmentManager, "tag");
+                    if(spData.getIdentification() == SPData.TEACHER) {
+                        Log.e("year", dayItem.getDate().getYear() + "");
+                        android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
+                        EventDetailsDialog dialog = new EventDetailsDialog();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("date", dayItem);
+                        dialog.setArguments(bundle);
+                        dialog.show(fragmentManager, "tag");
+                    }
                 }catch(Exception e){}
             }
 
