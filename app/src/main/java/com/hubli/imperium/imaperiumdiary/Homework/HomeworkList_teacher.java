@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.ImperiumConstants;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
 import com.ramotion.foldingcell.FoldingCell;
@@ -28,13 +29,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static com.hubli.imperium.imaperiumdiary.Data.SPData.HOMEWORKDATE;
-import static com.hubli.imperium.imaperiumdiary.Data.SPData.HOMEWORK_CONTENTS;
-import static com.hubli.imperium.imaperiumdiary.Data.SPData.HOMEWORK_NUMBER;
-import static com.hubli.imperium.imaperiumdiary.Data.SPData.HOMEWORK_TITLE;
-import static com.hubli.imperium.imaperiumdiary.Data.SPData.LASTDATE_SUBMISSION;
-import static com.hubli.imperium.imaperiumdiary.Data.SPData.NUMBER_USER;
-import static com.hubli.imperium.imaperiumdiary.Data.SPData.SUBJECT;
 import static com.hubli.imperium.imaperiumdiary.Homework.StudentDiary_DatePicker.INTENTFILTER;
 
 public class HomeworkList_teacher extends AppCompatActivity implements IVolleyResponse {
@@ -70,19 +64,21 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
         cdid = intent.getStringExtra("cd_id");
         setTitle("HOME WORK");
         list = (ListView)findViewById(R.id.homeworkList);
-        button = (FloatingActionButton)findViewById(R.id.addHomeWork);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), StudentDiary_DatePicker.class);
-                intent.putExtra("class", className);
-                intent.putExtra("division", divisionName);
-                intent.putExtra("subjectid", subjectid);
-                intent.putExtra("cd_id",cdid);
-                startActivity(intent);
-            }
-        });
-
+        if(userDataSp.getUserData(SPData.IDENTIFICATION).contains(ImperiumConstants.TEACHER)) {
+            button = (FloatingActionButton) findViewById(R.id.addHomeWork);
+            button.setVisibility(View.VISIBLE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), StudentDiary_DatePicker.class);
+                    intent.putExtra("class", className);
+                    intent.putExtra("division", divisionName);
+                    intent.putExtra("subjectid", subjectid);
+                    intent.putExtra("cd_id", cdid);
+                    startActivity(intent);
+                }
+            });
+        }
         getHomeWorkList();
 //        items_homework.add(new Item("hw1","content","lastdate","sub","date","1","1"));
         adapter = new FoldingCellListAdapter(HomeworkList_teacher.this, items_homework);

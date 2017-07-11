@@ -122,7 +122,7 @@ public class LeaveList_Fragment extends Fragment {
             items = new ArrayList<>();
             for (int i = 0; i <= json.length() - 1; i++) {
                 JSONObject jsonobj = json.getJSONObject(i);
-                items.add(new LeaveInfo( jsonobj.getString("first_name")+" "+jsonobj.getString("last_name"),
+                items.add(new LeaveInfo( jsonobj.getInt("leave_id"),jsonobj.getString("first_name")+" "+jsonobj.getString("last_name"),
                         jsonobj.getString("todate"), jsonobj.getString("fromdate"), jsonobj.getString("status"),
                         jsonobj.getString("detail"),jsonobj.getString("file_link")));
 //                items.add(new LeaveInfo("Shann", "21-2-2017", "15-2-2017", "Pending", "Health Issue"));

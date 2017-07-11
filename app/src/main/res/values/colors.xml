@@ -16,6 +16,8 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="chat_send_color">#8f79ff94</color>
+    <color name="bgBackSideColor">#f4f0ff</color>
+    <color name="colorMaroon">#b43337</color>
 
 
 </resources>

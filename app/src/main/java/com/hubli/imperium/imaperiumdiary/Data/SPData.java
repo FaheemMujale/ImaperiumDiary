@@ -54,7 +54,6 @@ public class SPData {
 
     // from rafiq
     public static final String SCHOOL_NUMBER ="num" ;
-    public static final String NUMBER_USER = "usernum";
     public static final String SUBJECT = "sub";
     public static final String HOMEWORK_CONTENTS = "detail";
     public static final String HOMEWORK_TITLE = "title";
@@ -72,7 +71,9 @@ public class SPData {
     public static final int PARENT  = 2;
 
 
-
+    public boolean isStudent(){
+        return sharedPreferences.getString(IDENTIFICATION,"").contentEquals("student");
+    }
     public SPData() {
         sharedPreferences = MyApplication.getContext().getSharedPreferences("USER_SP",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();

@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +17,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.hubli.imperium.imaperiumdiary.About.AboutActivity;
+import com.hubli.imperium.imaperiumdiary.Exams.ExamList;
+import com.hubli.imperium.imaperiumdiary.Exams.Insert_Exam;
 import com.hubli.imperium.imaperiumdiary.Homework.ClassSelector1;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Suggestions.Suggestion_Complain;
 import com.hubli.imperium.imaperiumdiary.TimeTable.TimeTableFragment;
 import com.hubli.imperium.imaperiumdiary.Utility.GenericMethods;
 import com.hubli.imperium.imaperiumdiary.Utility.ServerConnect;
@@ -208,6 +211,17 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_log_out:
                 spData.clearData();
                 startActivity(new Intent(getApplicationContext(), Login.class));
+                break;
+            case R.id.nav_test :
+                replaceFragment(new ExamList());
+                break;
+            case R.id.nav_suggestions :
+                replaceFragment(new Suggestion_Complain());
+                break;
+            case R.id.nav_abtschool:
+                spData.clearData();
+                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

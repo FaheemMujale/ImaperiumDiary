@@ -102,7 +102,7 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.Feed
                 public void onClick(View v) {
                     mItems.get(position).setStatus("Rejected");
                     holder.status.setText("Rejected");
-                    updateleave(mItems.get(position).getStatus(),mItems.get(position).getFromdate());
+                    updateleave(mItems.get(position).getStatus(),mItems.get(position).getId());
                     holder.accept.setVisibility(View.GONE);
                     holder.reject.setVisibility(View.GONE);
                 }
@@ -114,14 +114,14 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.Feed
                 public void onClick(View v) {
                     mItems.get(position).setStatus("Approved");
                     holder.status.setText("Approved");
-                    updateleave(mItems.get(position).getStatus(),mItems.get(position).getFromdate());
+                    updateleave(mItems.get(position).getStatus(),mItems.get(position).getId());
                     holder.accept.setVisibility(View.GONE);
                     holder.reject.setVisibility(View.GONE);
                 }
             });
         }
 
-    private void updateleave(String status,String fromdate) {
+    private void updateleave(String status,int leave_id) {
 
         new MyVolley(mcontext, new IVolleyResponse() {
             @Override
@@ -135,7 +135,7 @@ public class LeaveListAdapter extends RecyclerView.Adapter<LeaveListAdapter.Feed
             }
         }).setUrl(URL.LEAVE_LIST)
 //                .setParams(SPData.USER_NUMBER,spdata.getUserData(SPData.USER_NUMBER))
-                .setParams("fromdate",fromdate)
+                .setParams("leave_id", String.valueOf(leave_id))
                 .setParams("status",status)
                 .connect();
     }

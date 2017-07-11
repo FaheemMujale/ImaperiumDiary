@@ -141,11 +141,11 @@ public class Leaveapp_form extends Fragment {
          * Set Up Current Date Into dialog
          */
         Calendar calender = Calendar.getInstance();
-        Bundle args = new Bundle();
-        args.putInt("year", calender.get(Calendar.YEAR));
-        args.putInt("month", calender.get(Calendar.MONTH));
-        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
-        date.setArguments(args);
+        Bundle bundle = new Bundle();
+        bundle.putInt("year", calender.get(Calendar.YEAR));
+        bundle.putInt("month", calender.get(Calendar.MONTH));
+        bundle.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+        date.setArguments(bundle);
         /**
          * Set Call back to capture selected date
          */

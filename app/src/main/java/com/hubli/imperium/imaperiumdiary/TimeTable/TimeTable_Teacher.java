@@ -119,9 +119,9 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 teacher = teachername.getText().toString();
                 TextView tv = new TextView(TimeTable_Teacher.this);
                 tv.setText(sub+"-"+teacher);
-                int px = convertDpToPixel(80, getApplicationContext());
-                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
-               // rlp.setMargins(10,10,10,10);
+                int px = convertDpToPixel(60, getApplicationContext());
+                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,px);
+                rlp.setMargins(0,0,0,15);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tv.setLayoutParams(rlp);
                 ColorGenerator generator = ColorGenerator.MATERIAL;
@@ -155,9 +155,9 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 sub = subject.getText().toString();
                 TextView tv = new TextView(TimeTable_Teacher.this);
                 tv.setText(sub);
-                int px = convertDpToPixel(80, getApplicationContext());
-                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
-              //  rlp.setMargins(10,10,10,10);
+                int px = convertDpToPixel(60, getApplicationContext());
+                LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,px);
+                rlp.setMargins(0,0,0,15);
                 tv.setLayoutParams(rlp);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tv.setTypeface(null, Typeface.BOLD);

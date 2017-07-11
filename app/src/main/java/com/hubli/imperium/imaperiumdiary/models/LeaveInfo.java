@@ -5,7 +5,7 @@ package com.hubli.imperium.imaperiumdiary.models;
  */
 
 public class LeaveInfo {
-
+    private int id;
     private String student_name;
     private String todate;
     private String fromdate;
@@ -13,14 +13,23 @@ public class LeaveInfo {
     private String detail;
     private String filelink;
 
-public LeaveInfo(String student_name,String todate,String fromdate,String status,String detail,String filelink){
+public LeaveInfo(int id,String student_name,String todate,String fromdate,String status,String detail,String filelink){
     this.student_name=student_name;
+    this.id=id;
     this.todate=todate;
     this.fromdate=fromdate;
     this.status=status;
     this.detail=detail;
     this.filelink=filelink;
 }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFilelink() {
         return filelink;

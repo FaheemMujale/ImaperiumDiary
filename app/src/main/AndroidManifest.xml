@@ -92,6 +92,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Main.MainActivity" />
         </activity>
+        <activity android:name=".Exams.Insert_Exam"/>
+        <activity android:name=".About.AboutActivity"/>
     </application>
 
 </manifest>
