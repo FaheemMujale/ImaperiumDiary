@@ -50,15 +50,6 @@ public class SPData {
 
     // from rafiq
     public static final String SCHOOL_NUMBER ="num" ;
-    public static final String NUMBER_USER = "usernum"; // need to be removed use user_number Insted
-    public static final String SUBJECT = "sub";
-    public static final String HOMEWORK_CONTENTS = "detail";
-    public static final String HOMEWORK_TITLE = "title";
-    public static final String LASTDATE_SUBMISSION = "lastdate";
-    public static final String HOMEWORKDATE = "dategiven";
-    public static final String HOMEWORK_NUMBER = "hwnu";
-
-    public static final String FIREBASE_TOKEN = "FIREBASE_TOKEN";
 
 
     public static final int STUDENT = 0;
@@ -129,6 +120,8 @@ public class SPData {
             editor.putString(TEACHER_NUMBER,jsonObject.getString(TEACHER_NUMBER));
             editor.putString(TEACHER_DESIGNATION,jsonObject.getString(TEACHER_DESIGNATION));
             editor.putString(TEACHER_QUALIFICATION,jsonObject.getString(TEACHER_QUALIFICATION));
+            editor.putString(CLASS,jsonObject.getString(CLASS));
+            editor.putString(DIVISION,jsonObject.getString(DIVISION));
             editor.putString(CLASS_DIVISION_ID,jsonObject.getString(CLASS_DIVISION_ID));
             editor.commit();
 

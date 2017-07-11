@@ -256,8 +256,7 @@ public class Insert_Exam extends AppCompatActivity {
 
             }
         }).setUrl(URL.EXAM_INSERT)
-//                .setParams("class",spdata.getUserData(SPData.CLASS))
-                .setParams("class","10")
+                .setParams("class",spdata.getUserData(SPData.CLASS))
                 .setParams("divison",divison)
                 .setParams("exam_data",data)
                 .setParams("exam_title",exam_title.getText().toString())
