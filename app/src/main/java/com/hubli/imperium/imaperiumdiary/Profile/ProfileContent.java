@@ -62,7 +62,10 @@ public class ProfileContent extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_profile_content, container, false);
         spData = new SPData();
         populateQAList(rootView);
-        attendanceChart(rootView);
+
+        if(spData.getIdentification() != SPData.TEACHER) {
+            attendanceChart(rootView);
+        }
 
         return rootView;
     }
@@ -134,6 +137,7 @@ public class ProfileContent extends Fragment {
         final PieChart pieChart = (PieChart) rootView.findViewById(R.id.attendancePi);
         final TextView loading = (TextView) rootView.findViewById(R.id.noticeTextAttendance);
         pieChart.setCenterText("Overall Attendance");
+        pieChart.setVisibility(View.VISIBLE);
         pieChart.setDescription("");
         if(spData.getAttendanceData() == null || loadData){
             new MyVolley(getActivity().getApplicationContext(), new IVolleyResponse() {

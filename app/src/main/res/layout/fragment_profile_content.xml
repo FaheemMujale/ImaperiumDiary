@@ -21,7 +21,8 @@
         <com.github.mikephil.charting.charts.PieChart
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/attendancePi">
+            android:id="@+id/attendancePi"
+            android:visibility="gone">
         </com.github.mikephil.charting.charts.PieChart>
     </android.support.v7.widget.CardView>
 
