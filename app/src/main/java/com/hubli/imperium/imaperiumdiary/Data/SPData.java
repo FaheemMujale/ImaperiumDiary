@@ -66,7 +66,9 @@ public class SPData {
     public static final int PARENT  = 2;
 
 
-
+    public boolean isStudent(){
+        return sharedPreferences.getString(IDENTIFICATION,"").contentEquals("student");
+    }
     public SPData() {
         sharedPreferences = MyApplication.getContext().getSharedPreferences("USER_SP",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();

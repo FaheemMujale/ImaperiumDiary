@@ -17,7 +17,9 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.ImperiumConstants;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
+import com.hubli.imperium.imaperiumdiary.Utility.URL;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.text.ParseException;
@@ -72,7 +74,8 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
             viewHolder.homework_title_content = (TextView) cell.findViewById(R.id.title_home_content);
             //viewHolder.subject_home_content = (TextView) cell.findViewById(R.id.subject_home_content);
             viewHolder.circleImage_content = (ImageView) cell.findViewById(R.id.circlecell_content);
-      //      if(item.getUserUpload()== Integer.parseInt(userDataSp.getUserData(SPData.NUMBER_USER))) {
+//            if(item.getUserUpload()== Integer.parseInt(userDataSp.getUserData(SPData.NUMBER_USER))) {
+            if(userDataSp.getUserData(SPData.IDENTIFICATION).contains(ImperiumConstants.TEACHER)){
                 viewHolder.deleteHomework.setVisibility(View.VISIBLE);
                viewHolder.deleteHomework.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -80,7 +83,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
                         deleteHomework(position, item);
                     }
                 });
-          //  }
+            }
             cell.setTag(viewHolder);
         } else {
             if (unfoldedIndexes.contains(position)) {
@@ -150,9 +153,8 @@ public class FoldingCellListAdapter extends ArrayAdapter<Item> {
                              }
                          });
 
-                         myVolley.setUrl(Utils.HOMEWORK_DELETE);
-                         myVolley.setParams(SPData.NUMBER_USER, userDataSp.getUserData(SPData.NUMBER_USER) );
-                         myVolley.setParams(SPData.SCHOOL_NUMBER, userDataSp.getUserData(SPData.SCHOOL_NUMBER));
+                         myVolley.setUrl(URL.HOMEWORK_DELETE);
+                         myVolley.setParams(SPData.USER_NUMBER, userDataSp.getUserData(SPData.USER_NUMBER) );
                          myVolley.setParams("homework_number", item.getHomework_number());
                          myVolley.connect();
 

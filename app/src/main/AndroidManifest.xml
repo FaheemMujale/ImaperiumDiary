@@ -94,6 +94,8 @@
         <activity android:name=".Settings.ChangePassword"
             android:label="Change Password"
             android:screenOrientation="portrait"></activity>
+        <activity android:name=".Exams.Insert_Exam"/>
+        <activity android:name=".About.AboutActivity"/>
     </application>
 
 </manifest>

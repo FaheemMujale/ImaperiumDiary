@@ -25,6 +25,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.ImperiumConstants;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
 
@@ -60,10 +61,10 @@ public class TimeTableFragment extends Fragment   {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.timetable_studentt, container, false);
         spdata = new SPData();
-        usertype = spdata.getUserData("USERTYPE");
+
           progressDialog = new ProgressDialog(getActivity());
         getTimeTableData();
-//        if(usertype.contentEquals("teacher")) {
+        if(spdata.getUserData(SPData.IDENTIFICATION).contains(ImperiumConstants.TEACHER)) {
             button = (FloatingActionButton) mView.findViewById(R.id.addTimetable);
             button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +74,7 @@ public class TimeTableFragment extends Fragment   {
                     startActivity(intent);
                 }
             });
-//        }
+        }
         return mView;
     }
 
@@ -114,8 +115,9 @@ public class TimeTableFragment extends Fragment   {
                     TextView tv = new TextView(getActivity().getApplicationContext());
                     tv.setText(test.get(i)[y].replace("[","").replace("]",""));
                     int px = convertDpToPixel(100, getActivity().getApplicationContext());
-                    LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px);
-                  //  rlp.setMargins(10,10,10,10);
+                    int px1 = convertDpToPixel(60, getActivity().getApplicationContext());
+                    LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px1);
+                    rlp.setMargins(0,0,0,15);
                     //tv.setPadding(10,10,10,10);
                     tv.setLayoutParams(rlp);
                     tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);

@@ -27,9 +27,12 @@ public class URL {
     public static final String FETCH_COMMENTS = SERVER_URL+"Feeds/fetch_comments.php";
     public static final String LOGIN = SERVER_URL+"LoginAndRegister/login.php";
     public static final String UPLOAD_TIMETABLE = SERVER_URL+"/TimeTable/timetable.php";
+    public static final String EXAM_INSERT = SERVER_URL+"/Exam/exam_insert.php";
     public static final String GET_TIMETANLE = SERVER_URL+"TimeTable/timetable.php";
     public static final String LEAVE_LIST = SERVER_URL+"/Leave/leave_list.php";
+    public static final String EXAM_LIST = SERVER_URL+"/Exam/exam_list.php";
     public static final String INSERT_HOMEWORK = SERVER_URL+"/Homework/insert_homework.php";
+    public static final String HOMEWORK_DELETE = SERVER_URL+"/Homework/delete_homework.php";
     public static final String APPLY_LEAVE = SERVER_URL+"/Leave/upload_leave.php";
     public static final String GOOGLE_DRIVE_VIEWER = "http://drive.google.com/viewer?url=";
 
@@ -50,4 +53,5 @@ public class URL {
 
 
     public static final String HOMEWORK_FETCH = SERVER_URL+"/Homework/list_hw.php";
+    public static final String SUGGESTION_COMPLAIN = SERVER_URL+"Suggestion/suggestion.php";
 }

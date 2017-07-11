@@ -71,8 +71,8 @@ public class Dialog_form extends DialogFragment implements View.OnClickListener 
                     new MultipartUploadRequest(getActivity().getApplicationContext(), uploadId, Utils.APPLICATION_FORMS)
                             .addFileToUpload(path, "pdf")
                             .addParameter(APPLICATION_NAME, name)
-                            .addParameter(SPData.SCHOOL_NUMBER,userdatasp.getUserData(SPData.SCHOOL_NUMBER))
-                            .addParameter(SPData.NUMBER_USER,userdatasp.getUserData(SPData.NUMBER_USER))
+                            .addParameter(SPData.INSTITUTE_NUMBER,userdatasp.getUserData(SPData.INSTITUTE_NUMBER))
+                            .addParameter(SPData.USER_NUMBER,userdatasp.getUserData(SPData.USER_NUMBER))
                             .setNotificationConfig(new UploadNotificationConfig())
                             .setMaxRetries(2)
                             .setDelegate(new UploadStatusDelegate() {
