@@ -49,8 +49,7 @@ public class SPData {
     public static final String PARENT_ID = "parent_id";
 
     // from rafiq
-    public static final String SCHOOL_NUMBER ="num" ;
-
+    public static final String SUBJECTS = "subjects";
 
     public static final int STUDENT = 0;
     public static final int TEACHER = 1;
@@ -95,6 +94,17 @@ public class SPData {
         }
     }
 
+
+
+
+    public void storeClasses(String s){
+        editor.putString("mqpclasses",s);
+        editor.commit();
+    }
+
+    public String getClassesMQP(){
+        return sharedPreferences.getString("mqpclasses","");
+    }
 
     public void storeStudentData(String jsonString){
         try {

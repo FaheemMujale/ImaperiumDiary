@@ -27,6 +27,7 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.ImperiumConstants;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
 
@@ -34,6 +35,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Rafiq Ahmad on 5/16/2017.
@@ -76,10 +78,12 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 }
             }
         });
-//        hv8 = (LinearLayout) mView.findViewById(R.id.horizonta8);
+        Intent intent = getIntent();
+        String data = intent.getStringExtra(ImperiumConstants.TIME_TABLE_DATA);
+        if(data!=null) {
+            parsejson(data);
+        }
 
-
-       // return mView;
     }
 
 
@@ -136,7 +140,7 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
                 tv.setLayoutParams(rlp);
                 ColorGenerator generator = ColorGenerator.MATERIAL;
-                int color = generator.getColor(i);
+                int color = generator.getColor(1);
                 tv.setTypeface(null, Typeface.BOLD);
                 tv.setId(View.generateViewId());
                 tv.setBackgroundColor(color);
@@ -174,7 +178,10 @@ public class TimeTable_Teacher extends AppCompatActivity {
                 tv.setTypeface(null, Typeface.BOLD);
                 tv.setId(View.generateViewId());
                 ColorGenerator generator = ColorGenerator.MATERIAL;
-                int color = generator.getColor(i);
+
+                Random rn = new Random();
+                int num = rn.nextInt(10 - 1 + 1) + 1;
+                int color = generator.getColor(num);
                 tv.setBackgroundColor(color);
                 tv.setGravity(Gravity.CENTER);
                 tv.setOnClickListener(onclicklistener);
@@ -267,6 +274,77 @@ public class TimeTable_Teacher extends AppCompatActivity {
 
             Log.d("jsoncreated",timetable1.toString());
             uploadTimeTableData(timetable1.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void parsejson(String response) {
+        try {
+
+            //     classList = new ArrayList<>();
+            //   for (int i = 0; i < jsonArray.length(); i++) {
+
+            JSONObject jsonObject = new JSONObject(response);
+            String t = jsonObject.optString("time");
+            String mon = jsonObject.optString("mon");
+            String tue = jsonObject.optString("tue");
+            String wed = jsonObject.optString("wed");
+            String thu = jsonObject.optString("thu");
+            String fri = jsonObject.optString("fri");
+            String sat = jsonObject.optString("sat");
+            String[] timearray = t.split(",");
+            String[] monarray = mon.split(",");
+            String[] tuearray = tue.split(",");
+            String[] wedarray = wed.split(",");
+            String[] thuarray = thu.split(",");
+            String[] friarray = fri.split(",");
+            String[] satarray = sat.split(",");
+            ArrayList<String []>test = new ArrayList<>();
+            test.add(timearray);
+            test.add(monarray);
+            test.add(tuearray);
+            test.add(wedarray);
+            test.add(thuarray);
+            test.add(friarray);
+            test.add(satarray);
+
+            for(int i=0; i<test.size(); i++){
+
+                for ( int y=0; y<test.get(i).length;y++){
+                    TextView tv = new TextView(getApplicationContext());
+                    tv.setText(test.get(i)[y].replace("[","").replace("]",""));
+                    int px = convertDpToPixel(100, getApplicationContext());
+                    int px1 = convertDpToPixel(60, getApplicationContext());
+                    LinearLayout.LayoutParams rlp = new LinearLayout.LayoutParams(px,px1);
+                    rlp.setMargins(0,0,0,15);
+                    //tv.setPadding(10,10,10,10);
+                    tv.setLayoutParams(rlp);
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                    tv.setTypeface(null, Typeface.BOLD);
+                    tv.setId(View.generateViewId());
+                    tv.setGravity(Gravity.CENTER);
+                    ColorGenerator generator = ColorGenerator.MATERIAL;
+                    int color =0;
+                    if(i==0)
+                        color = generator.getColor(1);
+                    else{
+                        Random rn = new Random();
+                        int num = rn.nextInt(11 - 2 + 2) + 1;
+                        color = generator.getColor(num);
+                    }
+                    tv.setBackgroundColor(color);
+                    tv.setOnClickListener(onclicklistener);
+                    LinearLayout lv = (LinearLayout)findViewById(ids[i]);
+                    lv.addView(tv);
+                }
+                z++;
+            }
+            //     }
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

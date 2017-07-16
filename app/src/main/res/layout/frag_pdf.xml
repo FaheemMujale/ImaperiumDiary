@@ -1,31 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_teacher__homework"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hubli.imperium.imaperiumdiary.Homework.StudentDiary_teacher">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ProgressBar
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/homework_progress"
+        android:id="@+id/pdf_progress"
         android:layout_centerInParent="true"
         android:visibility="gone"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No Homework Data Available"
+        android:text="No question papers Available"
         android:layout_centerInParent="true"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="normal|bold"
-        android:id="@+id/homeworknot_available"
+        android:id="@+id/not_available"
         android:visibility="gone"
         android:textAlignment="center" />
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,14 +35,19 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         android:textStyle="normal|bold"
-        android:id="@+id/homenoInternet"
+        android:id="@+id/noInternet"
         android:visibility="gone"
         android:textAlignment="center" />
 
-    <ListView
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/class_list_home"/>
-
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:id="@+id/add"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:elevation="5dp"
+        android:visibility="gone"/>
 </RelativeLayout>

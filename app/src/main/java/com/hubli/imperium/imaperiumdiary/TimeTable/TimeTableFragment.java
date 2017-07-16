@@ -33,13 +33,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Rafiq Ahmad on 5/16/2017.
  */
 
 public class TimeTableFragment extends Fragment   {
-
+    private String data;
     public TimeTableFragment() {}
 
     private View mView;
@@ -69,6 +70,7 @@ public class TimeTableFragment extends Fragment   {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(v.getContext(), TimeTable_Teacher.class);
+                    intent.putExtra(ImperiumConstants.TIME_TABLE_DATA,data);
                     startActivity(intent);
                 }
             });
@@ -79,7 +81,7 @@ public class TimeTableFragment extends Fragment   {
 
     private void parsejson(String response) {
         try {
-
+        data =response;
    //     classList = new ArrayList<>();
          //   for (int i = 0; i < jsonArray.length(); i++) {
 
@@ -123,7 +125,15 @@ public class TimeTableFragment extends Fragment   {
                     tv.setId(View.generateViewId());
                     tv.setGravity(Gravity.CENTER);
                     ColorGenerator generator = ColorGenerator.MATERIAL;
-                    int color = generator.getColor(y);
+                    int color =0;
+                    if(i==0)
+                     color = generator.getColor(1);
+                    else{
+                        Random rn = new Random();
+                        int num = rn.nextInt(11 - 2 + 2) + 1;
+                        color = generator.getColor(num);
+                    }
+
                     tv.setBackgroundColor(color);
 //                    tv.setBackgroundColor(Color.parseColor("#00BCD4"));
                     LinearLayout lv = (LinearLayout)mView.findViewById(ids[i]);
@@ -144,6 +154,7 @@ progressDialog.dismiss();
     public void onResume() {
         super.onResume();
         getActivity().registerReceiver(receiver,new IntentFilter(TimeTable_Teacher.INTENT_FILTER));
+
     }
 
     public static int convertDpToPixel(float dp, Context context) {

@@ -61,14 +61,14 @@
                 android:text="content"
                 android:textStyle="normal|italic"
                 android:layout_margin="5dp"
-                android:textColor="@color/red" />
+                android:textColor="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last Submission Date"
             android:textSize="14sp"
-            android:textColor="@color/red"
+            android:textColor="@color/colorPrimary"
             android:textStyle="normal|bold"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
@@ -82,13 +82,13 @@
 
                 android:textStyle="normal|italic"
                 android:layout_margin="5dp"
-                android:textColor="@color/red" />
+                android:textColor="@color/colorPrimary" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Given On"
             android:textSize="14sp"
-            android:textColor="@color/red"
+            android:textColor="@color/colorPrimary"
             android:textStyle="normal|bold"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"

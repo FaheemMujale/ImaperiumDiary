@@ -11,4 +11,5 @@ public class ImperiumConstants {
     public static final String EXAM_DATA = "data";
     public static final String EXAM_TITLE = "title";
     public static final String EXAM_DIV = "div";
+    public static final String TIME_TABLE_DATA = "tabledata";
 }

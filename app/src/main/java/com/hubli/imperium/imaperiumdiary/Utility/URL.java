@@ -10,6 +10,7 @@ import com.hubli.imperium.imaperiumdiary.Data.SPData;
 public class URL {
 
 
+
     private static SPData spData = new SPData();
 
     public static final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.getInstance();
@@ -54,4 +55,6 @@ public class URL {
 
     public static final String HOMEWORK_FETCH = SERVER_URL+"/Homework/list_hw.php";
     public static final String SUGGESTION_COMPLAIN = SERVER_URL+"Suggestion/suggestion.php";
+    public static final String MODEL_PAPER = SERVER_URL+"ModelPaper/insert.php";
+    public static final String MODELPAPER_DELETE = SERVER_URL+"ModelPaper/delete.php";
 }

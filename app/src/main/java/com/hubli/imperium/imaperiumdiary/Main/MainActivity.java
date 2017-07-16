@@ -2,8 +2,10 @@ package com.hubli.imperium.imaperiumdiary.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.hubli.imperium.imaperiumdiary.About.AboutActivity;
@@ -25,6 +28,7 @@ import com.hubli.imperium.imaperiumdiary.Homework.ClassSelector1;
 import com.hubli.imperium.imaperiumdiary.Homework.StudentSubject_list;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
+import com.hubli.imperium.imaperiumdiary.Model_Paper.TeacherMQP;
 import com.hubli.imperium.imaperiumdiary.R;
 import com.hubli.imperium.imaperiumdiary.Suggestions.Suggestion_Complain;
 import com.hubli.imperium.imaperiumdiary.Settings.ChangePassword;
@@ -49,6 +53,10 @@ public class MainActivity extends AppCompatActivity
     public static final String BACK_STACK_MAIN = "main_tag";
     private Toolbar toolbar;
     private SPData spData;
+    private static boolean backExit = false;
+    public static String BACK_STACK_TAG = "tag";
+    public static String BACK_STACK_TMQP = "tag_tmqp";
+    public static String BACK_TAG ;
     private ImageView propic;
 
     @Override
@@ -89,6 +97,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public static void setTag(String stakTag){
+        BACK_TAG = stakTag;
+    }
+
     private void navViewSet(String s, NavigationView navigationView) {
         View holder = navigationView.getHeaderView(0);
         propic = (ImageView) holder.findViewById(R.id.propic);
@@ -112,16 +124,37 @@ public class MainActivity extends AppCompatActivity
         transaction.addToBackStack(BACK_STACK_MAIN);
         transaction.commit();
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+        final FragmentManager fn = getSupportFragmentManager();
+        if(fn.getBackStackEntryCount()<= 1){
+            if(backExit){
+                moveTaskToBack(true);
+            }else{
+                backExit = true;
+                Toast.makeText(getApplicationContext(),"Press back button one more time to exit",Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        backExit = false;
+                    }
+                },1000);
+            }
+        }else {
+            super.onBackPressed();
+            if (BACK_TAG == BACK_STACK_TMQP) {
+                fn.popBackStack(BACK_STACK_TMQP, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else if (fn.getBackStackEntryCount() > 1) {
+                fn.popBackStack(BACK_STACK_TAG, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        }
+
     }
+
 
     @Override
     protected void onResume() {
@@ -226,6 +259,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_abtschool:
                 spData.clearData();
                 startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                break;
+
+            case R.id.nav_question_papers:
+                replaceFragment(new TeacherMQP());
                 break;
         }
 
