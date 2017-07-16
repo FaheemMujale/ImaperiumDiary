@@ -52,6 +52,7 @@ public class ClassSelector1 extends Fragment {
         ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
         ListView listView = (ListView) rootView.findViewById(R.id.list);
         setListClickListner(listView);
+        getActivity().setTitle(R.string.select_class);
         MyClassAdaptor myAdaptor = new MyClassAdaptor();
         listView.setAdapter(myAdaptor);
         if(!backPressed) {

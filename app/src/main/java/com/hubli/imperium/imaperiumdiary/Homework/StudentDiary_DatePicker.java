@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -71,6 +73,7 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
         setContentView(R.layout.activity_student_diary__date_picker);
         userDataSp = new SPData();
         Intent intent = getIntent();
+        setTitle(R.string.insert_homework);
         className = intent.getStringExtra("class");
         divisionName = intent.getStringExtra("division");
         subjectName = intent.getStringExtra("subject");
@@ -106,6 +109,8 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
 
     }
 
+
+
     public void showDialoOnButtonClick()
     {
         btn = (ImageView)findViewById(R.id.button_date);
@@ -115,6 +120,17 @@ public class StudentDiary_DatePicker extends AppCompatActivity implements IVolle
              showDialog(DIALOG_ID);
             }
         });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

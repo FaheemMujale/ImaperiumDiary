@@ -25,5 +25,17 @@
     <string name="Home_Work_contents">Home work detail</string>
     <string name="cheese_ipsum">Manipal University, formerly Manipal Academy of Higher Education, is a private research and educational institute located in Manipal, Karnataka, India. Manipal is extremely close to the temple town of Udupi.</string>
     <string name="noexamdata">No Exams Schedule</string>
+    <string name="insert_homework">Insert HomeWork/Assignment</string>
+    <string name="insert_exam">Insert Exam</string>
+    <string name="select_class">Select Class</string>
+    <string name="select_division">Select Division</string>
+    <string name="attendance">Attendance</string>
+    <string name="event">Events</string>
+    <string name="exams">Exams</string>
+    <string name="message">Messaging</string>
+    <string name="suggestion">Suggestion/Complaints</string>
+    <string name="homework">HomeWork/Assignments</string>
+    <string name="select_subject">Select Subject</string>
+    <string name="timetable">Time Table</string>
 
 </resources>

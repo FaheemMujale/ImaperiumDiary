@@ -83,8 +83,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Main.MainActivity" />
         </activity>
-        <activity android:name=".Homework.HomeworkList_teacher" />
-        <activity android:name=".Homework.StudentSubject_list" />
+        <activity android:name=".Homework.HomeworkList_teacher"
+            />
+        <activity android:name=".Homework.StudentSubject_list"
+            />
         <activity android:name=".Homework.StudentDiary_DatePicker" />
         <activity android:name=".Messaging.ClassMessaging">
             <meta-data
@@ -94,7 +96,8 @@
         <activity android:name=".Settings.ChangePassword"
             android:label="Change Password"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".Exams.Insert_Exam"/>
+        <activity android:name=".Exams.Insert_Exam"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".About.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

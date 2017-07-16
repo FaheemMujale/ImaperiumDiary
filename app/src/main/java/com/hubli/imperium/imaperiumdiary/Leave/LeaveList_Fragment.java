@@ -47,13 +47,12 @@ public class LeaveList_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.leave_list, container, false);
         spdata = new SPData();
-        usertype = spdata.getUserData("USERTYPE");
+        getActivity().setTitle("Leave Applications");
         RecyclerView mRecy = (RecyclerView) mView.findViewById(R.id.rv_ff);
         mProgBar = (ProgressBar) mView.findViewById(R.id.prog_bar_ff);
         mRecy.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         mAdapter = new LeaveListAdapter(getActivity().getApplicationContext());
         mRecy.setAdapter(mAdapter);
-//        if(usertype.contentEquals("student")){
             mFab= (FloatingActionButton) mView.findViewById(R.id.fab);
         if(spdata.getIdentification() == SPData.TEACHER){
             mFab.setVisibility(View.GONE);

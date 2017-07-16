@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.hubli.imperium.imaperiumdiary.Data.SPData;
 import com.hubli.imperium.imaperiumdiary.Interface.IVolleyResponse;
 import com.hubli.imperium.imaperiumdiary.R;
+import com.hubli.imperium.imaperiumdiary.Utility.ImperiumConstants;
 import com.hubli.imperium.imaperiumdiary.Utility.MyVolley;
 import com.hubli.imperium.imaperiumdiary.Utility.URL;
 
@@ -44,13 +47,19 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_subject_list);
         Intent intent = getIntent();
+        setTitle(R.string.select_subject);
         className = intent.getStringExtra("class");
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         divisionName = intent.getStringExtra("division");
         list_subject=(ListView)findViewById(R.id.list_subject);
         noSubs = (TextView) findViewById(R.id.no_subs);
         userDataSP=new SPData();
-        myVolley = new MyVolley(getApplicationContext(), this);
+        if(userDataSP.getUserData(SPData.IDENTIFICATION).contains(ImperiumConstants.STUDENT)) {
+            divisionName = userDataSP.getUserData(SPData.DIVISION);
+            className = userDataSP.getUserData(SPData.CLASS);
+        }
+
+            myVolley = new MyVolley(getApplicationContext(), this);
         getSubjectData();
 
     }
@@ -79,6 +88,17 @@ public class StudentSubject_list extends AppCompatActivity implements IVolleyRes
         progressBar.setVisibility(View.GONE);
         noSubs.setVisibility(View.VISIBLE);
 
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void getJsonData(String re) throws JSONException {

@@ -47,9 +47,7 @@ public class TimeTableFragment extends Fragment   {
     int z=0;
     private SPData spdata;
     ProgressDialog progressDialog;
-    private String usertype;
     int ids[] = {R.id.time123,R.id.horizonta1,R.id.horizonta2,R.id.horizonta3,R.id.horizonta4,R.id.horizonta5,R.id.horizonta6};
-    private String[] days = {"time","mon","tue","wed","thu","fri","sat"};
     /**
      * Initialize instance variables with data from bundle
      */
@@ -61,8 +59,8 @@ public class TimeTableFragment extends Fragment   {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.timetable_studentt, container, false);
         spdata = new SPData();
-
-          progressDialog = new ProgressDialog(getActivity());
+        getActivity().setTitle("Time Table");
+         progressDialog = new ProgressDialog(getActivity());
         getTimeTableData();
         if(spdata.getUserData(SPData.IDENTIFICATION).contains(ImperiumConstants.TEACHER)) {
             button = (FloatingActionButton) mView.findViewById(R.id.addTimetable);

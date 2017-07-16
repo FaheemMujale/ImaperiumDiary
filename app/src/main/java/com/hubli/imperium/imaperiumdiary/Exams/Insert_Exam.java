@@ -11,11 +11,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -82,6 +84,10 @@ public class Insert_Exam extends AppCompatActivity {
         exam_title = (EditText) findViewById(R.id.title);
         date = (LinearLayout) findViewById(R.id.lv1);
         lv4 = (LinearLayout) findViewById(R.id.lv4);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.insert_exam);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if(spdata.getUserData(SPData.IDENTIFICATION).contains(ImperiumConstants.TEACHER)) {
             fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setVisibility(View.VISIBLE);
@@ -144,6 +150,17 @@ public class Insert_Exam extends AppCompatActivity {
 
             parseresult(data);
         }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void parseresult(String data) {
@@ -244,10 +261,10 @@ public class Insert_Exam extends AppCompatActivity {
             public void volleyResponse(String result) {
 
                 Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(INTENT_FILTER);
-//                intent.putExtra("data",result);
-//                getApplicationContext().sendBroadcast(intent);
-//                finish();
+                Intent intent = new Intent(INTENT_FILTER);
+                intent.putExtra("data",result);
+                getApplicationContext().sendBroadcast(intent);
+                finish();
 
             }
 

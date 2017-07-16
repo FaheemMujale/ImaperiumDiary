@@ -46,6 +46,7 @@ public class DivisionSelector extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_selector, container, false);
         ListView listView = (ListView) rootView.findViewById(R.id.list);
         final Bundle arguments = getArguments();
+        getActivity().setTitle(R.string.select_division);
         divisions = Arrays.asList(arguments.getStringArray("divisions"));
         Collections.sort(divisions,String.CASE_INSENSITIVE_ORDER);
         MyDivisionAdaptor myAdaptor = new MyDivisionAdaptor();

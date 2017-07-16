@@ -69,7 +69,7 @@ public class Suggestion_Complain extends Fragment{
         rootView = inflater.inflate(R.layout.suggestion__complain, container, false);
 
         spData = new SPData();
-        getActivity().setTitle("Suggestion/Complaints");
+        getActivity().setTitle(R.string.suggestion);
         list = (ListView) rootView.findViewById(R.id.list_detail);
         progressBar = (ProgressBar)rootView.findViewById(R.id.suggestion_loading);
         notAvailable = (TextView)rootView.findViewById(R.id.suggestionNotAvailable);

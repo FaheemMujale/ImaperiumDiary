@@ -22,6 +22,7 @@ import com.hubli.imperium.imaperiumdiary.Exams.ExamList;
 import com.hubli.imperium.imaperiumdiary.Exams.Insert_Exam;
 import com.hubli.imperium.imaperiumdiary.Data.MySqlDB;
 import com.hubli.imperium.imaperiumdiary.Homework.ClassSelector1;
+import com.hubli.imperium.imaperiumdiary.Homework.StudentSubject_list;
 import com.hubli.imperium.imaperiumdiary.Leave.LeaveList_Fragment;
 import com.hubli.imperium.imaperiumdiary.Messaging.ClassMessaging;
 import com.hubli.imperium.imaperiumdiary.R;
@@ -165,7 +166,7 @@ public class MainActivity extends AppCompatActivity
                 if(spData.getIdentification() == SPData.TEACHER) {
                     replaceFragment(new ClassSelector1());
                 }else{
-                    replaceFragment(new ClassSelector1());
+                    startActivity(new Intent(getApplicationContext(),StudentSubject_list.class));
                 }
                 break;
 //                if(SPData.isStudent()){

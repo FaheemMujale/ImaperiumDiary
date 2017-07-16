@@ -81,10 +81,10 @@ public class Leaveapp_form extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.leave_application, container, false);
         spdata = new SPData();
-        usertype = spdata.getUserData("USERTYPE");
         todate= (TextView) mView.findViewById(R.id.todate);
         fromdate= (TextView) mView.findViewById(R.id.fromdate);
         detail= (EditText) mView.findViewById(R.id.detail);
+        getActivity().setTitle("Apply Leave");
         filename= (EditText) mView.findViewById(R.id.filepath);
         submit= (Button) mView.findViewById(R.id.button_submit);
         arrays.add(todate);

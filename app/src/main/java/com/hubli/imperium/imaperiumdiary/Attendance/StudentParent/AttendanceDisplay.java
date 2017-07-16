@@ -67,7 +67,7 @@ public class AttendanceDisplay extends Fragment {
         calendarView = (CompactCalendarView) rootView.findViewById(R.id.compactcalendar_view);
          pieChart = (PieChart) rootView.findViewById(R.id.attendancePi);
 
-        getActivity().setTitle("Attendance");
+        getActivity().setTitle(R.string.attendance);
 
         dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
         getActivity().setTitle(dateFormatForMonth.format(calendarView.getFirstDayOfCurrentMonth()));

@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -62,6 +64,7 @@ public class TimeTable_Teacher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timetable_fragment);
         spData = new SPData();
+       setTitle(R.string.timetable);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +102,15 @@ public class TimeTable_Teacher extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void addTime(View view){
         int id = view.getId();

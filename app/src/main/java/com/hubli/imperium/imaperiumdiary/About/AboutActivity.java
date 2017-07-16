@@ -22,8 +22,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_layout);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+
 
 
         TextView textView = (TextView) findViewById(R.id.site);

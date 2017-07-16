@@ -66,8 +66,8 @@ public class ExamList extends Fragment   {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.exam_list, container, false);
         spdata = new SPData();
-
-          progressDialog = new ProgressDialog(getActivity());
+        getActivity().setTitle(R.string.exams);
+         progressDialog = new ProgressDialog(getActivity());
         RecyclerView mRecy = (RecyclerView)mView.findViewById(R.id.rv_cn);
         nodatatv = (TextView)mView.findViewById(R.id.handler);
         mRecy.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -84,8 +84,6 @@ public class ExamList extends Fragment   {
             });
         }
 
-        Toolbar toolbar = (Toolbar) mView.findViewById(R.id.app_bar);
-        toolbar.setTitle("Exams");
 
         /* Common toolbar setup */
 
@@ -94,11 +92,10 @@ public class ExamList extends Fragment   {
         mRecy.setAdapter(mAdapter);
 
         listexams();
-//        if(usertype.contentEquals("teacher")) {
 
-//        }
         return mView;
     }
+
 
 
     private void parsejson(String response) {
@@ -129,7 +126,7 @@ public class ExamList extends Fragment   {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().registerReceiver(receiver,new IntentFilter(TimeTable_Teacher.INTENT_FILTER));
+        getActivity().registerReceiver(receiver,new IntentFilter(Insert_Exam.INTENT_FILTER));
     }
 
     public static int convertDpToPixel(float dp, Context context) {

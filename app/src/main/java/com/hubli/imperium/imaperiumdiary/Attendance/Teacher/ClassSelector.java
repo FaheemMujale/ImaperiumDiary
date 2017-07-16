@@ -52,6 +52,7 @@ public class ClassSelector extends Fragment {
         ProgressBar progressBar = (ProgressBar) rootView.findViewById(R.id.progress);
         ListView listView = (ListView) rootView.findViewById(R.id.list);
         setListClickListner(listView);
+        getActivity().setTitle(R.string.select_class);
         MyClassAdaptor myAdaptor = new MyClassAdaptor();
         listView.setAdapter(myAdaptor);
         if(!backPressed) {
@@ -103,6 +104,8 @@ public class ClassSelector extends Fragment {
             }
         }).setUrl(URL.CLASSES_DIVISIONS_SUBJECTS).connect();
     }
+
+
 
 
     private class MyClassAdaptor extends ArrayAdapter<ClassDivisions>{

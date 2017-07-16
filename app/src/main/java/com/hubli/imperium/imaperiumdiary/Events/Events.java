@@ -59,7 +59,7 @@ public class Events extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_events, container, false);
 
         spData = new SPData();
-
+        getActivity().setTitle(R.string.event);
         calendarView = (AgendaCalendarView) rootView.findViewById(R.id.agenda_calendar_view);
         progressBar = (ProgressBar) rootView.findViewById(R.id.loadingBar);
         minDate = Calendar.getInstance();

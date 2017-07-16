@@ -50,7 +50,7 @@ public class ClassMessaging extends AppCompatActivity {
             messageText.setBackgroundResource(R.drawable.round_corner);
         }
         spData = new SPData();
-        setTitle("Messaging");
+        setTitle(R.string.message);
         db = new MessagingDB(getApplicationContext());
         adaptor = new MyAdaptor();
         getItems(-1);

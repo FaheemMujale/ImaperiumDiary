@@ -1,13 +1,18 @@
 package com.hubli.imperium.imaperiumdiary.Homework;
 
+import android.app.ActionBar;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -57,12 +62,13 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
         notAvailable = (TextView)findViewById(R.id.homeworkNotAvailable);
         myVolley = new MyVolley(getApplicationContext(),this);
         Intent intent = getIntent();
+        setTitle(R.string.homework);
         className = intent.getStringExtra(SPData.CLASS);
         divisionName = intent.getStringExtra(SPData.DIVISION);
         subjectName = intent.getStringExtra("subject");
         subjectid = intent.getStringExtra("subjectid");
         cdid = intent.getStringExtra("cd_id");
-        setTitle("HOME WORK");
+
         list = (ListView)findViewById(R.id.homeworkList);
         if(userDataSp.getUserData(SPData.IDENTIFICATION).contains(ImperiumConstants.TEACHER)) {
             button = (FloatingActionButton) findViewById(R.id.addHomeWork);
@@ -101,6 +107,18 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
         registerReceiver(receiver, new IntentFilter(INTENTFILTER));
     }
 
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -124,7 +142,7 @@ public class HomeworkList_teacher extends AppCompatActivity implements IVolleyRe
     {
         progressBar.setVisibility(View.VISIBLE);
         myVolley.setUrl(URL.HOMEWORK_FETCH);
-        myVolley.setParams("cd_id", cdid);Log.e("cdis", cdid);
+        myVolley.setParams("cd_id", cdid);
         myVolley.setParams("subject_id", subjectid);Log.e("sid", subjectid);
         myVolley.connect();
 
